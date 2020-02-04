@@ -1,0 +1,52 @@
+# How do we get to a working InfluxDB installation
+
+## Requirements
+
+- Influx Repository:
+    - Debian: <https://repos.influxdata.com/debian>
+    - Ubuntu: <https://repos.influxdata.com/ubuntu>
+    - RHEL/CentOS: <https://repos.influxdata.com/rhel/>
+- Influx GPG Key:
+    - id: `05CE 1508 5FC0 9D18 E99E  FB22 684A 14CF 2582 E0C5`
+    - source: https://repos.influxdata.com/influxdb.key
+- Dependencies:
+    - APT: to add repository for Debian/Ubuntu
+    - YUM: to add repsitory for RHEL/CentOS
+    - NTP service: required to ensure exact timestamps
+- Firewall
+    - port `8086`: client/server communcation
+    - port `8088`: backup/restore operations
+- Packages:
+    - `influxdb` for Debian/Ubuntu/RHEL/CentOS
+- Service:
+    - `influxdb` for Debian/Ubuntu/RHEL/CentOS
+- Environment variables:
+    - `INFLUXDB_CONFIG_PATH`: points to `/etc/influxdb/influxdb.conf` or custom
+      configuration file location
+- User/group: create `influxdb` user and group
+- Configuration files:
+    - `/etc/influxdb/influxdb.conf`
+- TLS configuration
+    - `https-enabled` to `true`
+    - `https-certificate` to `/etc/ssl/<signed-certificate-file>.crt` (or to `/etc/ssl/<bundled-certificate-file>.pem`)
+    - `https-private-key` to `/etc/ssl/<private-key-file>.key` (or to `/etc/ssl/<bundled-certificate-file>.pem`)
+- Directories:
+    - metadata
+    - WAL
+    - hinted-handoff
+- Configuration:
+    - Format: INI (Augeas)
+    - Configuration values:
+        - <https://docs.influxdata.com/influxdb/v1.7/administration/config/#influxdb-environment-variables-influxdb>
+    - Authentication/authorization (disabled by default)
+- Resources:
+    - User management
+    - Privilege management
+    - Database management
+- Tasks:
+    - Backup operation (format selectable)
+    - Restore operation (format selectable)
+    - User management (inital admin user creation/modification)
+    - Optional: Database management
+    - Optional: Privilege management
+    - Optional: rebuild index on a stopped service
