@@ -4,22 +4,22 @@
 
 - Influx Repository:
     - Debian: <https://repos.influxdata.com/debian>
-    - Ubuntu: <https://repos.influxdata.com/ubuntu>
+    - Ubuntu: <https://repos.influxdata.com/ubuntu> ✅
     - RHEL/CentOS: <https://repos.influxdata.com/rhel/>
 - Influx GPG Key:
-    - id: `05CE 1508 5FC0 9D18 E99E  FB22 684A 14CF 2582 E0C5`
-    - source: https://repos.influxdata.com/influxdb.key
+    - id: `05CE 1508 5FC0 9D18 E99E  FB22 684A 14CF 2582 E0C5` ✅
+    - source: https://repos.influxdata.com/influxdb.key ✅
 - Dependencies:
-    - APT: to add repository for Debian/Ubuntu
+    - APT: to add repository for Debian/Ubuntu ✅
     - YUM: to add repsitory for RHEL/CentOS
     - NTP service: required to ensure exact timestamps
 - Firewall:
     - port `8086`: client/server communcation
     - port `8088`: backup/restore operations
 - Packages:
-    - `influxdb` for Debian/Ubuntu/RHEL/CentOS
+    - `influxdb` for Debian/Ubuntu/RHEL/CentOS ✅
 - Service:
-    - `influxdb` for Debian/Ubuntu/RHEL/CentOS
+    - `influxdb` for Debian/Ubuntu/RHEL/CentOS ✅
 - Environment variables:
     - `INFLUXDB_CONFIG_PATH`: points to `/etc/influxdb/influxdb.conf` or custom
       configuration file location
