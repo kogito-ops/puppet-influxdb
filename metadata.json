@@ -2,11 +2,28 @@
   "name": "kogitoapp-influxdb",
   "version": "0.1.0",
   "author": "Kogito UG <hello@kogito.network>",
-  "summary": "A module to deploy InfluxDB",
+  "summary": "Module for configuring InfluxDB",
   "license": "Apache-2.0",
   "source": "https://github.com/kogitoapp/puppet-influxdb",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": ">= 2.0.0 < 8.0.0"
+    }
+  ],
   "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
@@ -23,8 +40,11 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 7.0.0"
+      "version_requirement": ">= 5.5.8 < 7.0.0"
     }
+  ],
+  "tags": [
+    "influxdb"
   ],
   "pdk-version": "1.15.0",
   "template-url": "pdk-default#1.15.0",

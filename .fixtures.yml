@@ -3,4 +3,6 @@
 ---
 fixtures:
   forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+    apt:
+      repo: 'puppetlabs/apt'
+      ref: '7.3.0'
