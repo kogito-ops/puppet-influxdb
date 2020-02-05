@@ -1,8 +1,9 @@
-# @summary A short summary of the purpose of this class
+# @summary A short summary of the purpose of this defined type.
 #
-# A description of what this class does
+# A description of what this defined type does
 #
 # @example
-#   include influxdb::repos::yum
-class influxdb::repos::yum {
+#   influxdb::repos::yum { 'namevar': }
+define influxdb::repos::yum (
+) {
 }
