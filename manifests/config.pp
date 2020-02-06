@@ -5,13 +5,13 @@
 # @example
 #   include influxdb::config
 class influxdb::config {
-  file { $::influxdb::params::onfiguration_path:
+  file { $::influxdb::params::configuration_path:
     ensure => 'directory',
     owner  => 'influxdb',
     group  => 'influxdb',
   }
 
-  -> file { "${::influxdb::params::onfiguration_path}/${::influxdb::params::onfiguration_file}":
+  -> file { "${::influxdb::params::configuration_path}/${::influxdb::params::configuration_file}":
     ensure  => 'present',
     owner   => 'influxdb',
     group   => 'influxdb',
