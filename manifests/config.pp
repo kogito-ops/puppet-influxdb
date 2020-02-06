@@ -32,25 +32,19 @@ class influxdb::config {
     content => template('influxdb/systemd.service.erb'),
   }
 
-  -> file { $directory_var::params:
+  -> file { $::influxdb::params::directory_tsmdata:
     ensure => 'directory',
     owner  => 'influxdb',
     group  => 'influxdb',
   }
 
-  -> file { $directory_tsmdata::params:
+  -> file { $::influxdb::params::directory_tsmwal:
     ensure => 'directory',
     owner  => 'influxdb',
     group  => 'influxdb',
   }
 
-  -> file { $directory_metadataraft::params:
-    ensure => 'directory',
-    owner  => 'influxdb',
-    group  => 'influxdb',
-  }
-
-  -> file { $directory_tsmwal::params:
+  -> file { $::influxdb::params::directory_metadataraft:
     ensure => 'directory',
     owner  => 'influxdb',
     group  => 'influxdb',

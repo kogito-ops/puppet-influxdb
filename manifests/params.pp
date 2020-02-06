@@ -4,11 +4,11 @@
 #
 # @example
 #   include influxdb::params
-class influxdb::params {
-# directories
-$directory_var = '/var/lib/influxdb'
-$directory_metadataraft = '/var/lib/influxdb/meta'
-$directory_tsmdata = '/var/lib/influxdb/data'
-$directory_tsmwal = '/var/lib/influxdb/wal'
+class influxdb::params (
+  # directories
+  String $directory_metadataraft = '/var/lib/influxdb/meta',
+  String $directory_tsmdata = '/var/lib/influxdb/data',
+  String $directory_tsmwal = '/var/lib/influxdb/wal',
+){
 
 }
