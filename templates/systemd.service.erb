@@ -10,7 +10,7 @@ After=network-online.target
 User=<%= @user %>
 Group=<%= @group %>
 LimitNOFILE=65536
-EnvironmentFile=-<%= @service_default %>
+EnvironmentFile=-<%= @service_defaults %>
 ExecStart=/usr/bin/influxd -config <%= @configuration_path %>/<%= @configuration_file %> $INFLUXD_OPTS
 KillMode=control-group
 Restart=on-failure
