@@ -5,30 +5,30 @@
 # @example
 #   include influxdb::config
 class influxdb::config {
-  file { '/etc/influxdb':
+  file { $::influxdb::params::onfiguration_path:
     ensure => 'directory',
     owner  => 'influxdb',
     group  => 'influxdb',
   }
 
-  -> file { '/etc/influxdb/influxdb.conf':
+  -> file { "${::influxdb::params::onfiguration_path}/${::influxdb::params::onfiguration_file}":
     ensure  => 'present',
     owner   => 'influxdb',
     group   => 'influxdb',
     content => template('influxdb/influxdb.conf.erb')
   }
 
-  -> file { '/etc/default/influxdb':
+  -> file { $::influxdb::params::service_defaults:
     ensure  => 'present',
     owner   => 'influxdb',
     group   => 'influxdb',
     content => template('influxdb/service-defaults.erb'),
   }
 
-  -> file { '/lib/systemd/system/influxdb.service':
+  -> file { $::influxdb::params::service_definition:
     ensure  => 'present',
-    owner   => 'influxdb',
-    group   => 'influxdb',
+    owner   => 'root',
+    group   => 'root',
     content => template('influxdb/systemd.service.erb'),
   }
 

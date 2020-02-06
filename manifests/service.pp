@@ -5,12 +5,11 @@
 # @example
 #   include influxdb::service
 class influxdb::service {
-  service { 'influxdb':
-    ensure     => 'running',
+  service { $::influxdb::params::service_name:
+    ensure     => $::influxdb::params::service_ensure,
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    provider   => 'systemd',
-    subscribe  => package['influxdb'],
+    provider   => $::influxdb::params::service_provider,
   }
 }
