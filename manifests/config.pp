@@ -4,7 +4,21 @@
 #
 # @example
 #   include influxdb::config
-class influxdb::config {
+class influxdb::config (
+  String $configuration_path = $::influxdb::params::configuration_path,
+  String $configuration_file = $::influxdb::params::configuration_file,
+  String $service_defaults = $::influxdb::params::service_defaults,
+  String $service_definition = $::influxdb::params::service_definition,
+  String $directory_metadataraft = $::influxdb::params::directory_metadataraft,
+  String $directory_tsmdata = $::influxdb::params::directory_tsmdata,
+  String $directory_tsmwal = $::influxdb::params::directory_tsmwal,
+  String $user = $::influxdb::params::user,
+  String $group = $::influxdb::params::group,
+  String $package = $::influxdb::params::package,
+  String $service_name = $::influxdb::params::service_name,
+  String $service_provider = $::influxdb::params::service_provider,
+  String $service_ensure = $::influxdb::params::service_ensure,
+){
   file { $::influxdb::params::configuration_path:
     ensure => 'directory',
     owner  => $::influxdb::params::user,

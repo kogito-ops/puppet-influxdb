@@ -7,11 +7,11 @@ Documentation=https://docs.influxdata.com/influxdb/
 After=network-online.target
 
 [Service]
-User=influxdb
-Group=influxdb
+User=<%= @user %>
+Group=<%= @group %>
 LimitNOFILE=65536
-EnvironmentFile=-/etc/default/influxdb
-ExecStart=/usr/bin/influxd -config /etc/influxdb/influxdb.conf $INFLUXD_OPTS
+EnvironmentFile=-<%= @service_default %>
+ExecStart=/usr/bin/influxd -config <%= @configuration_path %>/<%= @configuration_file %> $INFLUXD_OPTS
 KillMode=control-group
 Restart=on-failure
 
