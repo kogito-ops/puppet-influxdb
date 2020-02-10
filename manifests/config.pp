@@ -23,7 +23,7 @@ class influxdb::config (
     ensure => 'directory',
     owner  => $::influxdb::params::user,
     group  => $::influxdb::params::group,
-    mode   => '0766',
+    mode   => '0755',
   }
 
   -> file { "${::influxdb::params::configuration_path}/${::influxdb::params::configuration_file}":

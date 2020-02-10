@@ -69,4 +69,8 @@ extra_gemfiles.each do |gemfile|
     eval(File.read(gemfile), binding)
   end
 end
+
+# use puppet string for documentation and make available at GitHub
+ruby gem 'puppet-strings'
+
 # vim: syntax=ruby

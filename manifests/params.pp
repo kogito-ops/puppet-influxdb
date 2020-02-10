@@ -1,6 +1,6 @@
-# @summary A short summary of the purpose of this class
+# @summary Parameters of configuration and installation
 #
-# A description of what this class does
+# This class defines parameters and sets defaults
 #
 # @example
 #   include influxdb::params
