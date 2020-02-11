@@ -8,7 +8,7 @@ class influxdb::repo (
   String $keyid = $::influxdb::params::keyid,
   String $keyid_source = $::influxdb::params::keyid_source,
   String $keyid_server = $::influxdb::params::keyid_server,
-  String $package_manager = $::influxdb::params::package_manager,
+  String $package_manager = $::influxdb::package_manager,
   ){
 
   include ::apt

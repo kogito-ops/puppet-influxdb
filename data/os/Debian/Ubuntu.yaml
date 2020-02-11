@@ -1,4 +1,2 @@
 ---
-version: 5
-# set Ubuntu specific parameters
 influxdb::package_manager: 'apt'

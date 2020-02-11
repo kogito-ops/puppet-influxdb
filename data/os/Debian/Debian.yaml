@@ -1,4 +1,2 @@
 ---
-version: 5
-# set Debian specific parameters
 influxdb::package_manager: 'apt'

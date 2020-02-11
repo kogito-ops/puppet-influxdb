@@ -1,4 +1,2 @@
 ---
-version: 5
-# set centOS specific parameters
 influxdb::package_manager: 'yum'

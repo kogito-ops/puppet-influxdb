@@ -3,6 +3,7 @@
 # @example
 #   include influxdb
 class influxdb (
+  String $package_manager,
 
 ) inherits influxdb::params {
   include ::influxdb::repo
