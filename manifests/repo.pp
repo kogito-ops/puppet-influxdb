@@ -40,7 +40,9 @@ class influxdb::repo (
                 }
             }
 }
-    'yum':  {}
+    'yum':  {
+        fail("${::hostname}: This module does not support osfamily ${::osfamily}")
+    }
 
     default: {
       fail("${::hostname}: This module does not support osfamily ${::osfamily}")
