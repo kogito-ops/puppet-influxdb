@@ -1,3 +1,4 @@
 ---
+version: 5
 # set Ubuntu specific parameters
-influxdb::params::package_manager = 'apt'
+influxdb::package_manager: 'apt'

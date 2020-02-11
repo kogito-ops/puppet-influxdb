@@ -1,2 +1,4 @@
 ---
 version: 5
+
+influxdb::package_manager: 'undef'

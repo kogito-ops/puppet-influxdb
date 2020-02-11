@@ -1,3 +1,4 @@
 ---
+version: 5
 # set Debian specific parameters
-params::package_manager = 'apt'
+influxdb::package_manager: 'apt'

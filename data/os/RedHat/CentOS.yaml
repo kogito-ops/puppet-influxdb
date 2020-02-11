@@ -1,3 +1,4 @@
 ---
+version: 5
 # set centOS specific parameters
-params::package_manager = 'yum'
+influxdb::package_manager: 'yum'
