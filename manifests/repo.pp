@@ -18,7 +18,7 @@ class influxdb::repo (
     'apt': {
         apt::key {'influxdb':
             ensure => present,
-            id     => $::influxdb::params::keyid,
+            id     => '05CE15085FC09D18E99EFB22684A14CFE0C5',
             server => $keyid_server,
             source => $keyid_source,
         }
@@ -35,7 +35,7 @@ class influxdb::repo (
                 },
             architecture => 'amd64',
             key          => {
-                id     => $::influxdb::params::keyid,
+                id     => '05CE15085FC09D18E99EFB22684A14CFE0C5',
                 }
             }
 }
