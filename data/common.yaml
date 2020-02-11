@@ -1,3 +1,1 @@
-params::keyid = '05CE15085FC09D18E99EFB22684A14CF2582E0C5'
-params::keyid_source = 'https://repos.influxdata.com/influxdb.key'
-params::keyid_server = 'eu.pool.sks-keyservers.net'
+#
