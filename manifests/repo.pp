@@ -12,7 +12,6 @@ class influxdb::repo (
   ){
 
   include ::apt
-  include ::yum
 
     case $package_manager {
 
@@ -40,10 +39,6 @@ class influxdb::repo (
                 }
             }
 }
-    'yum':  {
-        fail("${::hostname}: This module does not support osfamily ${::osfamily}")
-    }
-
     default: {
       fail("${::hostname}: This module does not support osfamily ${::osfamily}")
     }
