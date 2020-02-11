@@ -30,6 +30,9 @@ group :development do
   gem "puppet-module-win-dev-r#{minor_version}", '~> 0.3',       require: false, platforms: [:mswin, :mingw, :x64_mingw]
 end
 
+# use puppet string for documentation and make available at GitHub
+gem 'puppet-strings'
+
 puppet_version = ENV['PUPPET_GEM_VERSION']
 facter_version = ENV['FACTER_GEM_VERSION']
 hiera_version = ENV['HIERA_GEM_VERSION']
@@ -69,8 +72,5 @@ extra_gemfiles.each do |gemfile|
     eval(File.read(gemfile), binding)
   end
 end
-
-# use puppet string for documentation and make available at GitHub
-ruby gem 'puppet-strings'
 
 # vim: syntax=ruby

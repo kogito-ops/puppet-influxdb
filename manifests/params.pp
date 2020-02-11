@@ -5,6 +5,10 @@
 # @example
 #   include influxdb::params
 class influxdb::params (
+  String $package_manager,
+  String $keyid,
+  String $keyid_source,
+  String $keyid_server,
   String $configuration_path = '/etc/influxdb',
   String $configuration_file = 'influxdb.conf',
   String $service_defaults = '/etc/default/influxdb',
@@ -18,5 +22,5 @@ class influxdb::params (
   String $service_name = 'influxdb',
   String $service_provider = 'systemd',
   String $service_ensure = 'running',
-) {
+  ) {
 }
