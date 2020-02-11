@@ -1,2 +1,3 @@
+---
 # set Debian specific parameters
 params::package_manager = 'apt'

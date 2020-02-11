@@ -1,2 +1,3 @@
-#
-package_provider = 'apt'
+---
+# set Ubuntu specific parameters
+params::package_manager = 'apt'

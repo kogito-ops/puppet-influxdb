@@ -40,7 +40,7 @@ class influxdb::repo (
             }
 }
     default: {
-      fail("${::hostname}: This module does not support osfamily ${::osfamily}")
+      fail("${::hostname}: This module does not support osfamily ${::osfamily} ${::osid}")
     }
 }
 

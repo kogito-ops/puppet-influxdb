@@ -1,2 +1,3 @@
+---
 # set centOS specific parameters
 params::package_manager = 'yum'
