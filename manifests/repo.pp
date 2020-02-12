@@ -5,44 +5,17 @@
 # @example
 #   include influxdb::repo
 class influxdb::repo (
-  String $key_id = $::influxdb::key_id,
-  String $key_source = $::influxdb::key_source,
-  String $key_server = $::influxdb::key_server,
-  String $package_manager = $::influxdb::package_manager,
-  ){
+  String $apt_key_resource = 'apt::key',    # As in puppetlabs-apt
+  String $apt_resource     = 'apt::source', # As in puppetlabs-apt
+  ) {
 
-  include ::apt
+  $apt_repos    = lookup('apt_repos', Hash, 'deep', {})
+  $apt_keys     = lookup('apt_keys', Hash, 'deep', {})
 
-    case $package_manager {
-
-        'apt': {
-
-            apt::key {'influxdb':
-                ensure => present,
-                id     => $key_id,
-                server => $key_server,
-                source => $key_source,
-            }
-
-            apt::source{'influxdb':
-                ensure       => present,
-                comment      => 'InfluxData repository',
-                location     => 'https://repos.influxdata.com/ubuntu',
-                release      => $facts['os']['distro']['codename'],
-                repos        => 'stable',
-                include      => {
-                    src => false,
-                    deb => true,
-                    },
-                architecture => 'amd64',
-                key          => {
-                    id     => $key_id,
-                    }
-            }
-        }
-
-        default: {
-        fail("${::hostname}: This module does not support osfamily ${::osfamily}}")
-        }
-    }
+  if $apt_keys != {} {
+    create_resources($apt_key_resource, $apt_keys)
+  }
+  if $apt_repos != {} {
+    create_resources($apt_resource, $apt_repos)
+  }
 }

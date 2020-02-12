@@ -4,7 +4,7 @@
 #   include influxdb
 class influxdb (
 
-  String $package_manager = default,
+  String $package_manager = 'default',
   String $key_id = '05CE15085FC09D18E99EFB22684A14CF2582E0C5',
   String $key_source = 'https://repos.influxdata.com/influxdb.key',
   String $key_server = 'eu.pool.sks-keyservers.net',

@@ -1,3 +1,12 @@
 ---
-Ubuntu: # set parameters relevant/special for Ubuntu
-  influxdb::package_manager: 'apt'
+# - APT repository settings ----------------------------------------------------
+apt_repos:
+  'influxdb':
+    ensure: present
+    comment: 'InfluxData repository'
+    location: 'https://repos.influxdata.com/ubuntu'
+    release: '%{::os.distro.codename}'
+    repos: 'stable'
+    include:
+      src: false
+      deb: true
