@@ -1,2 +1,3 @@
 ---
+Debian: # set parameters relevant/special for Debian
 influxdb::package_manager: 'apt'

@@ -5,11 +5,11 @@
 # @example
 #   include influxdb::service
 class influxdb::service {
-  service { $::influxdb::params::service_name:
-    ensure     => $::influxdb::params::service_ensure,
+  service { $::influxdb::service_name:
+    ensure     => $::influxdb::service_ensure,
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    provider   => $::influxdb::params::service_provider,
+    provider   => $::influxdb::service_provider,
   }
 }

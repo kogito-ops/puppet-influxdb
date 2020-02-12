@@ -5,21 +5,21 @@
 # @example
 #   include influxdb::install
 class influxdb::install {
-  package { $::influxdb::params::package:
+  package { $::influxdb::package:
     ensure => present
   }
 
-  -> group { $::influxdb::params::group:
+  -> group { $::influxdb::group:
       ensure => present,
       system => true,
   }
 
-  -> user { $::influxdb::params::user:
+  -> user { $::influxdb::user:
       ensure     => present,
-      gid        => $::influxdb::params::group,
-      home       => "/home/${::influxdb::params::user}",
+      gid        => $::influxdb::group,
+      home       => "/home/${::influxdb::user}",
       managehome => true,
       system     => true,
-      require    => Group[$::influxdb::params::group],
+      require    => Group[$::influxdb::group],
     }
 }

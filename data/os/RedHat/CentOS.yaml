@@ -1,2 +1,3 @@
 ---
-influxdb::package_manager: 'yum'
+CentOS: # set parameters relevant/special for CentOS
+  influxdb::package_manager: 'yum'

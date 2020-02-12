@@ -5,36 +5,36 @@
 # @example
 #   include influxdb::config
 class influxdb::config (
-  String $configuration_path = $::influxdb::params::configuration_path,
-  String $configuration_file = $::influxdb::params::configuration_file,
-  String $service_defaults = $::influxdb::params::service_defaults,
-  String $service_definition = $::influxdb::params::service_definition,
-  String $metadata_raft = $::influxdb::params::metadata_raft,
-  String $tsm_data = $::influxdb::params::tsm_data,
-  String $tsm_wal = $::influxdb::params::tsm_wal,
-  String $user = $::influxdb::params::user,
-  String $group = $::influxdb::params::group,
-  String $package = $::influxdb::params::package,
-  String $service_name = $::influxdb::params::service_name,
-  String $service_provider = $::influxdb::params::service_provider,
-  String $service_ensure = $::influxdb::params::service_ensure,
+  String $configuration_path = $::influxdb::configuration_path,
+  String $configuration_file = $::influxdb::configuration_file,
+  String $service_defaults = $::influxdb::service_defaults,
+  String $service_definition = $::influxdb::service_definition,
+  String $metadata_raft = $::influxdb::metadata_raft,
+  String $tsm_data = $::influxdb::tsm_data,
+  String $tsm_wal = $::influxdb::tsm_wal,
+  String $user = $::influxdb::user,
+  String $group = $::influxdb::group,
+  String $package = $::influxdb::package,
+  String $service_name = $::influxdb::service_name,
+  String $service_provider = $::influxdb::service_provider,
+  String $service_ensure = $::influxdb::service_ensure,
 ){
-  file { $::influxdb::params::configuration_path:
+  file { $::influxdb::configuration_path:
     ensure => 'directory',
-    owner  => $::influxdb::params::user,
-    group  => $::influxdb::params::group,
+    owner  => $::influxdb::user,
+    group  => $::influxdb::group,
     mode   => '0755',
   }
 
-  -> file { "${::influxdb::params::configuration_path}/${::influxdb::params::configuration_file}":
+  -> file { "${::influxdb::configuration_path}/${::influxdb::configuration_file}":
     ensure  => 'present',
-    owner   => $::influxdb::params::user,
-    group   => $::influxdb::params::group,
+    owner   => $::influxdb::user,
+    group   => $::influxdb::group,
     mode    => '0644',
     content => template('influxdb/influxdb.conf.erb')
   }
 
-  -> file { $::influxdb::params::service_defaults:
+  -> file { $::influxdb::service_defaults:
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -42,7 +42,7 @@ class influxdb::config (
     content => template('influxdb/service-defaults.erb'),
   }
 
-  -> file { $::influxdb::params::service_definition:
+  -> file { $::influxdb::service_definition:
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -50,24 +50,24 @@ class influxdb::config (
     content => template('influxdb/systemd.service.erb'),
   }
 
-  -> file { $::influxdb::params::tsm_data:
+  -> file { $::influxdb::tsm_data:
     ensure => 'directory',
-    owner  => $::influxdb::params::user,
-    group  => $::influxdb::params::group,
+    owner  => $::influxdb::user,
+    group  => $::influxdb::group,
     mode   => '0755',
   }
 
-  -> file { $::influxdb::params::tsm_wal:
+  -> file { $::influxdb::tsm_wal:
     ensure => 'directory',
-    owner  => $::influxdb::params::user,
-    group  => $::influxdb::params::group,
+    owner  => $::influxdb::user,
+    group  => $::influxdb::group,
     mode   => '0755',
   }
 
-  -> file { $::influxdb::params::metadata_raft:
+  -> file { $::influxdb::metadata_raft:
     ensure => 'directory',
-    owner  => $::influxdb::params::user,
-    group  => $::influxdb::params::group,
+    owner  => $::influxdb::user,
+    group  => $::influxdb::group,
     mode   => '0755',
   }
 }

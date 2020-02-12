@@ -1,2 +1,3 @@
 ---
-influxdb::package_manager: 'apt'
+Ubuntu: # set parameters relevant/special for Ubuntu
+  influxdb::package_manager: 'apt'
