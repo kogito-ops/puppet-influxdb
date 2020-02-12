@@ -10,3 +10,7 @@ apt_repos:
     include:
       src: false
       deb: true
+
+packages:
+  package_name: 'influxdb'
+  ensure: present
