@@ -5,9 +5,6 @@
 # @example
 #   include influxdb::params
 class influxdb::params (
-  String $keyid = '05CE15085FC09D18E99EFB22684A14CFE0C5',
-  String $keyid_source = 'https://repos.influxdata.com/influxdb.key',
-  String $keyid_server ='eu.pool.sks-keyservers.net',
   String $configuration_path = '/etc/influxdb',
   String $configuration_file = 'influxdb.conf',
   String $service_defaults = '/etc/default/influxdb',

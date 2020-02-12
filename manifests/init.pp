@@ -4,6 +4,9 @@
 #   include influxdb
 class influxdb (
   String $package_manager,
+  String $key_id,
+  String $key_source,
+  String $key_server,
 
 ) inherits influxdb::params {
   include ::influxdb::repo
