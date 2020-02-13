@@ -7,9 +7,57 @@ influxdb::apt_keys:
     server: 'eu.pool.sks-keyservers.net'
     source: 'https://repos.influxdata.com/influxdb.key'
 
+# - Files ----------------------------------------------------------------------
+influxdb::file:
+  '/etc/influxdb':
+    ensure: 'directory'
+    owner: 'influxdb'
+    group: 'influxdb'
+    mode: '0755'
+
+  '/etc/influxdb/influxdb.conf':
+    ensure: 'present'
+    owner: 'influxdb'
+    group: 'influxdb'
+    mode: '0644'
+    content: template('influxdb/influxdb.conf.erb')
+
+  '/etc/default/influxdb':
+    ensure: 'present'
+    owner: 'influxdb'
+    group: 'influxdb'
+    mode: '0644'
+    content: template('influxdb/service-defaults.erb')
+
+  '/lib/systemd/system/influxdb.service':
+    ensure: 'present'
+    owner: 'influxdb'
+    group: 'influxdb'
+    mode: '0644'
+    content: template('influxdb/systemd.service.erb')
+
+  '/var/lib/influxdb/data':
+    ensure: 'directory'
+    owner: 'influxdb'
+    group: 'influxdb'
+    mode: '0755'
+
+  '/var/lib/influxdb/wal':
+    ensure: 'directory'
+    owner: 'influxdb'
+    group: 'influxdb'
+    mode: '0755'
+
+  '/var/lib/influxdb/meta':
+    ensure: 'directory'
+    owner: 'influxdb'
+    group: 'influxdb'
+    mode: '0755'
+
 # - Influxdb settings ----------------------------------------------------------
 influxdb::group: 'influxdb'
 influxdb::user: 'influxdb'
+influxdb::configuration_path: '/etc/influxdb'
 
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:
