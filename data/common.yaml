@@ -7,21 +7,6 @@ influxdb::apt_keys:
     server: 'eu.pool.sks-keyservers.net'
     source: 'https://repos.influxdata.com/influxdb.key'
 
-  # - Influxdb settings-----------------------------------------------------------
-  influxdb::configuration_path: '/etc/influxdb'
-  influxdb::configuration_file: influxdb.conf'
-  influxdb::service_defaults: '/etc/default/influxdb'
-  influxdb::service_definition: '/lib/systemd/system/influxdb.service'
-  influxdb::metadata_raft: '/var/lib/influxdb/meta'
-  influxdb::tsm_data: '/var/lib/influxdb/data'
-  influxdb::tsm_wal: '/var/lib/influxdb/wal'
-  influxdb::user: 'influxdb'
-  influxdb::group: 'influxdb'
-  influxdb::package: 'influxdb'
-  influxdb::service_name: 'influxdb'
-  influxdb::service_provider: 'systemd'
-  influxdb::service_ensure: 'running'
-
 # - Merge behavior settings ----------------------------------------------------
 lookup_options:
   influxdb::apt_keys:
