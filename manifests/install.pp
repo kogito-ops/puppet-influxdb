@@ -14,17 +14,21 @@ class influxdb::install (
     create_resources($package_resource, $packages)
   }
 
-group { $::influxdb::group:
-  ensure => present,
-  system => true,
-}
+  $group = lookup('influxdb::group')
 
-user { $::influxdb::user:
-  ensure     => present,
-  gid        => $::influxdb::group,
-  home       => "/home/${::influxdb::user}",
-  managehome => true,
-  system     => true,
-  require    => Group[$::influxdb::group],
+  group { $group:
+    ensure => present,
+    system => true,
+  }
+
+  $user = lookup('influxdb::user')
+
+  user { $user:
+    ensure     => present,
+    gid        => $group,
+    home       => "/home/${user}",
+    managehome => true,
+    system     => true,
+    require    => Group[$group],
   }
 }

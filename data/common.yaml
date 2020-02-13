@@ -7,11 +7,19 @@ influxdb::apt_keys:
     server: 'eu.pool.sks-keyservers.net'
     source: 'https://repos.influxdata.com/influxdb.key'
 
+# - Influxdb settings ----------------------------------------------------------
+influxdb::group: 'influxdb'
+influxdb::user: 'influxdb'
+
 # - Merge behavior settings ----------------------------------------------------
-lookup_options:
-  influxdb::apt_keys:
+influxdb::lookup_options:
+  apt_keys:
     merge: deep
-  influxdb::apt_repos:
+  apt_repos:
     merge: deep
-  influxdb::packages:
+  packages:
     merge: deep
+  group:
+    merge: unique
+  user:
+    merge: unique
