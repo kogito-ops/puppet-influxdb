@@ -4,7 +4,7 @@
 #
 # @example
 #   include influxdb::config
-class influxdb::config (
+class influxdb::config(
   String $configuration_path = $::influxdb::configuration_path,
   String $configuration_file = $::influxdb::configuration_file,
   String $service_defaults = $::influxdb::service_defaults,
@@ -14,7 +14,6 @@ class influxdb::config (
   String $tsm_wal = $::influxdb::tsm_wal,
   String $user = $::influxdb::user,
   String $group = $::influxdb::group,
-  String $package = $::influxdb::package,
   String $service_name = $::influxdb::service_name,
   String $service_provider = $::influxdb::service_provider,
   String $service_ensure = $::influxdb::service_ensure,

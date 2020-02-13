@@ -1,6 +1,6 @@
 ---
 # - APT repository settings ----------------------------------------------------
-apt_repos:
+influxdb::apt_repos:
   'influxdb':
     ensure: present
     comment: 'InfluxData repository'
@@ -11,6 +11,6 @@ apt_repos:
       src: false
       deb: true
 
-packages:
-  package_name: 'influxdb'
-  ensure: present
+influxdb::packages:
+  'influxdb':
+    ensure: present
