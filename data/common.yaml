@@ -1,71 +1,50 @@
 ---
-# - APT key settings -----------------------------------------------------------
-influxdb::apt_keys:
-  'influxdb':
-    ensure: present
-    id: '05CE15085FC09D18E99EFB22684A14CF2582E0C5'
-    server: 'eu.pool.sks-keyservers.net'
-    source: 'https://repos.influxdata.com/influxdb.key'
+# - GPG settings ---------------------------------------------------------------
+influxdb::gpg_manage: 'present'
+influxdb::gpg_id: '05CE15085FC09D18E99EFB22684A14CF2582E0C5'
+influxdb::server: 'eu.pool.sks-keyservers.net'
+influxdb::source: 'https://repos.influxdata.com/influxdb.key'
 
-# - Files ----------------------------------------------------------------------
-influxdb::file:
-  '/etc/influxdb':
-    ensure: 'directory'
-    owner: 'influxdb'
-    group: 'influxdb'
-    mode: '0755'
-
-  '/etc/influxdb/influxdb.conf':
-    ensure: 'present'
-    owner: 'influxdb'
-    group: 'influxdb'
-    mode: '0644'
-    content: template('influxdb/influxdb.conf.erb')
-
-  '/etc/default/influxdb':
-    ensure: 'present'
-    owner: 'influxdb'
-    group: 'influxdb'
-    mode: '0644'
-    content: template('influxdb/service-defaults.erb')
-
-  '/lib/systemd/system/influxdb.service':
-    ensure: 'present'
-    owner: 'influxdb'
-    group: 'influxdb'
-    mode: '0644'
-    content: template('influxdb/systemd.service.erb')
-
-  '/var/lib/influxdb/data':
-    ensure: 'directory'
-    owner: 'influxdb'
-    group: 'influxdb'
-    mode: '0755'
-
-  '/var/lib/influxdb/wal':
-    ensure: 'directory'
-    owner: 'influxdb'
-    group: 'influxdb'
-    mode: '0755'
-
-  '/var/lib/influxdb/meta':
-    ensure: 'directory'
-    owner: 'influxdb'
-    group: "%{lookup('influxdb::group')}"
-    mode: '0755'
+# - Package settings -----------------------------------------------------------
+influxdb::package: 'influxdb'
+influxdb::package_manage: 'present'
 
 # - Influxdb settings ----------------------------------------------------------
 influxdb::group: 'influxdb'
+influxdb::group_manage: 'present'
+influxdb::group_system: true
 influxdb::user: 'influxdb'
+influxdb::user_system: true
+influxdb::user_manage: 'present'
 influxdb::configuration_path: '/etc/influxdb'
+influxdb::configuration_path_manage: 'directory'
+influxdb::configuration_file: 'influxdb.conf'
+influxdb::configuration_file_manage: 'present'
+influxdb::configuration_template: 'influxdb/influxdb.conf.erb'
+influxdb::service_defaults: '/etc/default/influxdb'
+influxdb::service_defaults_manage: 'present'
+influxdb::service_default_template: 'influxdb/service-defaults.erb'
+influxdb::service_definition: '/lib/systemd/system/influxdb.service'
+influxdb::service_definition_manage: 'present'
+influxdb::metadata_raft: '/var/lib/influxdb/meta'
+influxdb::metadata_raft_manage: 'directory'
+influxdb::tsm_data: '/var/lib/influxdb/data'
+influxdb::tsm_data_manage: 'directory'
+influxdb::tsm_wal: '/var/lib/influxdb/wal'
+influxdb::tsm_wal_manage: 'directory'
+influxdb::service_name: 'influxdb'
+influxdb::service_provider: 'systemd'
+influxdb::service_manage: 'running'
+influxdb::service_definition_template: 'influxdb/systemd.service.erb'
+influxdb::service_enable: true
+influxdb::service_hasstatus: true
+influxdb::service_hasrestart: true
 
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:
   apt_keys:
     merge: deep
   apt_repos:
-    merge: deep
-  packages:
     merge: deep
   group:
     merge: unique

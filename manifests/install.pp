@@ -4,31 +4,29 @@
 #
 # @example
 #   include influxdb::install
-class influxdb::install (
-  String $package_resource = 'package',     # As in native package
-  ) {
+class influxdb::install  {
 
-  $packages     = lookup('influxdb::packages', Hash, 'deep', {})
+  $package     = lookup('influxdb::packages')
 
-  if $packages != {} {
-    create_resources($package_resource, $packages)
+  package { $package:
+    ensure => $::influxdb::package_manage
   }
 
   $group = lookup('influxdb::group')
 
   group { $group:
-    ensure => present,
-    system => true,
+    ensure => $::influxdb::group_manage,
+    system => $::influxdb::group_system,
   }
 
   $user = lookup('influxdb::user')
 
   user { $user:
-    ensure     => present,
+    ensure     => $::influxdb::user_manage,
     gid        => $group,
     home       => "/home/${user}",
-    managehome => true,
-    system     => true,
+    managehome => $::influxdb::user_manage_home,
+    system     => $::influxdb::user_system,
     require    => Group[$group],
   }
 }
