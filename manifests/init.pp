@@ -2,6 +2,11 @@
 #
 # @example
 #   include influxdb
+#
+# @param metadata_raft
+#  where the metadata/raft database is stored
+#  default: /var/lib/influxdb/meta
+
 class influxdb (
 
   Enum['present', 'absent'] $gpg_manage = 'present',
@@ -24,7 +29,7 @@ class influxdb (
   Boolean $user_manage_home = true,
 
   String $configuration_path = '/etc/influxdb',
-  String $configuration_path_manage = 'directory',
+  Enum['directory', 'absent'] $configuration_path_manage = 'directory',
   String $configuration_file = 'influxdb.conf',
   Enum['present', 'absent'] $configuration_file_manage = 'present',
   String $configuration_template= 'influxdb/influxdb.conf.erb',
@@ -35,11 +40,11 @@ class influxdb (
   Enum['present', 'absent'] $service_definition_manage = 'present',
   String $service_definition_template = 'influxdb/systemd.service.erb',
   String $metadata_raft = '/var/lib/influxdb/meta',
-  String $metadata_raft_manage = 'directory',
+  Enum['directory', 'absent'] $metadata_raft_manage = 'directory',
   String $tsm_data = '/var/lib/influxdb/data',
-  String $tsm_data_manage = 'directory',
+  Enum['directory', 'absent'] $tsm_data_manage = 'directory',
   String $tsm_wal = '/var/lib/influxdb/wal',
-  String $tsm_wal_manage = 'directory',
+  Enum['directory', 'absent'] $tsm_wal_manage = 'directory',
   String $service_name = 'influxdb',
   String $service_provider = 'systemd',
   Enum['running', 'absent'] $service_manage = 'running',

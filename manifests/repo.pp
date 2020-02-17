@@ -1,7 +1,5 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
-#
+# @summary This class creates gpg key information and repository if necessary
+
 # @example
 #   include influxdb::repo
 class influxdb::repo {

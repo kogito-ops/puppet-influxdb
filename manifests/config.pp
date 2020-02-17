@@ -1,6 +1,4 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary This class creates directories and files; configuration and service
 #
 # @example
 #   include influxdb::config

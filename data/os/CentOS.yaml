@@ -7,8 +7,8 @@ influxdb::resource: 'yum::repos'
 influxdb::gpg_keys:
   'influxdb':
     ensure: present
-    id: '05CE15085FC09D18E99EFB22684A14CF2582E0C5'
-    server: 'eu.pool.sks-keyservers.net'
+    content: '05CE15085FC09D18E99EFB22684A14CF2582E0C5'
+    #    server: 'eu.pool.sks-keyservers.net'
     source: 'https://repos.influxdata.com/influxdb.key'
 
 # - YUM repository settings ----------------------------------------------------
@@ -23,3 +23,4 @@ influxdb::repositories:
     baseurl: 'https://repos.influxdata.com/centos'
     gpgcheck: true
     gpgkey: '05CE15085FC09D18E99EFB22684A14CF2582E0C5'
+    target: ''
