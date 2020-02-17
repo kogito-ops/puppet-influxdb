@@ -1,7 +1,17 @@
 ---
 # - Resources ------------------------------------------------------------------
-influxdb::key_resource: 'yum::gpgkey'
-influxdb::resource: 'yum::repos'
+influxdb::software: 'influxdb'
+influxdb::key_resource: 'apt::gpgkey'
+influxdb::resource: 'apt::repos'
+influxdb::repos_manage: 'present'
+influxdb::repos_comment: 'InfluxData repository'
+influxdb::repos_location: 'https://repos.influxdata.com/%{::os}'
+influxdb::repos_release: '%{::os.distro.codename}'
+influxdb::repos: 'stable'
+influxdb::repos_src: false
+influxdb::repos_deb: true
+influxdb::repos_gpgcheck: true
+influxdb::repos_enable: true
 
 # - GPG settings ---------------------------------------------------------------
 influxdb::gpg_manage: 'present'

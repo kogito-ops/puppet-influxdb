@@ -2,13 +2,10 @@
 #
 # @example
 #   include influxdb
-#
-# @param metadata_raft
-#  where the metadata/raft database is stored
-#  default: /var/lib/influxdb/meta
 
 class influxdb (
 
+  String $software = 'influxdb',
   Enum['present', 'absent'] $gpg_manage = 'present',
   String $gpg_id = '05CE15085FC09D18E99EFB22684A14CF2582E0C5',
   String $gpg_server = 'eu.pool.sks-keyservers.net',
@@ -16,6 +13,15 @@ class influxdb (
 
   String $key_resource = ' ',
   String $resource = ' ',
+  Enum['present', 'absent'] $repository_manage = 'present',
+  String $repos_comment = 'InfluxData repository',
+  String $repos_location = 'https://repos.influxdata.com/%{::os}',
+  String $repos_release ='%{::os.distro.codename}',
+  String $repos = 'stable',
+  Boolean $repos_src = false,
+  Boolean $repos_deb = true,
+  Boolean $repos_gpg_check = true,
+  Boolean $repos_enable = true,
 
   String $package= 'influxdb',
   Enum['present', 'absent'] $package_manage= 'present',
