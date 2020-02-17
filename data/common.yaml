@@ -51,7 +51,7 @@ influxdb::file:
   '/var/lib/influxdb/meta':
     ensure: 'directory'
     owner: 'influxdb'
-    group: 'influxdb'
+    group: "%{lookup('influxdb::group')}"
     mode: '0755'
 
 # - Influxdb settings ----------------------------------------------------------
