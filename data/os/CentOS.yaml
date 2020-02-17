@@ -16,7 +16,7 @@ yum::managed_repos:
   - 'influxdb'
 
 influxdb::repositories:
-  "%{lookup('yum:managed_repos')}":
+  'influxdb':
     ensure: present
     enabled: true
     descr: 'InfluxData repository'

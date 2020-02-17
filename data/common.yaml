@@ -1,7 +1,7 @@
 ---
 # - Resources ------------------------------------------------------------------
-influxdb::key_resource: ' '
-influxdb::resource: ' '
+influxdb::key_resource: 'yum::gpgkey'
+influxdb::resource: 'yum::repos'
 
 # - GPG settings ---------------------------------------------------------------
 influxdb::gpg_manage: 'present'

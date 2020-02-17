@@ -17,11 +17,11 @@ class influxdb (
 
   String $group = 'influxdb',
   Enum['present', 'absent'] $group_manage = 'present',
-  Boolean $group_system ='true',
+  Boolean $group_system = true,
   String $user = 'influxdb',
   Enum['present', 'absent'] $user_manage = 'present',
-  Boolean $user_system ='true',
-  Boolean $user_manage_home ='true',
+  Boolean $user_system = true,
+  Boolean $user_manage_home = true,
 
   String $configuration_path = '/etc/influxdb',
   String $configuration_path_manage = 'directory',
@@ -37,7 +37,7 @@ class influxdb (
   String $metadata_raft = '/var/lib/influxdb/meta',
   String $metadata_raft_manage = 'directory',
   String $tsm_data = '/var/lib/influxdb/data',
-  String $tsmdata_manage = 'directory',
+  String $tsm_data_manage = 'directory',
   String $tsm_wal = '/var/lib/influxdb/wal',
   String $tsm_wal_manage = 'directory',
   String $service_name = 'influxdb',

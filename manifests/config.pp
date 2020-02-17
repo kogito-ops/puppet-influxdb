@@ -37,7 +37,7 @@ class influxdb::config{
     content => template($::influxdb::service_definition_template),
   }
 
-    -> file { $::influxdb::tsm_data:
+  -> file { $::influxdb::tsm_data:
     ensure => $::influxdb::tsm_data_manage,
     owner  => $::influxdb::user,
     group  => $::influxdb::group,
@@ -51,8 +51,8 @@ class influxdb::config{
     mode   => '0755',
   }
 
-    -> file { $::influxdb::metadata_raft:
-    ensure => $::influxdb::metadata_raft,
+  -> file { $::influxdb::metadata_raft:
+    ensure => $::influxdb::metadata_raft_manage,
     owner  => $::influxdb::user,
     group  => $::influxdb::group,
     mode   => '0755',
