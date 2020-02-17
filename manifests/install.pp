@@ -6,27 +6,22 @@
 #   include influxdb::install
 class influxdb::install  {
 
-  $package     = lookup('influxdb::packages')
-
-  package { $package:
+  package { $::influxdb::package:
     ensure => $::influxdb::package_manage
   }
 
-  $group = lookup('influxdb::group')
-
-  group { $group:
+  group { $influxdb::group:
     ensure => $::influxdb::group_manage,
     system => $::influxdb::group_system,
   }
 
-  $user = lookup('influxdb::user')
-
-  user { $user:
+  user { $influxdb::user:
     ensure     => $::influxdb::user_manage,
-    gid        => $group,
-    home       => "/home/${user}",
+    gid        => $influxdb::group,
+    home       => "/home/${influxdb::user}",
     managehome => $::influxdb::user_manage_home,
     system     => $::influxdb::user_system,
-    require    => Group[$group],
+    require    => Group[$influxdb::group],
   }
+
 }

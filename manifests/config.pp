@@ -57,4 +57,5 @@ class influxdb::config{
     group  => $::influxdb::group,
     mode   => '0755',
   }
+
 }

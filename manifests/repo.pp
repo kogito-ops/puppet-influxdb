@@ -4,18 +4,16 @@
 #
 # @example
 #   include influxdb::repo
-class influxdb::repo (
-  String $apt_key_resource = 'apt::key',    # As in puppetlabs-apt
-  String $apt_resource     = 'apt::source', # As in puppetlabs-apt
-  ) {
+class influxdb::repo {
 
-  $apt_repos    = lookup('influxdb::apt_repos', Hash, 'deep', {})
-  $apt_keys     = lookup('influxdb::apt_keys', Hash, 'deep', {})
+  $keys = lookup('influxdb::gpg_keys', Hash, 'deep', {})
+  $repositories = lookup('influxdb::repositories', Hash, 'deep', {})
 
-  if $apt_keys != {} {
-    create_resources($apt_key_resource, $apt_keys)
+  if $keys != {} {
+    create_resources($::influxdb::key_resource, $keys)
   }
-  if $apt_repos != {} {
-    create_resources($apt_resource, $apt_repos)
+  if $repositories != {} {
+    create_resources($::influxdb::resource, $repositories)
   }
+
 }
