@@ -21,4 +21,4 @@ influxdb::repositories:
     repos: "%{lookup('influxdb::repos')}"
     include:
       src: "%{lookup('influxdb::repos_src')}"
-      deb: "%{lookup('influxdb::repos_deb')}"
+      deb: "%{lookup('influxdb::repos_bin')}"

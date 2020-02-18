@@ -15,11 +15,10 @@ class influxdb::install  {
 
   user { $influxdb::user:
     ensure     => $::influxdb::user_manage,
-    gid        => $influxdb::group,
-    home       => "/home/${influxdb::user}",
+    gid        => $::influxdb::group,
+    home       => "/home/${::influxdb::user}",
     managehome => $::influxdb::user_manage_home,
     system     => $::influxdb::user_system,
-    require    => Group[$influxdb::group],
+    require    => Group[$::influxdb::group],
   }
-
 }

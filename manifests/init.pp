@@ -11,15 +11,13 @@ class influxdb (
   String $gpg_server = 'eu.pool.sks-keyservers.net',
   String $gpg_source = 'https://repos.influxdata.com/influxdb.key',
 
-  String $key_resource = ' ',
-  String $resource = ' ',
   Enum['present', 'absent'] $repository_manage = 'present',
   String $repos_comment = 'InfluxData repository',
   String $repos_location = 'https://repos.influxdata.com/ubuntu',
   String $repos_release ='%{::os.distro.codename}',
   String $repos = 'stable',
   Boolean $repos_src = false,
-  Boolean $repos_deb = true,
+  Boolean $repos_bin = true,
   Boolean $repos_gpgcheck = true,
   Boolean $repos_enable = true,
 
@@ -55,8 +53,10 @@ class influxdb (
   String $service_provider = 'systemd',
   Enum['running', 'absent'] $service_manage = 'running',
   Boolean $service_enable = true,
-  Boolean $service_hasstatus = true,
-  Boolean $service_hasrestart = true,
+  Boolean $service_has_status = true,
+  Boolean $service_has_restart = true,
+  String $key_resource,
+  String $resource,
 ) {
 
   include ::influxdb::repo

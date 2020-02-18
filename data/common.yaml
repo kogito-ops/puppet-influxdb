@@ -9,7 +9,7 @@ influxdb::repos_location: 'https://repos.influxdata.com/ubuntu'
 influxdb::repos_release: '%{::os.distro.codename}'
 influxdb::repos: 'stable'
 influxdb::repos_src: false
-influxdb::repos_deb: true
+influxdb::repos_bin: true
 influxdb::repos_gpgcheck: true
 influxdb::repos_enable: true
 
@@ -51,8 +51,8 @@ influxdb::service_provider: 'systemd'
 influxdb::service_manage: 'running'
 influxdb::service_definition_template: 'influxdb/systemd.service.erb'
 influxdb::service_enable: true
-influxdb::service_hasstatus: true
-influxdb::service_hasrestart: true
+influxdb::service_has_status: true
+influxdb::service_has_restart: true
 
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:
