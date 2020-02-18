@@ -5,7 +5,7 @@ influxdb::key_resource: 'apt::gpgkey'
 influxdb::resource: 'apt::repos'
 influxdb::repos_manage: 'present'
 influxdb::repos_comment: 'InfluxData repository'
-influxdb::repos_location: 'https://repos.influxdata.com/%{::os}'
+influxdb::repos_location: 'https://repos.influxdata.com/ubuntu'
 influxdb::repos_release: '%{::os.distro.codename}'
 influxdb::repos: 'stable'
 influxdb::repos_src: false

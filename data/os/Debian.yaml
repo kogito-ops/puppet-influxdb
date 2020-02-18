@@ -1,12 +1,24 @@
 ---
+# - GPG key resource and resource-----------------------------------------------
+influxdb::key_resource: 'apt::key'
+influxdb::resource: 'apt::source'
+
+# - APT gpg key ----------------------------------------------------------------
+influxdb::gpg_keys:
+  "%{lookup('influxdb::software')}":
+    ensure: "%{lookup('influxdb::gpg_manage')}"
+    id: "%{lookup('influxdb::gpg_id')}"
+    server: "%{lookup('influxdb::gpg_server')}"
+    source: "%{lookup('influxdb::gpg_source')}"
+
 # - APT repository settings ----------------------------------------------------
-influxdb::apt_repos:
-  'influxdb':
-    ensure: present
-    comment: 'InfluxData repository'
-    location: 'https://repos.influxdata.com/debian'
+influxdb::repositories:
+  "%{lookup('influxdb::software')}":
+    ensure: "%{lookup('influxdb::repos_manage')}"
+    comment: "%{lookup('influxdb::repos_comment')}"
+    location: "%{lookup('influxdb::repos_location')}"
     release: '%{::os.distro.codename}'
-    repos: 'stable'
+    repos: "%{lookup('influxdb::repos')}"
     include:
-      src: false
-      deb: true
+      src: "%{lookup('influxdb::repos_src')}"
+      deb: "%{lookup('influxdb::repos_deb')}"
