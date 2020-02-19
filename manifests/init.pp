@@ -213,6 +213,14 @@ class influxdb (
   String $tls_min_version = 'tls1.2',
   String $tls_max_version = 'tls1.2',
 
+# service
+  String $service_after  = 'network-online.target',
+  Int $service_limit_no_file = 65536,
+  String $service_kill_mode = 'control-group',
+  String $service_restart = 'on-failure',
+  String $service_wanted_by = 'multi-user.target',
+  String $service_alias = 'influxd.service',
+
 ){
 
   include ::influxdb::repo
