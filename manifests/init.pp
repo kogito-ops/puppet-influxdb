@@ -161,7 +161,57 @@ class influxdb (
   Int $graphit_udp_read_buffer = 0,
   String $graphit_separator = '.',
   Array $graphit_tags = ['region=us-east', 'zone=1c'],
-  Array $graphit_templates = [],
+  Array $graphit_templates = [], #???
+
+# collectd
+  Boolean $collectd_enabled = false,
+  String $collectd_bind_address = ':25826',
+  String $collectd_database = 'collectd',
+  String $collectd_retention_policy = '',
+  String $collectd_typesdb = '/usr/local/share/collectd',
+  String $collectd_security_level = 'none',
+  String $collectd_auth_file = '/etc/collectd/auth_file',
+  Int $collectd_batch_size = 5000,
+  Int $collectd_batch_pending = 10,
+  String $collectd_batch_timeout = '10s',
+  Int $collectd_read_buffer = 0,
+  Enum['split', 'join'] $parse_multivalue_plugin = 'split',
+
+# opentsdb
+  Boolean $opentsdb_enabled = false,
+  String $opentsdb_bind_address = ':4242',
+  String $opentsdb_database = 'opentsdb',
+  String $opentsdb_retention_policy = '',
+  String $opentsdb_consistency_level = 'one',
+  Boolean $opentsdb_tls_enabled = false,
+  String $opentsdb_certificate= '/etc/ssl/influxdb.pem',
+  Boolean $opentsdb_log_point_errors = true,
+  Int $opentsdb_batch_size = 1000,
+  Int $opentsdb_batch_pending = 5,
+  String $opentsdb_batch_timeout = '1s',
+
+# udp
+  Boolena $udp_enabled = false,
+  String $udp_bind_address = ':8089',
+  String $udp_database = 'udp',
+  String $udp_retention_policy = '',
+  Enum['', 'n', 'u', 'ms', 's', 'm', 'h'] $udp_precision = '',
+  Int $udp_batch_size = 5000,
+  Int $udp_batch_pending = 10,
+  String $udp_batch_timeout = '1s',
+  Int $udp_read_buffer = 0,
+
+# continuous queries - cntqry
+  Boolean $cntqry_enabled = true,
+  Boolean $cntqry_log_enabled = true,
+  Boolean $cntqry_query_stats_enabled = false,
+  String $cntqry_run_interval = '1s',
+
+# tls
+  Array $tls_ciphers = ['TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305',
+                        'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'],
+  String $tls_min_version = 'tls1.2',
+  String $tls_max_version = 'tls1.2',
 
 ){
 

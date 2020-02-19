@@ -401,7 +401,7 @@
 
 [[graphite]]
   # Determines whether the graphite endpoint is enabled.
-  # enabled = <%= @graphit_enabled  %>
+  # enabled = <%= @graphit_enabled %>
   # database = "<%= @graphit_database %>"
   # retention-policy = "<%= @graphit_retention_policy %>"
   # bind-address = "<%= @graphit_bind_address %>"
@@ -448,39 +448,39 @@
 ###
 
 [[collectd]]
-  # enabled = false
-  # bind-address = ":25826"
-  # database = "collectd"
-  # retention-policy = ""
+  # enabled = <%= @collectd_enabled %>
+  # bind-address = "<%= @collectd_bind_address %>"
+  # database = "<%= @collectd_database %>"
+  # retention-policy = "<%= @collectd_retention_policy %>"
   #
   # The collectd service supports either scanning a directory for multiple types
   # db files, or specifying a single db file.
-  # typesdb = "/usr/local/share/collectd"
+  # typesdb = "<%= @collectd_typesdb %>"
   #
-  # security-level = "none"
-  # auth-file = "/etc/collectd/auth_file"
+  # security-level = ""
+  # auth-file = "<%= @collectd_auth_file %>"
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
   # Flush if this many points get buffered
-  # batch-size = 5000
+  # batch-size = <%= @collectd_batch_size %>
 
   # Number of batches that may be pending in memory
-  # batch-pending = 10
+  # batch-pending = <%= @collectd_batch_pending %>
 
   # Flush at least this often even if we haven't hit buffer limit
-  # batch-timeout = "10s"
+  # batch-timeout = "<%= @collectd_batch_timeout %>"
 
   # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
-  # read-buffer = 0
+  # read-buffer = <%= @collectd_read_buffer %>
 
   # Multi-value plugins can be handled two ways.
   # "split" will parse and store the multi-value plugin data into separate measurements
   # "join" will parse and store the multi-value plugin as a single multi-value measurement.
   # "split" is the default behavior for backward compatibility with previous versions of influxdb.
-  # parse-multivalue-plugin = "split"
+  # parse-multivalue-plugin = "<%= @parse_multivalue_plugin %>"
 ###
 ### [opentsdb]
 ###
@@ -488,29 +488,29 @@
 ###
 
 [[opentsdb]]
-  # enabled = false
-  # bind-address = ":4242"
-  # database = "opentsdb"
-  # retention-policy = ""
-  # consistency-level = "one"
-  # tls-enabled = false
-  # certificate= "/etc/ssl/influxdb.pem"
+  # enabled = <%= @opentsdb_enabled %>
+  # bind-address = "<%= @opentsdb_bind_address %>"
+  # database = "<%= @opentsdb_database %>"
+  # retention-policy = "<%= @opentsdb_retention_policy %>"
+  # consistency-level = "<%= @opentsdb_consistency_level %>"
+  # tls-enabled = <%= @opentsdb_tls_enabled %>
+  # certificate= "<%= @opentsdb_certificate %>"
 
   # Log an error for every malformed point.
-  # log-point-errors = true
+  # log-point-errors = <%= @opentsdb_log_point_errors %>
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Only points
   # metrics received over the telnet protocol undergo batching.
 
   # Flush if this many points get buffered
-  # batch-size = 1000
+  # batch-size = <%= @opentsdb_batch_size %>
 
   # Number of batches that may be pending in memory
-  # batch-pending = 5
+  # batch-pending = <%= @opentsdb_batch_pending %>
 
   # Flush at least this often even if we haven't hit buffer limit
-  # batch-timeout = "1s"
+  # batch-timeout = "<%= @opentsdb_batch_timeout %>"
 
 ###
 ### [[udp]]
@@ -519,29 +519,29 @@
 ###
 
 [[udp]]
-  # enabled = false
-  # bind-address = ":8089"
-  # database = "udp"
-  # retention-policy = ""
+  # enabled = <%= @udp_enabled %>
+  # bind-address = "<%= @udp_bind_address %>"
+  # database = "<%= @udp_database %>"
+  # retention-policy = "<%= @udp_retention_policy %>"
 
   # InfluxDB precision for timestamps on received points ("" or "n", "u", "ms", "s", "m", "h")
-  # precision = ""
+  # precision = "<%= @udp_precision %>"
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
   # Flush if this many points get buffered
-  # batch-size = 5000
+  # batch-size = <%= @udp_batch_size %>
 
   # Number of batches that may be pending in memory
-  # batch-pending = 10
+  # batch-pending = <%= @udp_batch_pending %>
 
   # Will flush at least this often even if we haven't hit buffer limit
-  # batch-timeout = "1s"
+  # batch-timeout = "<%= @udp_batch_timeout %>"
 
   # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
-  # read-buffer = 0
+  # read-buffer = <%= @udp_read_buffer %>
 
 ###
 ### [continuous_queries]
@@ -551,16 +551,16 @@
 
 [continuous_queries]
   # Determines whether the continuous query service is enabled.
-  # enabled = true
+  # enabled = <%= @cntqry_enabled %>
 
   # Controls whether queries are logged when executed by the CQ service.
-  # log-enabled = true
+  # log-enabled = <%= @cntqry_log_enabled %>
 
   # Controls whether queries are logged to the self-monitoring data store.
-  # query-stats-enabled = false
+  # query-stats-enabled = <%= @cntqry_query_stats_enabled %>
 
   # interval for how often continuous queries will be checked if they need to run
-  # run-interval = "1s"
+  # run-interval = "<%= @cntqry_run_interval  %>"
 
 ###
 ### [tls]
@@ -573,15 +573,12 @@
   # for a list of available ciphers, which depends on the version of Go (use the query
   # SHOW DIAGNOSTICS to see the version of Go used to build InfluxDB). If not specified, uses
   # the default settings from Go's crypto/tls package.
-  # ciphers = [
-  #   "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
-  #   "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
-  # ]
+  # ciphers = [<%= @tls_ciphers %>]
 
   # Minimum version of the tls protocol that will be negotiated. If not specified, uses the
   # default settings from Go's crypto/tls package.
-  # min-version = "tls1.2"
+  # min-version = "<%= @tls_min_version %>"
 
   # Maximum version of the tls protocol that will be negotiated. If not specified, uses the
   # default settings from Go's crypto/tls package.
-  # max-version = "tls1.2"
+  # max-version = "<%= @tls_max_version %>"
