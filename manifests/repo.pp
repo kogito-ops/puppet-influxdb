@@ -1,4 +1,4 @@
-# @summary This class creates gpg key information and repository if necessary
+# @summary This class creates gpg key information and repository, if necessary
 
 # @example
 #   include influxdb::repo

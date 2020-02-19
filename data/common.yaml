@@ -30,6 +30,7 @@ influxdb::group_system: true
 influxdb::user: 'influxdb'
 influxdb::user_system: true
 influxdb::user_manage: 'present'
+influxdb::user_home: '/var/lib/'
 influxdb::configuration_path: '/etc/influxdb'
 influxdb::configuration_path_manage: 'directory'
 influxdb::configuration_file: 'influxdb.conf'

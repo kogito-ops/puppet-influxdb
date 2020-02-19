@@ -16,7 +16,7 @@ class influxdb::install  {
   user { $influxdb::user:
     ensure     => $::influxdb::user_manage,
     gid        => $::influxdb::group,
-    home       => "/home/${::influxdb::user}",
+    home       => "${::influxdb::user_home}${::influxdb::user}",
     managehome => $::influxdb::user_manage_home,
     system     => $::influxdb::user_system,
     require    => Group[$::influxdb::group],

@@ -5,6 +5,8 @@
 
 class influxdb (
 
+  String $key_resource,
+  String $resource,
   String $software = 'influxdb',
   Enum['present', 'absent'] $gpg_manage = 'present',
   String $gpg_id = '05CE15085FC09D18E99EFB22684A14CF2582E0C5',
@@ -31,6 +33,7 @@ class influxdb (
   Enum['present', 'absent'] $user_manage = 'present',
   Boolean $user_system = true,
   Boolean $user_manage_home = true,
+  String $user_home = '/var/lib/',
 
   String $configuration_path = '/etc/influxdb',
   Enum['directory', 'absent'] $configuration_path_manage = 'directory',
@@ -55,8 +58,6 @@ class influxdb (
   Boolean $service_enable = true,
   Boolean $service_has_status = true,
   Boolean $service_has_restart = true,
-  String $key_resource,
-  String $resource,
 ) {
 
   include ::influxdb::repo
