@@ -1,8 +1,10 @@
 ---
 # - GPG key resource and resource-----------------------------------------------
-influxdb::key_resource: ~
+influxdb::key_resource: ''
 influxdb::resource: 'yumrepo'
 influxdb::repos_location: 'https://repos.influxdata.com/rhel/%{::os.release.major}/%{::os.architecture}/stable'
+
+influxdb::service_definition: '/etc/systemd/system/influxdb.service'
 
 # - YUM repository settings ----------------------------------------------------
 influxdb::repositories:
@@ -12,4 +14,4 @@ influxdb::repositories:
     descr: "%{lookup('influxdb::repos_comment')}"
     baseurl: "%{lookup('influxdb::repos_location')}"
     gpgcheck: "%{lookup('influxdb::repos_gpgcheck')}"
-    gpgkey: "%{lookup('influxdb::gpg_content')}"
+    gpgkey: "%{lookup('influxdb::gpg_source')}"

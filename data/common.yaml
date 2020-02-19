@@ -1,17 +1,16 @@
 ---
 # - Resources ------------------------------------------------------------------
 influxdb::software: 'influxdb'
-influxdb::key_resource: 'apt::gpgkey'
-influxdb::resource: 'apt::repos'
+influxdb::key_resource: ''
+influxdb::resource: ''
 influxdb::repos_manage: 'present'
 influxdb::repos_comment: 'InfluxData repository'
-influxdb::repos_location: 'https://repos.influxdata.com/ubuntu'
 influxdb::repos_release: '%{::os.distro.codename}'
 influxdb::repos: 'stable'
 influxdb::repos_src: false
 influxdb::repos_bin: true
-influxdb::repos_gpgcheck: true
-influxdb::repos_enable: true
+influxdb::repos_gpgcheck: '1'
+influxdb::repos_enable: '1'
 
 # - GPG settings ---------------------------------------------------------------
 influxdb::gpg_manage: 'present'

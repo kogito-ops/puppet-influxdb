@@ -29,3 +29,5 @@
 /.vagrant/
 /scripts/
 *.log
+/Vagrantfile
+/Puppetfile

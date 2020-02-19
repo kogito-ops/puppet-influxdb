@@ -20,8 +20,8 @@ class influxdb (
   String $repos = 'stable',
   Boolean $repos_src = false,
   Boolean $repos_bin = true,
-  Boolean $repos_gpgcheck = true,
-  Boolean $repos_enable = true,
+  Enum['1', '0'] $repos_gpgcheck = '1',
+  Enum['1', '0'] $repos_enable = '1',
 
   String $package= 'influxdb',
   Enum['present', 'absent'] $package_manage= 'present',
