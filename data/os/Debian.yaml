@@ -2,6 +2,7 @@
 # - GPG key resource and resource-----------------------------------------------
 influxdb::key_resource: 'apt::key'
 influxdb::resource: 'apt::source'
+influxdb::repos_location: 'https://repos.influxdata.com/debian'
 
 # - APT gpg key ----------------------------------------------------------------
 influxdb::gpg_keys:
