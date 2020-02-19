@@ -1,18 +1,10 @@
 ---
 # - GPG key resource and resource-----------------------------------------------
-influxdb::key_resource: 'yum::gpgkey'
-influxdb::resource: 'yum::repos'
-
-# - YUM gpg key ----------------------------------------------------------------
-influxdb::gpg_keys:
-  "%{lookup('influxdb::software')}":
-    ensure: "%{lookup('influxdb::gpg_manage')}"
-    source: "%{lookup('influxdb::gpg_source')}"
+influxdb::key_resource: ~
+influxdb::resource: 'yumrepo'
+influxdb::repos_location: 'https://repos.influxdata.com/rhel/%{::os.release.major}/%{::os.architecture}/stable'
 
 # - YUM repository settings ----------------------------------------------------
-yum::managed_repos:
-  - 'influxdb'
-
 influxdb::repositories:
   "%{lookup('influxdb::software')}":
     ensure: "%{lookup('influxdb::repos_manage')}"
