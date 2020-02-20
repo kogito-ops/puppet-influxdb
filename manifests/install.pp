@@ -1,4 +1,4 @@
-# @summary This class creates the package, group and user
+# @summary Manages package, group and user
 #
 # @example
 #   include influxdb::install

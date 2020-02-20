@@ -1,4 +1,4 @@
-# @summary This class creates directories and files; configuration and service
+# @summary Manages directories and files; configuration and service
 #
 # @example
 #   include influxdb::config

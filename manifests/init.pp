@@ -2,7 +2,6 @@
 #
 # @example
 #   include influxdb
-
 class influxdb (
 
   String $key_resource,
@@ -46,7 +45,6 @@ class influxdb (
   String $service_definition = '/lib/systemd/system/influxdb.service',
   Enum['present', 'absent'] $service_definition_manage = 'present',
   String $service_definition_template = 'influxdb/systemd.service.erb',
-
   String $service_name = 'influxdb',
   String $service_provider = 'systemd',
   Enum['running', 'absent'] $service_manage = 'running',
@@ -74,23 +72,23 @@ class influxdb (
   String $cache_snapshot_memory_size = '25m',
   String $cache_snapshot_write_cold_duration = '10m',
   String $compact_full_write_cold_duration = '4h',
-  Int $max_concurrent_compactions = 0,
+  Integer $max_concurrent_compactions = 0,
   String $compact_throughput = '48m',
   String $compact_throughput_burst = '48m',
   Boolean $tsm_use_madv_willneed = false,
-  Int $max_series_per_database = 1000000,
-  Int $max_values_per_tag = 100000,
+  Integer $max_series_per_database = 1000000,
+  Integer $max_values_per_tag = 100000,
   String $max_index_log_file_size = '1m',
-  Int $series_id_set_cache_size = 100,
+  Integer $series_id_set_cache_size = 100,
 
 # coordinator
   String $write_timeout = '10s',
-  Int $max_concurrent_queries = 0,
+  Integer $max_concurrent_queries = 0,
   String $query_timeout = '0s',
   String $log_queries_after = '0s',
-  Int $max_select_point = 0,
-  Int $max_select_series = 0,
-  Int $max_select_buckets = 0,
+  Integer $max_select_point = 0,
+  Integer $max_select_series = 0,
+  Integer $max_select_buckets = 0,
 
 # retention
   Boolean $retention_enabled = true,
@@ -116,7 +114,7 @@ class influxdb (
   Boolean $log_enabled = true,
   Boolean $suppress_write_log = false,
   String $access_log_path = '',
-  Array $access_log_status_filters = [],
+  Array[String] $access_log_status_filters = [],
   Boolean $write_tracing = false,
   Boolean $pprof_enabled = true,
   Boolean $pprof_auth_enabled = false,
@@ -126,14 +124,14 @@ class influxdb (
   String $https_certificate = '/etc/ssl/influxdb.pem',
   String $https_private_key = '',
   String $shared_secret = '',
-  Int $max_row_limit = 0,
-  Int $max_connection_limit = 0,
+  Integer $max_row_limit = 0,
+  Integer $max_connection_limit = 0,
   Boolean $unix_socket_enabled = false,
   String $bind_socket = '/var/run/influxdb.sock',
-  Int $max_body_size = 25000000,
-  Int $max_concurrent_write_limit = 0,
-  Int $max_enqueued_write_limit = 0,
-  Int $enqueued_write_timeout = 0,
+  Integer $max_body_size = 25000000,
+  Integer $max_concurrent_write_limit = 0,
+  Integer $max_enqueued_write_limit = 0,
+  Integer $enqueued_write_timeout = 0,
 
 # logging
   String $format = 'auto',
@@ -145,8 +143,8 @@ class influxdb (
   String $http_timeout = '30s',
   Boolean $insecure_skip_verify = false,
   String $ca_certs = '',
-  Int $write_concurrency = 40,
-  Int $write_buffer_size = 1000,
+  Integer $write_concurrency = 40,
+  Integer $write_buffer_size = 1000,
 
 # graphit
   Boolean $graphit_enabled = false,
@@ -155,13 +153,13 @@ class influxdb (
   String $graphit_bind_address = ':2003',
   String $graphit_protocol = 'tcp',
   String $graphit_consistency_level = 'one',
-  Int $graphit_batch_size = 5000,
-  Int $graphit_batch_pending = 10,
+  Integer $graphit_batch_size = 5000,
+  Integer $graphit_batch_pending = 10,
   String $graphit_batch_timeout = '1s',
-  Int $graphit_udp_read_buffer = 0,
+  Integer $graphit_udp_read_buffer = 0,
   String $graphit_separator = '.',
-  Array $graphit_tags = ['region=us-east', 'zone=1c'],
-  Array $graphit_templates = [], #???
+  Array[String] $graphit_tags = ['region=us-east', 'zone=1c'],
+  Array[String] $graphit_templates = [],
 
 # collectd
   Boolean $collectd_enabled = false,
@@ -171,10 +169,10 @@ class influxdb (
   String $collectd_typesdb = '/usr/local/share/collectd',
   String $collectd_security_level = 'none',
   String $collectd_auth_file = '/etc/collectd/auth_file',
-  Int $collectd_batch_size = 5000,
-  Int $collectd_batch_pending = 10,
+  Integer $collectd_batch_size = 5000,
+  Integer $collectd_batch_pending = 10,
   String $collectd_batch_timeout = '10s',
-  Int $collectd_read_buffer = 0,
+  Integer $collectd_read_buffer = 0,
   Enum['split', 'join'] $parse_multivalue_plugin = 'split',
 
 # opentsdb
@@ -186,20 +184,20 @@ class influxdb (
   Boolean $opentsdb_tls_enabled = false,
   String $opentsdb_certificate= '/etc/ssl/influxdb.pem',
   Boolean $opentsdb_log_point_errors = true,
-  Int $opentsdb_batch_size = 1000,
-  Int $opentsdb_batch_pending = 5,
+  Integer $opentsdb_batch_size = 1000,
+  Integer $opentsdb_batch_pending = 5,
   String $opentsdb_batch_timeout = '1s',
 
 # udp
-  Boolena $udp_enabled = false,
+  Boolean $udp_enabled = false,
   String $udp_bind_address = ':8089',
   String $udp_database = 'udp',
   String $udp_retention_policy = '',
   Enum['', 'n', 'u', 'ms', 's', 'm', 'h'] $udp_precision = '',
-  Int $udp_batch_size = 5000,
-  Int $udp_batch_pending = 10,
+  Integer $udp_batch_size = 5000,
+  Integer $udp_batch_pending = 10,
   String $udp_batch_timeout = '1s',
-  Int $udp_read_buffer = 0,
+  Integer $udp_read_buffer = 0,
 
 # continuous queries - cntqry
   Boolean $cntqry_enabled = true,
@@ -208,14 +206,13 @@ class influxdb (
   String $cntqry_run_interval = '1s',
 
 # tls
-  Array $tls_ciphers = ['TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305',
-                        'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'],
+  Array[String] $tls_ciphers = ['TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305', 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'],
   String $tls_min_version = 'tls1.2',
   String $tls_max_version = 'tls1.2',
 
 # service
   String $service_after  = 'network-online.target',
-  Int $service_limit_no_file = 65536,
+  Integer $service_limit_no_file = 65536,
   String $service_kill_mode = 'control-group',
   String $service_restart = 'on-failure',
   String $service_wanted_by = 'multi-user.target',

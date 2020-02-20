@@ -5,17 +5,25 @@
 
 **Classes**
 
-* [`influxdb`](#influxdb): 
-* [`influxdb::config`](#influxdbconfig): This class creates directories and files; configuration and service
-* [`influxdb::install`](#influxdbinstall): This class creates the package, group and user
-* [`influxdb::repo`](#influxdbrepo): 
-* [`influxdb::service`](#influxdbservice): This class deals with the service
+* [`influxdb`](#influxdb): Manages an InfluxDB server
+* [`influxdb::config`](#influxdbconfig): Manages directories and files; configuration and service
+* [`influxdb::install`](#influxdbinstall): Manages package, group and user
+* [`influxdb::repo`](#influxdbrepo): Manages gpg key information and repository, if necessary
+* [`influxdb::service`](#influxdbservice): Manages the service
 
 ## Classes
 
 ### influxdb
 
-The influxdb class.
+Manages an InfluxDB server
+
+#### Examples
+
+##### 
+
+```puppet
+include influxdb
+```
 
 #### Parameters
 
@@ -131,19 +139,19 @@ Default value: `true`
 
 ##### `repos_gpgcheck`
 
-Data type: `Boolean`
+Data type: `Enum['1', '0']`
 
 
 
-Default value: `true`
+Default value: '1'
 
 ##### `repos_enable`
 
-Data type: `Boolean`
+Data type: `Enum['1', '0']`
 
 
 
-Default value: `true`
+Default value: '1'
 
 ##### `package`
 
@@ -313,54 +321,6 @@ Data type: `String`
 
 Default value: 'influxdb/systemd.service.erb'
 
-##### `metadata_raft`
-
-Data type: `String`
-
-
-
-Default value: '/var/lib/influxdb/meta'
-
-##### `metadata_raft_manage`
-
-Data type: `Enum['directory', 'absent']`
-
-
-
-Default value: 'directory'
-
-##### `tsm_data`
-
-Data type: `String`
-
-
-
-Default value: '/var/lib/influxdb/data'
-
-##### `tsm_data_manage`
-
-Data type: `Enum['directory', 'absent']`
-
-
-
-Default value: 'directory'
-
-##### `tsm_wal`
-
-Data type: `String`
-
-
-
-Default value: '/var/lib/influxdb/wal'
-
-##### `tsm_wal_manage`
-
-Data type: `Enum['directory', 'absent']`
-
-
-
-Default value: 'directory'
-
 ##### `service_name`
 
 Data type: `String`
@@ -409,9 +369,1081 @@ Data type: `Boolean`
 
 Default value: `true`
 
+##### `metadata_raft`
+
+Data type: `String`
+
+
+
+Default value: '/var/lib/influxdb/meta'
+
+##### `metadata_raft_manage`
+
+Data type: `Enum['directory', 'absent']`
+
+
+
+Default value: 'directory'
+
+##### `retention_autocreate`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `logging_enalbled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `tsm_data`
+
+Data type: `String`
+
+
+
+Default value: '/var/lib/influxdb/data'
+
+##### `tsm_data_manage`
+
+Data type: `Enum['directory', 'absent']`
+
+
+
+Default value: 'directory'
+
+##### `tsm_wal`
+
+Data type: `String`
+
+
+
+Default value: '/var/lib/influxdb/wal'
+
+##### `tsm_wal_manage`
+
+Data type: `Enum['directory', 'absent']`
+
+
+
+Default value: 'directory'
+
+##### `wal_fsync_delay`
+
+Data type: `String`
+
+
+
+Default value: '0s'
+
+##### `index_version`
+
+Data type: `String`
+
+
+
+Default value: 'inmem'
+
+##### `trace_logging_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `query_log_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `validate_keys`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `cache_max_memory_size`
+
+Data type: `String`
+
+
+
+Default value: '1g'
+
+##### `cache_snapshot_memory_size`
+
+Data type: `String`
+
+
+
+Default value: '25m'
+
+##### `cache_snapshot_write_cold_duration`
+
+Data type: `String`
+
+
+
+Default value: '10m'
+
+##### `compact_full_write_cold_duration`
+
+Data type: `String`
+
+
+
+Default value: '4h'
+
+##### `max_concurrent_compactions`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `compact_throughput`
+
+Data type: `String`
+
+
+
+Default value: '48m'
+
+##### `compact_throughput_burst`
+
+Data type: `String`
+
+
+
+Default value: '48m'
+
+##### `tsm_use_madv_willneed`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `max_series_per_database`
+
+Data type: `Integer`
+
+
+
+Default value: 1000000
+
+##### `max_values_per_tag`
+
+Data type: `Integer`
+
+
+
+Default value: 100000
+
+##### `max_index_log_file_size`
+
+Data type: `String`
+
+
+
+Default value: '1m'
+
+##### `series_id_set_cache_size`
+
+Data type: `Integer`
+
+
+
+Default value: 100
+
+##### `write_timeout`
+
+Data type: `String`
+
+
+
+Default value: '10s'
+
+##### `max_concurrent_queries`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `query_timeout`
+
+Data type: `String`
+
+
+
+Default value: '0s'
+
+##### `log_queries_after`
+
+Data type: `String`
+
+
+
+Default value: '0s'
+
+##### `max_select_point`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `max_select_series`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `max_select_buckets`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `retention_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `retention_check_interval`
+
+Data type: `String`
+
+
+
+Default value: '30m'
+
+##### `shard_precreation_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `shard_precreation_check_interval`
+
+Data type: `String`
+
+
+
+Default value: '10m'
+
+##### `shard_precreation_advance_period`
+
+Data type: `String`
+
+
+
+Default value: '30m'
+
+##### `store_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `store_database`
+
+Data type: `String`
+
+
+
+Default value: '_internal'
+
+##### `store_interval`
+
+Data type: `String`
+
+
+
+Default value: '10s'
+
+##### `http_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `flux_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `flux_log_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `bind_address`
+
+Data type: `String`
+
+
+
+Default value: ':8086'
+
+##### `auth_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `realm`
+
+Data type: `String`
+
+
+
+Default value: 'InfluxDB'
+
+##### `log_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `suppress_write_log`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `access_log_path`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `access_log_status_filters`
+
+Data type: `Array[String]`
+
+
+
+Default value: []
+
+##### `write_tracing`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `pprof_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `pprof_auth_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `debug_pprof_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `ping_auth_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `https_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `https_certificate`
+
+Data type: `String`
+
+
+
+Default value: '/etc/ssl/influxdb.pem'
+
+##### `https_private_key`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `shared_secret`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `max_row_limit`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `max_connection_limit`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `unix_socket_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `bind_socket`
+
+Data type: `String`
+
+
+
+Default value: '/var/run/influxdb.sock'
+
+##### `max_body_size`
+
+Data type: `Integer`
+
+
+
+Default value: 25000000
+
+##### `max_concurrent_write_limit`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `max_enqueued_write_limit`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `enqueued_write_timeout`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `format`
+
+Data type: `String`
+
+
+
+Default value: 'auto'
+
+##### `level`
+
+Data type: `String`
+
+
+
+Default value: 'info'
+
+##### `suppress_logo`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `subsriber_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `http_timeout`
+
+Data type: `String`
+
+
+
+Default value: '30s'
+
+##### `insecure_skip_verify`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `ca_certs`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `write_concurrency`
+
+Data type: `Integer`
+
+
+
+Default value: 40
+
+##### `write_buffer_size`
+
+Data type: `Integer`
+
+
+
+Default value: 1000
+
+##### `graphit_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `graphit_database`
+
+Data type: `String`
+
+
+
+Default value: 'graphite'
+
+##### `graphit_retention_policy`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `graphit_bind_address`
+
+Data type: `String`
+
+
+
+Default value: ':2003'
+
+##### `graphit_protocol`
+
+Data type: `String`
+
+
+
+Default value: 'tcp'
+
+##### `graphit_consistency_level`
+
+Data type: `String`
+
+
+
+Default value: 'one'
+
+##### `graphit_batch_size`
+
+Data type: `Integer`
+
+
+
+Default value: 5000
+
+##### `graphit_batch_pending`
+
+Data type: `Integer`
+
+
+
+Default value: 10
+
+##### `graphit_batch_timeout`
+
+Data type: `String`
+
+
+
+Default value: '1s'
+
+##### `graphit_udp_read_buffer`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `graphit_separator`
+
+Data type: `String`
+
+
+
+Default value: '.'
+
+##### `graphit_tags`
+
+Data type: `Array[String]`
+
+
+
+Default value: ['region=us-east', 'zone=1c']
+
+##### `graphit_templates`
+
+Data type: `Array[String]`
+
+
+
+Default value: []
+
+##### `collectd_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `collectd_bind_address`
+
+Data type: `String`
+
+
+
+Default value: ':25826'
+
+##### `collectd_database`
+
+Data type: `String`
+
+
+
+Default value: 'collectd'
+
+##### `collectd_retention_policy`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `collectd_typesdb`
+
+Data type: `String`
+
+
+
+Default value: '/usr/local/share/collectd'
+
+##### `collectd_security_level`
+
+Data type: `String`
+
+
+
+Default value: 'none'
+
+##### `collectd_auth_file`
+
+Data type: `String`
+
+
+
+Default value: '/etc/collectd/auth_file'
+
+##### `collectd_batch_size`
+
+Data type: `Integer`
+
+
+
+Default value: 5000
+
+##### `collectd_batch_pending`
+
+Data type: `Integer`
+
+
+
+Default value: 10
+
+##### `collectd_batch_timeout`
+
+Data type: `String`
+
+
+
+Default value: '10s'
+
+##### `collectd_read_buffer`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `parse_multivalue_plugin`
+
+Data type: `Enum['split', 'join']`
+
+
+
+Default value: 'split'
+
+##### `opentsdb_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `opentsdb_bind_address`
+
+Data type: `String`
+
+
+
+Default value: ':4242'
+
+##### `opentsdb_database`
+
+Data type: `String`
+
+
+
+Default value: 'opentsdb'
+
+##### `opentsdb_retention_policy`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `opentsdb_consistency_level`
+
+Data type: `String`
+
+
+
+Default value: 'one'
+
+##### `opentsdb_tls_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `opentsdb_certificate`
+
+Data type: `String`
+
+
+
+Default value: '/etc/ssl/influxdb.pem'
+
+##### `opentsdb_log_point_errors`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `opentsdb_batch_size`
+
+Data type: `Integer`
+
+
+
+Default value: 1000
+
+##### `opentsdb_batch_pending`
+
+Data type: `Integer`
+
+
+
+Default value: 5
+
+##### `opentsdb_batch_timeout`
+
+Data type: `String`
+
+
+
+Default value: '1s'
+
+##### `udp_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `udp_bind_address`
+
+Data type: `String`
+
+
+
+Default value: ':8089'
+
+##### `udp_database`
+
+Data type: `String`
+
+
+
+Default value: 'udp'
+
+##### `udp_retention_policy`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `udp_precision`
+
+Data type: `Enum['', 'n', 'u', 'ms', 's', 'm', 'h']`
+
+
+
+Default value: ''
+
+##### `udp_batch_size`
+
+Data type: `Integer`
+
+
+
+Default value: 5000
+
+##### `udp_batch_pending`
+
+Data type: `Integer`
+
+
+
+Default value: 10
+
+##### `udp_batch_timeout`
+
+Data type: `String`
+
+
+
+Default value: '1s'
+
+##### `udp_read_buffer`
+
+Data type: `Integer`
+
+
+
+Default value: 0
+
+##### `cntqry_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `cntqry_log_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `cntqry_query_stats_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `cntqry_run_interval`
+
+Data type: `String`
+
+
+
+Default value: '1s'
+
+##### `tls_ciphers`
+
+Data type: `Array[String]`
+
+
+
+Default value: ['TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305', 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256']
+
+##### `tls_min_version`
+
+Data type: `String`
+
+
+
+Default value: 'tls1.2'
+
+##### `tls_max_version`
+
+Data type: `String`
+
+
+
+Default value: 'tls1.2'
+
+##### `service_after`
+
+Data type: `String`
+
+
+
+Default value: 'network-online.target'
+
+##### `service_limit_no_file`
+
+Data type: `Integer`
+
+
+
+Default value: 65536
+
+##### `service_kill_mode`
+
+Data type: `String`
+
+
+
+Default value: 'control-group'
+
+##### `service_restart`
+
+Data type: `String`
+
+
+
+Default value: 'on-failure'
+
+##### `service_wanted_by`
+
+Data type: `String`
+
+
+
+Default value: 'multi-user.target'
+
+##### `service_alias`
+
+Data type: `String`
+
+
+
+Default value: 'influxd.service'
+
 ### influxdb::config
 
-This class creates directories and files; configuration and service
+Manages directories and files; configuration and service
 
 #### Examples
 
@@ -515,7 +1547,7 @@ Default value: $::influxdb::service_definition
 
 ### influxdb::install
 
-This class creates the package, group and user
+Manages package, group and user
 
 #### Examples
 
@@ -527,7 +1559,7 @@ include influxdb::install
 
 ### influxdb::repo
 
-The influxdb::repo class.
+Manages gpg key information and repository, if necessary
 
 #### Examples
 
@@ -539,7 +1571,7 @@ include influxdb::repo
 
 ### influxdb::service
 
-This class deals with the service
+Manages the service
 
 #### Examples
 

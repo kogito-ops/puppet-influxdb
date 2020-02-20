@@ -1,4 +1,4 @@
-# @summary This class deals with the service
+# @summary Manages the service
 #
 # @example
 #   include influxdb::service
