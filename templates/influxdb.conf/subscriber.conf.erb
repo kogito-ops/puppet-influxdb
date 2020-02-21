@@ -8,7 +8,7 @@
 
 [subscriber]
   # Determines whether the subscriber service is enabled.
-  # enabled = true
+  enabled = <%= scope.lookupvar("influxdb::subsriber_enabled") %>
 
   # The default timeout for HTTP writes to subscribers.
   http-timeout = "<%= scope.lookupvar("influxdb::http_timeout") %>"

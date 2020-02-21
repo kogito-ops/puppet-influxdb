@@ -6,7 +6,7 @@
 ###
 
 [[graphite]]
-  Determines whether the graphite endpoint is enabled.
+  # Determines whether the graphite endpoint is enabled.
   enabled = <%= scope.lookupvar("influxdb::graphite_enabled") %>
   database = "<%= scope.lookupvar("influxdb::graphite_database") %>"
   retention-policy = "<%= scope.lookupvar("influxdb::graphite_retention_policy") %>"
