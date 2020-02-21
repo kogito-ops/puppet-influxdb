@@ -35,11 +35,15 @@ Data type: `String`
 
 
 
+Default value: ''
+
 ##### `resource`
 
 Data type: `String`
 
 
+
+Default value: ''
 
 ##### `software`
 
@@ -369,6 +373,22 @@ Data type: `Boolean`
 
 Default value: `true`
 
+##### `reporting_disabled`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### `rpc_bind_address`
+
+Data type: `String`
+
+
+
+Default value: '127.0.0.1:8088'
+
 ##### `metadata_raft`
 
 Data type: `String`
@@ -393,7 +413,7 @@ Data type: `Boolean`
 
 Default value: `true`
 
-##### `logging_enalbled`
+##### `logging_enabled`
 
 Data type: `Boolean`
 
@@ -977,7 +997,7 @@ Data type: `Integer`
 
 Default value: 1000
 
-##### `graphit_enabled`
+##### `graphite_enabled`
 
 Data type: `Boolean`
 
@@ -985,15 +1005,15 @@ Data type: `Boolean`
 
 Default value: `false`
 
-##### `graphit_database`
+##### `graphite_database`
 
 Data type: `String`
 
 
 
-Default value: 'graphite'
+Default value: 'graphitee'
 
-##### `graphit_retention_policy`
+##### `graphite_retention_policy`
 
 Data type: `String`
 
@@ -1001,7 +1021,7 @@ Data type: `String`
 
 Default value: ''
 
-##### `graphit_bind_address`
+##### `graphite_bind_address`
 
 Data type: `String`
 
@@ -1009,7 +1029,7 @@ Data type: `String`
 
 Default value: ':2003'
 
-##### `graphit_protocol`
+##### `graphite_protocol`
 
 Data type: `String`
 
@@ -1017,7 +1037,7 @@ Data type: `String`
 
 Default value: 'tcp'
 
-##### `graphit_consistency_level`
+##### `graphite_consistency_level`
 
 Data type: `String`
 
@@ -1025,7 +1045,7 @@ Data type: `String`
 
 Default value: 'one'
 
-##### `graphit_batch_size`
+##### `graphite_batch_size`
 
 Data type: `Integer`
 
@@ -1033,7 +1053,7 @@ Data type: `Integer`
 
 Default value: 5000
 
-##### `graphit_batch_pending`
+##### `graphite_batch_pending`
 
 Data type: `Integer`
 
@@ -1041,7 +1061,7 @@ Data type: `Integer`
 
 Default value: 10
 
-##### `graphit_batch_timeout`
+##### `graphite_batch_timeout`
 
 Data type: `String`
 
@@ -1049,7 +1069,7 @@ Data type: `String`
 
 Default value: '1s'
 
-##### `graphit_udp_read_buffer`
+##### `graphite_udp_read_buffer`
 
 Data type: `Integer`
 
@@ -1057,7 +1077,7 @@ Data type: `Integer`
 
 Default value: 0
 
-##### `graphit_separator`
+##### `graphite_separator`
 
 Data type: `String`
 
@@ -1065,7 +1085,7 @@ Data type: `String`
 
 Default value: '.'
 
-##### `graphit_tags`
+##### `graphite_tags`
 
 Data type: `Array[String]`
 
@@ -1073,7 +1093,7 @@ Data type: `Array[String]`
 
 Default value: ['region=us-east', 'zone=1c']
 
-##### `graphit_templates`
+##### `graphite_templates`
 
 Data type: `Array[String]`
 
@@ -1392,54 +1412,6 @@ Data type: `String`
 
 
 Default value: 'tls1.2'
-
-##### `service_after`
-
-Data type: `String`
-
-
-
-Default value: 'network-online.target'
-
-##### `service_limit_no_file`
-
-Data type: `Integer`
-
-
-
-Default value: 65536
-
-##### `service_kill_mode`
-
-Data type: `String`
-
-
-
-Default value: 'control-group'
-
-##### `service_restart`
-
-Data type: `String`
-
-
-
-Default value: 'on-failure'
-
-##### `service_wanted_by`
-
-Data type: `String`
-
-
-
-Default value: 'multi-user.target'
-
-##### `service_alias`
-
-Data type: `String`
-
-
-
-Default value: 'influxd.service'
 
 ### influxdb::config
 
