@@ -6,26 +6,26 @@
 ###
 
 [[opentsdb]]
-  # enabled = <%= @opentsdb_enabled %>
-  # bind-address = "<%= @opentsdb_bind_address %>"
-  # database = "<%= @opentsdb_database %>"
-  # retention-policy = "<%= @opentsdb_retention_policy %>"
-  # consistency-level = "<%= @opentsdb_consistency_level %>"
-  # tls-enabled = <%= @opentsdb_tls_enabled %>
-  # certificate= "<%= @opentsdb_certificate %>"
+  enabled = <%= scope.lookupvar("opentsdb_enabled") %>
+  bind-address = "<%= scope.lookupvar("opentsdb_bind_address") %>"
+  database = "<%= scope.lookupvar("opentsdb_database") %>"
+  retention-policy = "<%= scope.lookupvar("opentsdb_retention_policy") %>"
+  consistency-level = "<%= scope.lookupvar("opentsdb_consistency_level") %>"
+  tls-enabled = <%= scope.lookupvar("opentsdb_tls_enabled") %>
+  certificate= "<%= scope.lookupvar("opentsdb_certificate") %>"
 
   # Log an error for every malformed point.
-  # log-point-errors = <%= @opentsdb_log_point_errors %>
+  log-point-errors = <%= scope.lookupvar("opentsdb_log_point_errors") %>
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Only points
   # metrics received over the telnet protocol undergo batching.
 
   # Flush if this many points get buffered
-  # batch-size = <%= @opentsdb_batch_size %>
+  batch-size = <%= scope.lookupvar("opentsdb_batch_size") %>
 
   # Number of batches that may be pending in memory
-  # batch-pending = <%= @opentsdb_batch_pending %>
+  batch-pending = <%= scope.lookupvar("opentsdb_batch_pending") %>
 
   # Flush at least this often even if we haven't hit buffer limit
-  # batch-timeout = "<%= @opentsdb_batch_timeout %>"
+  batch-timeout = "<%= scope.lookupvar("opentsdb_batch_timeout") %>"

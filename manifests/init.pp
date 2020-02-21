@@ -52,6 +52,10 @@ class influxdb (
   Boolean $service_has_status = true,
   Boolean $service_has_restart = true,
 
+# header
+  Boolean $reporting_disabled = false,
+  String $rpc_bind_address = '127.0.0.1:8088',
+
 # meta
   String $metadata_raft = '/var/lib/influxdb/meta',
   Enum['directory', 'absent'] $metadata_raft_manage = 'directory',
@@ -146,20 +150,20 @@ class influxdb (
   Integer $write_concurrency = 40,
   Integer $write_buffer_size = 1000,
 
-# graphit
-  Boolean $graphit_enabled = false,
-  String $graphit_database = 'graphite',
-  String $graphit_retention_policy = '',
-  String $graphit_bind_address = ':2003',
-  String $graphit_protocol = 'tcp',
-  String $graphit_consistency_level = 'one',
-  Integer $graphit_batch_size = 5000,
-  Integer $graphit_batch_pending = 10,
-  String $graphit_batch_timeout = '1s',
-  Integer $graphit_udp_read_buffer = 0,
-  String $graphit_separator = '.',
-  Array[String] $graphit_tags = ['region=us-east', 'zone=1c'],
-  Array[String] $graphit_templates = [],
+# graphitee
+  Boolean $graphite_enabled = false,
+  String $graphite_database = 'graphitee',
+  String $graphite_retention_policy = '',
+  String $graphite_bind_address = ':2003',
+  String $graphite_protocol = 'tcp',
+  String $graphite_consistency_level = 'one',
+  Integer $graphite_batch_size = 5000,
+  Integer $graphite_batch_pending = 10,
+  String $graphite_batch_timeout = '1s',
+  Integer $graphite_udp_read_buffer = 0,
+  String $graphite_separator = '.',
+  Array[String] $graphite_tags = ['region=us-east', 'zone=1c'],
+  Array[String] $graphite_templates = [],
 
 # collectd
   Boolean $collectd_enabled = false,

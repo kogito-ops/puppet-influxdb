@@ -6,36 +6,36 @@
 ###
 
 [[collectd]]
-  # enabled = <%= @collectd_enabled %>
-  # bind-address = "<%= @collectd_bind_address %>"
-  # database = "<%= @collectd_database %>"
-  # retention-policy = "<%= @collectd_retention_policy %>"
+  enabled = <%= scope.lookupvar("collectd_enabled") %>
+  bind-address = "<%= scope.lookupvar("collectd_bind_address") %>"
+  database = "<%= scope.lookupvar("collectd_database") %>"
+  retention-policy = "<%= scope.lookupvar("collectd_retention_policy") %>"
   #
   # The collectd service supports either scanning a directory for multiple types
   # db files, or specifying a single db file.
-  # typesdb = "<%= @collectd_typesdb %>"
+  typesdb = "<%= scope.lookupvar("collectd_typesdb") %>"
   #
-  # security-level = ""
-  # auth-file = "<%= @collectd_auth_file %>"
+  security-level = ""
+  auth-file = "<%= scope.lookupvar("collectd_auth_file") %>"
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
   # Flush if this many points get buffered
-  # batch-size = <%= @collectd_batch_size %>
+  batch-size = <%= scope.lookupvar("collectd_batch_size") %>
 
   # Number of batches that may be pending in memory
-  # batch-pending = <%= @collectd_batch_pending %>
+  batch-pending = <%= scope.lookupvar("collectd_batch_pending") %>
 
   # Flush at least this often even if we haven't hit buffer limit
-  # batch-timeout = "<%= @collectd_batch_timeout %>"
+  batch-timeout = "<%= scope.lookupvar("collectd_batch_timeout") %>"
 
   # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
-  # read-buffer = <%= @collectd_read_buffer %>
+  read-buffer = <%= scope.lookupvar("collectd_read_buffer") %>
 
   # Multi-value plugins can be handled two ways.
   # "split" will parse and store the multi-value plugin data into separate measurements
   # "join" will parse and store the multi-value plugin as a single multi-value measurement.
   # "split" is the default behavior for backward compatibility with previous versions of influxdb.
-  # parse-multivalue-plugin = "<%= @parse_multivalue_plugin %>"
+  parse-multivalue-plugin = "<%= scope.lookupvar("parse_multivalue_plugin") %>"

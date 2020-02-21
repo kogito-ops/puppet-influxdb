@@ -9,11 +9,11 @@
 
 [shard-precreation]
   # Determines whether shard pre-creation service is enabled.
-  # enabled = <%= @shard_precreation_enabled %>
+  enabled = <%= scope.lookupvar("shard_precreation_enabled") %>
 
   # The interval of time when the check to pre-create new shards runs.
-  # check-interval = "<%= @shard_precreation_check_interval %>"
+  check-interval = "<%= scope.lookupvar("shard_precreation_check_interval") %>"
 
   # The default period ahead of the endtime of a shard group that its successor
   # group is created.
-  # advance-period = "<%= @shard_precreation_advance_period %>"
+  advance-period = "<%= scope.lookupvar("shard_precreation_advance_period") %>"

@@ -11,18 +11,18 @@
   # enabled = true
 
   # The default timeout for HTTP writes to subscribers.
-  # http-timeout = "<%= @http_timeout %>"
+  http-timeout = "<%= scope.lookupvar("http_timeout") %>"
 
   # Allows insecure HTTPS connections to subscribers.  This is useful when testing with self-
   # signed certificates.
-  # insecure-skip-verify = <%= @insecure_skip_verify %>
+  insecure-skip-verify = <%= scope.lookupvar("insecure_skip_verify") %>
 
   # The path to the PEM encoded CA certs file. If the empty string, the default system certs will be used
-  # ca-certs = "<%= @ca_certs %>"
+  ca-certs = "<%= scope.lookupvar("ca_certs") %>"
 
   # The number of writer goroutines processing the write channel.
-  # write-concurrency = <%= @write_concurrency %>
+  write-concurrency = <%= scope.lookupvar("write_concurrency") %>
 
   # The number of in-flight writes buffered in the write channel.
-  # write-buffer-size = <%= @write_buffer_size %>
+  write-buffer-size = <%= scope.lookupvar("write_buffer_size") %>
 

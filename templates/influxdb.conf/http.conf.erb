@@ -8,28 +8,28 @@
 
 [http]
   # Determines whether HTTP endpoint is enabled.
-  # enabled = <%= @http_enabled %>
+  enabled = <%= scope.lookupvar("http_enabled") %>
 
   # Determines whether the Flux query endpoint is enabled.
-  # flux-enabled = <%= @flux_enabled %>
+  flux-enabled = <%= scope.lookupvar("flux_enabled") %>
 
   # Determines whether the Flux query logging is enabled.
-  # flux-log-enabled = <%= @flux_log_enabled %>
+  flux-log-enabled = <%= scope.lookupvar("flux_log_enabled") %>
 
   # The bind address used by the HTTP service.
-  # bind-address = "<%= @bind_address%>"
+  bind-address = "<%= scope.lookupvar("bind_addres")s%>"
 
   # Determines whether user authentication is enabled over HTTP/HTTPS.
-  # auth-enabled = <%= @auth_enabled %>
+  auth-enabled = <%= scope.lookupvar("auth_enabled") %>
 
   # The default realm sent back when issuing a basic auth challenge.
-  # realm = "<%= @realm %>"
+  realm = "<%= scope.lookupvar("realm") %>"
 
   # Determines whether HTTP request logging is enabled.
-  # log-enabled = <%= @log_enabled %>
+  log-enabled = <%= scope.lookupvar("log_enabled") %>
 
   # Determines whether the HTTP write request logs should be suppressed when the log is enabled.
-  # suppress-write-log = <%= @suppress_write_log %>
+  suppress-write-log = <%= scope.lookupvar("suppress_write_log") %>
 
   # When HTTP request logging is enabled, this option specifies the path where
   # log entries should be written. If unspecified, the default is to write to stderr, which
@@ -37,70 +37,70 @@
   #
   # If influxd is unable to access the specified path, it will log an error and fall back to writing
   # the request log to stderr.
-  # access-log-path = "<%= @access_log_path %>"
+  access-log-path = "<%= scope.lookupvar("access_log_path") %>"
 
   # Filters which requests should be logged. Each filter is of the pattern NNN, NNX, or NXX where N is
   # a number and X is a wildcard for any number. To filter all 5xx responses, use the string 5xx.
   # If multiple filters are used, then only one has to match. The default is to have no filters which
   # will cause every request to be printed.
-  # access-log-status-filters = [<%= @access_log_status_filters %>]
+  access-log-status-filters = [<%= scope.lookupvar("access_log_status_filters") %>]
 
   # Determines whether detailed write logging is enabled.
-  # write-tracing = <%= @write_tracing %>
+  write-tracing = <%= scope.lookupvar("write_tracing") %>
 
   # Determines whether the pprof endpoint is enabled.  This endpoint is used for
   # troubleshooting and monitoring.
-  # pprof-enabled = <%= @pprof_enabled %>
+  pprof-enabled = <%= scope.lookupvar("pprof_enabled") %>
 
   # Enables authentication on pprof endpoints. Users will need admin permissions
   # to access the pprof endpoints when this setting is enabled. This setting has
   # no effect if either auth-enabled or pprof-enabled are set to false.
-  # pprof-auth-enabled = <%= @pprof_auth_enabled %>
+  pprof-auth-enabled = <%= scope.lookupvar("pprof_auth_enabled") %>
 
   # Enables a pprof endpoint that binds to localhost:6060 immediately on startup.
   # This is only needed to debug startup issues.
-  # debug-pprof-enabled = <%= @debug_pprof_enabled %>
+  debug-pprof-enabled = <%= scope.lookupvar("debug_pprof_enabled") %>
 
   # Enables authentication on the /ping, /metrics, and deprecated /status
   # endpoints. This setting has no effect if auth-enabled is set to false.
-  # ping-auth-enabled = <%= @ping_auth_enabled %>
+  ping-auth-enabled = <%= scope.lookupvar("ping_auth_enabled") %>
 
   # Determines whether HTTPS is enabled.
-  # https-enabled = <%= @https_enabled %>
+  https-enabled = <%= scope.lookupvar("https_enabled") %>
 
   # The SSL certificate to use when HTTPS is enabled.
-  # https-certificate = "<%= @https_certificate%>"
+  https-certificate = "<%= scope.lookupvar("https_certificat")e%>"
 
   # Use a separate private key location.
-  # https-private-key = "<%= @https_private_key %>"
+  https-private-key = "<%= scope.lookupvar("https_private_key") %>"
 
   # The JWT auth shared secret to validate requests using JSON web tokens.
-  # shared-secret = "<%= @shared_secret %>"
+  shared-secret = "<%= scope.lookupvar("shared_secret") %>"
 
   # The default chunk size for result sets that should be chunked.
-  # max-row-limit = <%= @max_row_limit%>
+  max-row-limit = <%= scope.lookupvar("max_row_limi")t%>
 
   # The maximum number of HTTP connections that may be open at once.  New connections that
   # would exceed this limit are dropped.  Setting this value to 0 disables the limit.
-  # max-connection-limit = <%= @max_connection_limit %>
+  max-connection-limit = <%= scope.lookupvar("max_connection_limit") %>
 
   # Enable http service over unix domain socket
-  # unix-socket-enabled = <%= @unix_socket_enabled %>
+  unix-socket-enabled = <%= scope.lookupvar("unix_socket_enabled") %>
 
   # The path of the unix domain socket.
-  # bind-socket = "<%= @bind_socket %>"
+  bind-socket = "<%= scope.lookupvar("bind_socket") %>"
 
   # The maximum size of a client request body, in bytes. Setting this value to 0 disables the limit.
-  # max-body-size = <%= @max_body_size %>
+  max-body-size = <%= scope.lookupvar("max_body_size") %>
 
   # The maximum number of writes processed concurrently.
   # Setting this to 0 disables the limit.
-  # max-concurrent-write-limit = <%= @max_concurrent_write_limit %>
+  max-concurrent-write-limit = <%= scope.lookupvar("max_concurrent_write_limit") %>
 
   # The maximum number of writes queued for processing.
   # Setting this to 0 disables the limit.
-  # max-enqueued-write-limit = <%= @max_enqueued_write_limit %>
+  max-enqueued-write-limit = <%= scope.lookupvar("max_enqueued_write_limit") %>
 
   # The maximum duration for a write to wait in the queue to be processed.
   # Setting this to 0 or setting max-concurrent-write-limit to 0 disables the limit.
-  # enqueued-write-timeout = <%= @enqueued_write_timeout %>
+  enqueued-write-timeout = <%= scope.lookupvar("enqueued_write_timeout") %>
