@@ -35,14 +35,11 @@
 
   ### Default tags that will be added to all metrics.  These can be overridden at the template level
   ### or by tags extracted from metric
-  tags = [<%= scope.lookupvar("influxdb::graphite_tags") %>]
+  tags = <%= scope.lookupvar("influxdb::graphite_tags") %>
 
   ### Each template line requires a template pattern.  It can have an optional
   ### filter before the template and separated by spaces.  It can also have optional extra
   ### tags following the template.  Multiple tags should be separated by commas and no spaces
   ### similar to the line protocol format.  There can be only one default template.
-  # templates = [
-  #   "*.app env.service.resource.measurement",
-  #   # Default template
-  #   "server.*",
-  # ]
+  # templates = <%= scope.lookupvar("influxdb::graphite_templates") %>
+

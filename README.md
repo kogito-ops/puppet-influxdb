@@ -20,7 +20,7 @@ It can be used as a Puppet module.
 
 ### What InfluxDB affects
 
-Default settings will start service "influxdb" right away after installation.
+Default configuration starts service "influxdb" immediately.
 
 ### Setup Requirements
 
@@ -39,11 +39,14 @@ Default settings will start service "influxdb" right away after installation.
 -   puppet
     version >= 5.5.8 < 7.0.0
 
+For an extensive list of requirements, see metadata.json
+
 ### Beginning with InfluxDB
 
 The module comes along with several configuration files, which you can find in "templates".
+Change configuration settings in according hiera level.
 
-- InfluxDB.conf.erb and directory influxdb.conf
+- influxdb.conf.erb and directory influxdb.conf
 - service-defaults.erb
 - systemd.service.erb
 
@@ -64,7 +67,7 @@ Please see document REFERENCE.md.
 
 ## Limitations
 
--   Please be aware that this module uses Hiera.
+-   Please be aware that this module uses "hiera".
 
 -   Tests had been executed on:
     - CentOS 7
@@ -76,16 +79,16 @@ For an extensive list of supported operating systems, see metadata.json
 
 ## Development
 
--   "pdk-version": "1.15.0",
-    "template-url": "pdk-default#1.15.0",
-    "template-ref": "tags/1.15.0-0-g0bc522e"
+-   pdk-version     1.15.0
+-   template-url    pdk-default 1.15.0
+-   template-ref    tags/1.15.0-0-g0bc522e
 
 
 ## Release Notes/Contributors/Etc.
 
--   "name": "kogitoapp-influxdb",
-    "version": "0.1.0",
-    "author": "Kogito UG <hello@kogito.network>",
-    "summary": "Module for configuring InfluxDB",
-    "license": "Apache-2.0",
-    "source": "https://github.com/kogitoapp/puppet-influxdb",
+-   module:     kogitoapp-influxdb
+-   version:    0.1.0
+-   author:     Kogito UG <hello@kogito.network>
+-   summary:    Module for configuring InfluxDB
+-   license:    Apache-2.0
+-   source:     https://github.com/kogitoapp/puppet-influxdb
