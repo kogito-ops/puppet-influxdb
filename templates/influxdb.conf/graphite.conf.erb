@@ -7,35 +7,35 @@
 
 [[graphite]]
   Determines whether the graphite endpoint is enabled.
-  enabled = <%= scope.lookupvar("graphite_enabled") %>
-  database = "<%= scope.lookupvar("graphite_database") %>"
-  retention-policy = "<%= scope.lookupvar("graphite_retention_policy") %>"
-  bind-address = "<%= scope.lookupvar("graphite_bind_address") %>"
-  protocol = "<%= scope.lookupvar("graphite_protocol") %>"
-  consistency-level = "<%= scope.lookupvar("graphite_consistency_level") %>"
+  enabled = <%= scope.lookupvar("influxdb::graphite_enabled") %>
+  database = "<%= scope.lookupvar("influxdb::graphite_database") %>"
+  retention-policy = "<%= scope.lookupvar("influxdb::graphite_retention_policy") %>"
+  bind-address = "<%= scope.lookupvar("influxdb::graphite_bind_address") %>"
+  protocol = "<%= scope.lookupvar("influxdb::graphite_protocol") %>"
+  consistency-level = "<%= scope.lookupvar("influxdb::graphite_consistency_level") %>"
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
   # Flush if this many points get buffered
-  batch-size = <%= scope.lookupvar("graphite_batch_size") %>
+  batch-size = <%= scope.lookupvar("influxdb::graphite_batch_size") %>
 
   # number of batches that may be pending in memory
-  batch-pending = <%= scope.lookupvar("graphite_batch_pending") %>
+  batch-pending = <%= scope.lookupvar("influxdb::graphite_batch_pending") %>
 
   # Flush at least this often even if we haven't hit buffer limit
-  batch-timeout = "<%= scope.lookupvar("graphite_batch_timeout") %>"
+  batch-timeout = "<%= scope.lookupvar("influxdb::graphite_batch_timeout") %>"
 
   # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
-  udp-read-buffer = <%= scope.lookupvar("graphite_udp_read_buffer") %>
+  udp-read-buffer = <%= scope.lookupvar("influxdb::graphite_udp_read_buffer") %>
 
   ### This string joins multiple matching 'measurement' values providing more control over the final measurement name.
-  separator = "<%= scope.lookupvar("graphite_separator") %>"
+  separator = "<%= scope.lookupvar("influxdb::graphite_separator") %>"
 
   ### Default tags that will be added to all metrics.  These can be overridden at the template level
   ### or by tags extracted from metric
-  tags = [<%= scope.lookupvar("graphite_tags") %>]
+  tags = [<%= scope.lookupvar("influxdb::graphite_tags") %>]
 
   ### Each template line requires a template pattern.  It can have an optional
   ### filter before the template and separated by spaces.  It can also have optional extra

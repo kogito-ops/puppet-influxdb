@@ -8,10 +8,10 @@
 
 [meta]
   # Where the metadata/raft database is stored
-  dir = "<%= scope.lookupvar("metadata_raft") %>"
+  dir = "<%= scope.lookupvar("influxdb::metadata_raft") %>"
 
   # Automatically create a default retention policy when creating a database.
-  retention-autocreate = <%= scope.lookupvar("retention_autocreate") %>
+  retention-autocreate = <%= scope.lookupvar("influxdb::retention_autocreate") %>
 
   # If log messages are printed for the meta service
-  logging-enabled = <%= scope.lookupvar("logging_enabled") %>
+  logging-enabled = <%= scope.lookupvar("influxdb::logging_enabled") %>

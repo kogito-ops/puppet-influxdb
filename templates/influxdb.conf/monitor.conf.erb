@@ -10,10 +10,10 @@
 
 [monitor]
   # Whether to record statistics internally.
-  store-enabled = <%= scope.lookupvar("store_enabled") %>
+  store-enabled = <%= scope.lookupvar("influxdb::store_enabled") %>
 
   # The destination database for recorded statistics
-  store-database = "<%= scope.lookupvar("store_database") %>"
+  store-database = "<%= scope.lookupvar("influxdb::store_database") %>"
 
   # The interval at which to record statistics
-  store-interval = "<%= scope.lookupvar("store_interval") %>"
+  store-interval = "<%= scope.lookupvar("influxdb::store_interval") %>"

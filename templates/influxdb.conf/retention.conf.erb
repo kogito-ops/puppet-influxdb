@@ -7,7 +7,7 @@
 
 [retention]
   # Determines whether retention policy enforcement enabled.
-  enabled = <%= scope.lookupvar("retention_enabled") %>
+  enabled = <%= scope.lookupvar("influxdb::retention_enabled") %>
 
   # The interval of time when retention policy enforcement checks run.
-  check-interval = "<%= scope.lookupvar("retention_check_interval") %>"
+  check-interval = "<%= scope.lookupvar("influxdb::retention_check_interval") %>"

@@ -11,13 +11,13 @@
   # output format if the output terminal is a TTY, but the format is not as
   # easily machine-readable. When the output is a non-TTY, auto will use
   # logfmt.
-  format = "<%= scope.lookupvar("format") %>"
+  format = "<%= scope.lookupvar("influxdb::format") %>"
 
   # Determines which level of logs will be emitted. The available levels
   # are error, warn, info, and debug. Logs that are equal to or above the
   # specified level will be emitted.
-  level = "<%= scope.lookupvar("level") %>"
+  level = "<%= scope.lookupvar("influxdb::level") %>"
 
   # Suppresses the logo output that is printed when the program is started.
   # The logo is always suppressed if STDOUT is not a TTY.
-  suppress-logo = <%= scope.lookupvar("suppress_logo") %>
+  suppress-logo = <%= scope.lookupvar("influxdb::suppress_logo") %>
