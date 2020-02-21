@@ -60,7 +60,7 @@ class influxdb (
   String $metadata_raft = '/var/lib/influxdb/meta',
   Enum['directory', 'absent'] $metadata_raft_manage = 'directory',
   Boolean $retention_autocreate = true,
-  Boolean $logging_enalbled = true,
+  Boolean $logging_enabled = true,
 
 # data
   String $tsm_data = '/var/lib/influxdb/data',
