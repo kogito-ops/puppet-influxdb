@@ -4,17 +4,17 @@
 [Unit]
 Description=InfluxDB is an open-source, distributed, time series database
 Documentation=https://docs.influxdata.com/influxdb/
-After=<%= @service_after %>
+After=network-online.target
 
 [Service]
-User=<%= @user %>
-Group=<%= @group %>
-LimitNOFILE=<%= @service_limit_no_file %>
-EnvironmentFile=-<%= @service_defaults %>
-ExecStart=/usr/bin/influxd -config <%= @configuration_path %>/<%= @configuration_file %> $INFLUXD_OPTS
-KillMode=<%= @service_kill_mode %>
-Restart=<%= @service_restart %>
+User=<%= scope.lookupvar("influxdb::user") %>
+Group=<%= scope.lookupvar("influxdb::group") %>
+LimitNOFILE=65536
+EnvironmentFile=-<%= scope.lookupvar("influxdb::service_defaults") %>
+ExecStart=/usr/bin/influxd -config <%= scope.lookupvar("influxdb::configuration_path") %>/<%= scope.lookupvar("influxdb::configuration_file") %> $INFLUXD_OPTS
+KillMode=control-group
+Restart=on-failure
 
 [Install]
-WantedBy=<%= @service_wanted_by %>
-Alias=<%= @service_alias %>
+WantedBy=multi-user.target
+Alias=influxd.service
