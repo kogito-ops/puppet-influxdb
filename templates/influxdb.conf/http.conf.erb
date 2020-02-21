@@ -43,7 +43,7 @@
   # a number and X is a wildcard for any number. To filter all 5xx responses, use the string 5xx.
   # If multiple filters are used, then only one has to match. The default is to have no filters which
   # will cause every request to be printed.
-  access-log-status-filters = [<%= scope.lookupvar("influxdb::access_log_status_filters") %>]
+  access-log-status-filters = <%= scope.lookupvar("influxdb::access_log_status_filters") %>
 
   # Determines whether detailed write logging is enabled.
   write-tracing = <%= scope.lookupvar("influxdb::write_tracing") %>

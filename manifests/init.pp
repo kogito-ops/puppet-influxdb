@@ -150,9 +150,9 @@ class influxdb (
   Integer $write_concurrency = 40,
   Integer $write_buffer_size = 1000,
 
-# graphitee
+# graphite
   Boolean $graphite_enabled = false,
-  String $graphite_database = 'graphitee',
+  String $graphite_database = 'graphite',
   String $graphite_retention_policy = '',
   String $graphite_bind_address = ':2003',
   String $graphite_protocol = 'tcp',
@@ -163,7 +163,7 @@ class influxdb (
   Integer $graphite_udp_read_buffer = 0,
   String $graphite_separator = '.',
   Array[String] $graphite_tags = ['region=us-east', 'zone=1c'],
-  Array[String] $graphite_templates = [],
+  Array[String] $graphite_templates = ['"*.app env.service.resource.measurement"', '"server.*",'],
 
 # collectd
   Boolean $collectd_enabled = false,
