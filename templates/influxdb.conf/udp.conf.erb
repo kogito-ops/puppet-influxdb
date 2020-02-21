@@ -1,0 +1,31 @@
+
+###
+### [[udp]]
+###
+### Controls the listeners for InfluxDB line protocol data via UDP.
+###
+
+[[udp]]
+  # enabled = <%= @udp_enabled %>
+  # bind-address = "<%= @udp_bind_address %>"
+  # database = "<%= @udp_database %>"
+  # retention-policy = "<%= @udp_retention_policy %>"
+
+  # InfluxDB precision for timestamps on received points ("" or "n", "u", "ms", "s", "m", "h")
+  # precision = "<%= @udp_precision %>"
+
+  # These next lines control how batching works. You should have this enabled
+  # otherwise you could get dropped metrics or poor performance. Batching
+  # will buffer points in memory if you have many coming in.
+
+  # Flush if this many points get buffered
+  # batch-size = <%= @udp_batch_size %>
+
+  # Number of batches that may be pending in memory
+  # batch-pending = <%= @udp_batch_pending %>
+
+  # Will flush at least this often even if we haven't hit buffer limit
+  # batch-timeout = "<%= @udp_batch_timeout %>"
+
+  # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
+  # read-buffer = <%= @udp_read_buffer %>

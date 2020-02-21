@@ -1,0 +1,19 @@
+
+###
+### [shard-precreation]
+###
+### Controls the precreation of shards, so they are available before data arrives.
+### Only shards that, after creation, will have both a start- and end-time in the
+### future, will ever be created. Shards are never precreated that would be wholly
+### or partially in the past.
+
+[shard-precreation]
+  # Determines whether shard pre-creation service is enabled.
+  # enabled = <%= @shard_precreation_enabled %>
+
+  # The interval of time when the check to pre-create new shards runs.
+  # check-interval = "<%= @shard_precreation_check_interval %>"
+
+  # The default period ahead of the endtime of a shard group that its successor
+  # group is created.
+  # advance-period = "<%= @shard_precreation_advance_period %>"

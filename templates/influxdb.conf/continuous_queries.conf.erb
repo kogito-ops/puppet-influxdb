@@ -1,0 +1,19 @@
+
+###
+### [continuous_queries]
+###
+### Controls how continuous queries are run within InfluxDB.
+###
+
+[continuous_queries]
+  # Determines whether the continuous query service is enabled.
+  # enabled = <%= @cntqry_enabled %>
+
+  # Controls whether queries are logged when executed by the CQ service.
+  # log-enabled = <%= @cntqry_log_enabled %>
+
+  # Controls whether queries are logged to the self-monitoring data store.
+  # query-stats-enabled = <%= @cntqry_query_stats_enabled %>
+
+  # interval for how often continuous queries will be checked if they need to run
+  # run-interval = "<%= @cntqry_run_interval  %>"

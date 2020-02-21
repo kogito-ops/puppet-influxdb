@@ -4,8 +4,8 @@
 #   include influxdb
 class influxdb (
 
-  String $key_resource,
-  String $resource,
+  String $key_resource = '',
+  String $resource = '',
   String $software = 'influxdb',
   Enum['present', 'absent'] $gpg_manage = 'present',
   String $gpg_id = '05CE15085FC09D18E99EFB22684A14CF2582E0C5',

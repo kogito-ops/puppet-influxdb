@@ -1,0 +1,28 @@
+
+###
+### [subscriber]
+###
+### Controls the subscriptions, which can be used to fork a copy of all data
+### received by the InfluxDB host.
+###
+
+[subscriber]
+  # Determines whether the subscriber service is enabled.
+  # enabled = true
+
+  # The default timeout for HTTP writes to subscribers.
+  # http-timeout = "<%= @http_timeout %>"
+
+  # Allows insecure HTTPS connections to subscribers.  This is useful when testing with self-
+  # signed certificates.
+  # insecure-skip-verify = <%= @insecure_skip_verify %>
+
+  # The path to the PEM encoded CA certs file. If the empty string, the default system certs will be used
+  # ca-certs = "<%= @ca_certs %>"
+
+  # The number of writer goroutines processing the write channel.
+  # write-concurrency = <%= @write_concurrency %>
+
+  # The number of in-flight writes buffered in the write channel.
+  # write-buffer-size = <%= @write_buffer_size %>
+
