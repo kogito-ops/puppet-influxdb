@@ -2,20 +2,7 @@
 #
 # @example
 #   include influxdb::config
-class influxdb::config(
-  String $metadata_raft = $::influxdb::metadata_raft,
-  String $tsm_data = $::influxdb::tsm_data,
-  String $tsm_wal = $::influxdb::tsm_wal,
-  String $user = $::influxdb::user,
-  String $group = $::influxdb::group,
-  String $service_defaults = $::influxdb::service_defaults,
-  String $configuration_path = $::influxdb::configuration_path,
-  String $configuration_file = $::influxdb::configuration_file,
-
-  String $service_name = $::influxdb::service_name,
-  String $service_provider = $::influxdb::service_provider,
-  String $service_definition = $::influxdb::service_definition,
-){
+class influxdb::config{
 
   file { $::influxdb::configuration_path:
     ensure => $::influxdb::configuration_path_manage,
