@@ -1011,7 +1011,7 @@ Data type: `String`
 
 
 
-Default value: 'graphitee'
+Default value: 'graphite'
 
 ##### `graphite_retention_policy`
 
@@ -1099,7 +1099,7 @@ Data type: `Array[String]`
 
 
 
-Default value: []
+Default value: ['*.app env.service.resource.measurement', 'server.*,']
 
 ##### `collectd_enabled`
 

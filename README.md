@@ -20,7 +20,18 @@ It can be used as a Puppet module.
 
 ### What InfluxDB affects
 
-Default configuration starts service "influxdb" immediately.
+Default configuration
+
+-   manages GPG key, repository and package
+
+-   manages user and group influxdb
+
+-   manages directories and configuration files (referring to templates)
+    -   /etc/influxdb/influxdb.conf
+    -   /etc/default/influxdb
+    -   /lib/systemd/system/influxdb.service
+
+-   starts service "influxdb" immediately
 
 ### Setup Requirements
 
