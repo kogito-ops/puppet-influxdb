@@ -14,7 +14,6 @@
 ## Description
 
 Installs, configures and manages the service of an InfluxDB Server.
-It can be used as a Puppet module.
 
 ## Setup
 
@@ -27,43 +26,42 @@ Default configuration
 -   manages user and group influxdb
 
 -   manages directories and configuration files (referring to templates)
-    -   /etc/influxdb/influxdb.conf
-    -   /etc/default/influxdb
-    -   /lib/systemd/system/influxdb.service
+    -   `/etc/influxdb/influxdb.conf`
+    -   `/etc/default/influxdb`
+    -   `/lib/systemd/system/influxdb.service`
 
 -   starts service "influxdb" immediately
 
 ### Setup Requirements
 
--   puppetlabs/apt
-    version >= 2.0.0 < 8.0.0
+-   `puppetlabs/apt`
+    version `>= 2.0.0 < 8.0.0`
 
--   puppetlabs/concat
-    version >= 5.0.0 < 7.0.0
+-   `puppetlabs/concat`
+    version `>= 5.0.0 < 7.0.0`
 
--   puppetlabs/stdlib
-    version >= 4.25.0 < 7.0.0
+-   `puppetlabs/stdlib`
+    version `>= 4.25.0 < 7.0.0`
 
--   puppetlabs/translate
-    version >= 1.0.0 < 3.0.0
+-   `puppetlabs/translate`
+    version `>= 1.0.0 < 3.0.0`
 
--   puppet
-    version >= 5.5.8 < 7.0.0
+-   `puppet`
+    version `>= 5.5.8 < 7.0.0`
 
-For an extensive list of requirements, see metadata.json
+For an extensive list of requirements, see `metadata.json`.
 
 ### Beginning with InfluxDB
 
-The module comes along with several configuration files, which you can find in "templates".
-Change configuration settings in according hiera level.
+The module comes along with several configuration files, which you can find in
+`templates`. Change configuration settings in according Hiera level.
 
-- influxdb.conf.erb and directory influxdb.conf
-- service-defaults.erb
-- systemd.service.erb
+- `influxdb.conf.erb` and directory `influxdb.conf`
+- `service-defaults.erb`
+- `systemd.service.erb`
 
-All paramaters are set to default of origin files.
-
-Please refer to https://www.influxdata.com/.
+Please refer to [InfluxData documentation](https://www.influxdata.com/) for the
+defaults used.
 
 ## Usage
 
@@ -73,7 +71,7 @@ include ::influxdb
 
 ## Reference
 
-Please see document REFERENCE.md.
+Please see document `REFERENCE.md`.
 
 
 ## Limitations
@@ -85,7 +83,7 @@ Please see document REFERENCE.md.
     - Debian 10
     - Ubuntu 18.04
 
-For an extensive list of supported operating systems, see metadata.json
+For an extensive list of supported operating systems, see `metadata.json`.
 
 
 ## Development
