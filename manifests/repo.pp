@@ -2,16 +2,17 @@
 #
 # @example
 #   include influxdb::repo
-class influxdb::repo {
-
+class influxdb::repo (
+  String $key_resource = $::influxdb::key_resource,
+  String $resource = $::influxdb::resource,
+){
   $keys = lookup('influxdb::gpg_keys', Hash, 'deep', {})
   $repositories = lookup('influxdb::repositories', Hash, 'deep', {})
 
   if $keys != {} {
-    create_resources($::influxdb::key_resource, $keys)
+    create_resources($key_resource, $keys)
   }
   if $repositories != {} {
-    create_resources($::influxdb::resource, $repositories)
+    create_resources($resource, $repositories)
   }
-
 }
