@@ -13,7 +13,8 @@
 
 ## Description
 
-Installs, configures and manages the service of an InfluxDB Server.
+Installs, configures and manages the the [InfluxDB](https://github.com/influxdata/influxdb)
+time-series platform.
 
 ## Setup
 
