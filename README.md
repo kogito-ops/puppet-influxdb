@@ -1,5 +1,7 @@
 # Puppet module to manage InfluxDB Server
 
+[![Build status][travis-image]][travis-url]
+
 #### Table of Contents
 
 1. [Description](#description)
@@ -102,3 +104,6 @@ For an extensive list of supported operating systems, see `metadata.json`.
 -   summary:    Module for configuring InfluxDB
 -   license:    Apache-2.0
 -   source:     https://github.com/kogitoapp/puppet-influxdb
+
+[travis-image]: https://travis-ci.com/kogitoapp/puppet-influxdb.svg
+[travis-url]: https://travis-ci.com/kogitoapp/puppet-influxdb
