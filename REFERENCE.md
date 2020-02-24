@@ -1552,4 +1552,3 @@ Manages the service
 ```puppet
 include influxdb::service
 ```
-

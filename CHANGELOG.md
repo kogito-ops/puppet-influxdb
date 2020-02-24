@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## Release 0.1.0
 
+- [Added] pre-commit support
 - [Added] link to InfluxDB repository
 - [Improved] documentation formatting
 - [Changed] to use concat to create influxdb configuration

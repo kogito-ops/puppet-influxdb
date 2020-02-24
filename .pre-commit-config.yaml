@@ -1,0 +1,21 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks.git
+    rev: v2.4.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-executables-have-shebangs
+      - id: check-yaml
+      - id: check-xml
+      - id: end-of-file-fixer
+  - repo: https://github.com/chriskuehl/puppet-pre-commit-hooks.git
+    rev: v2.1.0
+    hooks:
+      - id: puppet-validate
+      - id: erb-validate
+      - id: epp-validate
+      - id: puppet-lint
+        args:
+          - --no-80chars-check
+          - --no-documentation-check
+          - --no-puppet_url_without_modules-check
