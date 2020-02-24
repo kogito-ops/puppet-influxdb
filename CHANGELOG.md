@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## Release 0.1.0
 
+- [Changed] to current PDK template
 - [Removed] params spec
 - [Added] Travis CI build status
 - [Added] pre-commit support
