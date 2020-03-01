@@ -6,7 +6,7 @@ class influxdb::service (
     String $service_name = $influxdb::service_name,
     Enum['running', 'absent'] $service_manage = $influxdb::service_manage,
     Boolean $service_enable = $influxdb::service_enable,
-    Booelan $service_has_status = $influxdb::service_has_status,
+    Boolean $service_has_status = $influxdb::service_has_status,
     Boolean $service_has_restart = $influxdb::service_has_restart,
     String $service_provider = $influxdb::service_provider,
 ){

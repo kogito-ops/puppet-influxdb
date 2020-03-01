@@ -3,16 +3,16 @@
 # @example
 #   include influxdb::install
 class influxdb::install (
-  String $package= $::influxdb::package,
-  Enum['present', 'absent'] $package_manage = $::influxdb::package_manage,
-  String $group = $::influxdb::group,
-  Enum['present', 'absent'] $group_manage = $::influxdb::group_manage,
-  Boolean $group_system = $::influxdb::group_system,
-  String $user = $::influxdb::user,
-  Enum['present', 'absent'] $user_manage = $::influxdb::user_manage,
-  Boolean $user_system = $::influxdb::user_system,
-  Boolean $user_manage_home = $::influxdb::user_manage_home,
-  String $user_home = $::influxdb::user_home,
+  String $package= $influxdb::package,
+  Enum['present', 'absent'] $package_manage = $influxdb::package_manage,
+  String $group = $influxdb::group,
+  Enum['present', 'absent'] $group_manage = $influxdb::group_manage,
+  Boolean $group_system = $influxdb::group_system,
+  String $user = $influxdb::user,
+  Enum['present', 'absent'] $user_manage = $influxdb::user_manage,
+  Boolean $user_system = $influxdb::user_system,
+  Boolean $user_manage_home = $influxdb::user_manage_home,
+  String $user_home = $influxdb::user_home,
 ){
   package { $package:
     ensure => $package_manage

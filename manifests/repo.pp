@@ -3,8 +3,8 @@
 # @example
 #   include influxdb::repo
 class influxdb::repo (
-  String $key_resource = $::influxdb::key_resource,
-  String $resource = $::influxdb::resource,
+  String $key_resource = $influxdb::key_resource,
+  String $resource = $influxdb::resource,
 ){
   $keys = lookup('influxdb::gpg_keys', Hash, 'deep', {})
   $repositories = lookup('influxdb::repositories', Hash, 'deep', {})
