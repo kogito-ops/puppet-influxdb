@@ -6,49 +6,47 @@ describe 'influxdb::repo', type: :class do
       let(:facts) { facts }
     end
 
-    context 'with :name => "Debian"' do
-      if facts[:name] == 'Debian'
-        let :params do
-          {
-            keys: '',
-            keys_resource: 'apt::key',
-            resource: 'apt::source',
-            repositories: '',
-          }
-        end
-
-        it { is_expected.to compile }
-      end
-    end
-
     context 'with :name => "Ubuntu"' do
       if facts[:name] == 'Ubuntu'
         let :params do
-          {
-            keys: '',
-            keys_resource: 'apt::key',
-            resource: 'apt::source',
-            repositories: '',
-          }
+        {
+        keys => lookup('influxdb::gpg_keys', Hash, 'deep', {}),
+        key_resource: 'apt::key',
+        resource: 'apt::source',
+        repositories => lookup('influxdb::repositories', Hash, 'deep', {}),
+        }
         end
+      it { is_expected.to compile }
+      end
+    end
 
-        it { is_expected.to compile }
+    context 'with :name => "Debian"' do
+      if facts[:name] == 'Debian'
+        let :params do
+        {
+        keys => lookup('influxdb::gpg_keys', Hash, 'deep', {}),
+        key_resource: 'apt::key',
+        resource: 'apt::source',
+        repositories => lookup('influxdb::repositories', Hash, 'deep', {}),
+        }
+        end
+      it { is_expected.to compile }
       end
     end
 
     context 'with :name => "CentOS"' do
       if facts[:name] == 'CentOS'
         let :params do
-          {
-            keys: '',
-            keys_resource: '',
-            resource: 'yumrepo',
-            repositories: '',
-          }
+        {
+        keys: '',
+        key_resource: '',
+        resource: 'yumrepo',
+        repositories => lookup('influxdb::repositories', Hash, 'deep', {}),
+        }
         end
-
-        it { is_expected.to compile }
+      it { is_expected.to compile }
       end
     end
+
   end
 end

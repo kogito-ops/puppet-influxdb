@@ -1,0 +1,16 @@
+---
+version: 5
+
+defaults:
+  datadir: ./spec/fixtures/hieradata
+  data_hash: yaml_data
+
+hierarchy:
+  - name: 'OS release specific defaults'
+    path: 'os/%{::os.name}-%{::os.release.major}s.yaml'
+
+  - name: 'OS specific defaults'
+    path: 'os/%{::os.name}s.yaml'
+
+  - name: 'common'
+    path: 'commons.yaml'

@@ -1,0 +1,223 @@
+---
+# - Resources ------------------------------------------------------------------
+influxdb::software: 'influxdb'
+influxdb::key_resource: ''
+influxdb::resource: ''
+influxdb::repos_manage: 'present'
+influxdb::repos_comment: 'InfluxData repository'
+influxdb::repos_release: '%{::os.distro.codename}'
+influxdb::repos: 'stable'
+influxdb::repos_src: false
+influxdb::repos_bin: true
+influxdb::repos_gpgcheck: '1'
+influxdb::repos_enable: '1'
+
+# - GPG settings ---------------------------------------------------------------
+influxdb::gpg_manage: 'present'
+influxdb::gpg_id: '05CE15085FC09D18E99EFB22684A14CF2582E0C5'
+influxdb::gpg_server: 'eu.pool.sks-keyservers.net'
+influxdb::gpg_source: 'https://repos.influxdata.com/influxdb.key'
+
+# - Package settings -----------------------------------------------------------
+influxdb::package: 'influxdb'
+influxdb::package_manage: 'present'
+
+# - Influxdb settings ----------------------------------------------------------
+influxdb::group: 'influxdb'
+influxdb::group_manage: 'present'
+influxdb::group_system: true
+influxdb::user: 'influxdb'
+influxdb::user_system: true
+influxdb::user_manage: 'present'
+influxdb::user_home: '/var/lib/'
+influxdb::configuration_path: '/etc/influxdb'
+influxdb::configuration_path_manage: 'directory'
+influxdb::configuration_file: 'influxdb.conf'
+influxdb::configuration_file_manage: 'present'
+influxdb::configuration_template: 'influxdb/influxdb.conf.erb'
+influxdb::service_defaults: '/etc/default/influxdb'
+influxdb::service_defaults_manage: 'present'
+influxdb::service_default_template: 'influxdb/service-defaults.erb'
+influxdb::service_definition: '/lib/systemd/system/influxdb.service'
+influxdb::service_definition_manage: 'present'
+influxdb::service_name: 'influxdb'
+influxdb::service_provider: 'systemd'
+influxdb::service_manage: 'running'
+influxdb::service_definition_template: 'influxdb/systemd.service.erb'
+influxdb::service_enable: true
+influxdb::service_has_status: true
+influxdb::service_has_restart: true
+
+# header -----------------------------------------------------------------------
+influxdb::reporting_disabled: false
+influxdb::rpc_bind_address: '127.0.0.1:8088'
+
+# meta -------------------------------------------------------------------------
+influxdb::metadata_raft: '/var/lib/influxdb/meta'
+influxdb::metadata_raft_manage: 'directory'
+influxdb::retention_autocreate: true
+influxdb::logging_enalbled: true
+
+# data -------------------------------------------------------------------------
+influxdb::tsm_data: '/var/lib/influxdb/data'
+influxdb::tsm_data_manage: 'directory'
+influxdb::tsm_wal: '/var/lib/influxdb/wal'
+influxdb::tsm_wal_manage: 'directory'
+influxdb::$wal_fsync_delay: '0s'
+influxdb::index_version: 'inmem'
+influxdb::trace_logging_enabled: false
+influxdb::query_log_enabled: true
+influxdb::validate_keys: false
+influxdb::cache_max_memory_size: '1g'
+influxdb::cache_snapshot_memory_size: '25m'
+influxdb::cache_snapshot_write_cold_duration: '10m'
+influxdb::compact_full_write_cold_duration: '4h'
+influxdb::max_concurrent_compactions: 0
+influxdb::compact_throughput: '48m'
+influxdb::compact_throughput_burst: '48m'
+influxdb::tsm_use_madv_willneed: false
+influxdb::max_series_per_database: 1000000
+influxdb::max_values_per_tag: 100000
+influxdb::max_index_log_file_size: '1m'
+influxdb::series_id_set_cache_size: 100
+
+# coordinator ------------------------------------------------------------------
+influxdb::write_timeout: '10s'
+influxdb::max_concurrent_queries: 0
+influxdb::query_timeout: '0s'
+influxdb::log_queries_after: '0s'
+influxdb::max_select_point: 0
+influxdb::max_select_series: 0
+influxdb::max_select_buckets: 0
+
+# retention --------------------------------------------------------------------
+influxdb::retention_enabled: true
+influxdb::retention_check_interval: '30m'
+
+# shard-precreation ------------------------------------------------------------
+influxdb::shard_precreation_enabled: true
+influxdb::shard_precreation_check_interval: '10m'
+influxdb::shard_precreation_advance_period: '30m'
+
+# monitor ----------------------------------------------------------------------
+influxdb::store_enabled: true
+influxdb::store_database: '_internal'
+influxdb::store_interval: '10s'
+
+# http -------------------------------------------------------------------------
+influxdb::http_enabled: true
+influxdb::flux_enabled: false
+influxdb::flux_log_enabled: false
+influxdb::bind_address: ':8086'
+influxdb::auth_enabled: false
+influxdb::realm: 'InfluxDB'
+influxdb::log_enabled: true
+influxdb::suppress_write_log: false
+influxdb::access_log_path: ''
+influxdb::access_log_status_filters: []
+influxdb::write_tracing: false
+influxdb::pprof_enabled: true
+influxdb::pprof_auth_enabled: false
+influxdb::debug_pprof_enabled: false
+influxdb::ping_auth_enabled: false
+influxdb::https_enabled: false
+influxdb::https_certificate: '/etc/ssl/influxdb.pem'
+influxdb::https_private_key: ''
+influxdb::shared_secret: ''
+influxdb::max_row_limit: 0
+influxdb::max_connection_limit: 0
+influxdb::unix_socket_enabled: false
+influxdb::bind_socket: '/var/run/influxdb.sock'
+influxdb::max_body_size: 25000000
+influxdb::max_concurrent_write_limit: 0
+influxdb::max_enqueued_write_limit: 0
+influxdb::enqueued_write_timeout: 0
+
+# logging ----------------------------------------------------------------------
+influxdb::format: 'auto'
+influxdb::level: 'info'
+influxdb::suppress_logo: false
+
+# subscriber -------------------------------------------------------------------
+influxdb::subsriber_enabled: true
+influxdb::http_timeout: '30s'
+influxdb::insecure_skip_verify: false
+influxdb::ca_certs: ''
+influxdb::write_concurrency: 40
+influxdb::write_buffer_size: 1000
+
+# graphite ----------------------------------------------------------------------
+influxdb::graphite_enabled: false
+influxdb::graphite_database: 'graphite'
+influxdb::graphite_retention_policy: ''
+influxdb::graphite_bind_address: ':2003'
+influxdb::graphite_protocol: 'tcp'
+influxdb::graphite_consistency_level: 'one'
+influxdb::graphite_batch_size: 5000
+influxdb::graphite_batch_pending: 10
+influxdb::graphite_batch_timeout: '1s'
+influxdb::graphite_udp_read_buffer: 0
+influxdb::graphite_separator: '.'
+influxdb::graphite_tags: ['regio:us-east', 'zon:1c']
+influxdb::graphite_templates:
+  ['*.app env.service.resource.measurement', 'server.*,']
+
+# collectd ---------------------------------------------------------------------
+influxdb::collectd_enabled: false
+influxdb::collectd_bind_address: ':25826'
+influxdb::collectd_database: 'collectd'
+influxdb::collectd_retention_policy: ''
+influxdb::collectd_typesdb: '/usr/local/share/collectd'
+influxdb::collectd_security_level: 'none'
+influxdb::collectd_auth_file: '/etc/collectd/auth_file'
+influxdb::collectd_batch_size: 5000
+influxdb::collectd_batch_pending: 10
+influxdb::collectd_batch_timeout: '10s'
+influxdb::collectd_read_buffer: 0
+influxdb::parse_multivalue_plugin: 'split'
+
+# opentsdb ---------------------------------------------------------------------
+influxdb::opentsdb_enabled: false
+influxdb::opentsdb_bind_address: ':4242'
+influxdb::opentsdb_database: 'opentsdb'
+influxdb::opentsdb_retention_policy: ''
+influxdb::opentsdb_consistency_level: 'one'
+influxdb::opentsdb_tls_enabled: false
+influxdb::opentsdb_certificat: '/etc/ssl/influxdb.pem'
+influxdb::opentsdb_log_point_errors: true
+influxdb::opentsdb_batch_size: 1000
+influxdb::opentsdb_batch_pending: 5
+influxdb::opentsdb_batch_timeout: '1s'
+
+# udp --------------------------------------------------------------------------
+influxdb::udp_enabled: false
+influxdb::udp_bind_address: ':8089'
+influxdb::udp_database: 'udp'
+influxdb::udp_retention_policy: ''
+influxdb::udp_precision: ''
+influxdb::udp_batch_size: 5000
+influxdb::udp_batch_pending: 10
+influxdb::udp_batch_timeout: '1s'
+influxdb::udp_read_buffer: 0
+
+# continuous queries - cntqry --------------------------------------------------
+influxdb::cntqry_enabled: true
+influxdb::cntqry_log_enabled: true
+influxdb::cntqry_query_stats_enabled: false
+influxdb::cntqry_run_interval: '1s'
+
+# tls --------------------------------------------------------------------------
+influxdb::tls_ciphers:
+  [
+    'TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305',
+    'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256',
+  ]
+influxdb::tls_min_version: 'tls1.2'
+influxdb::tls_max_version: 'tls1.2'
+
+# - Merge behavior settings ----------------------------------------------------
+influxdb::lookup_options:
+  gpg_keys:
+    merge: deep
+  repositories:
+    merge: deep

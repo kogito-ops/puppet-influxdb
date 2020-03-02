@@ -4,7 +4,7 @@ fixtures:
   forge_modules:
     apt:
       repo: 'puppetlabs/apt'
-      ref: '7.3.0'
+      ref: '6.3.0'
     stdlib:
       repo: 'puppetlabs/stdlib'
       ref: '5.2.0'
@@ -14,3 +14,5 @@ fixtures:
     concat:
       repo: 'puppetlabs/concat'
       ref: '6.2.0'
+  symlinks:
+    influxdb: '#{source_dir}'
