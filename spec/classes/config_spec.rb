@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe 'influxdb::config', type: :class do
   on_supported_os.each do |os, os_facts|
-    context "on #{os}" do
-      let(:facts) { os_facts }
-    end
-
     context 'with all defaults' do
       let :params do
         {
