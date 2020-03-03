@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'influxdb::service', type: :class do
-  on_supported_os.each do |os, os_facts|
+  on_supported_os.each do
     context 'with all defaults' do
       let :params do
         {

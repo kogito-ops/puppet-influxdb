@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'influxdb::repo', type: :class do
-  on_supported_os.each do |os, facts|
+  on_supported_os.each do |facts|
     context 'with :name => "Ubuntu"' do
       if facts[:name] == 'Ubuntu'
         let :params do
