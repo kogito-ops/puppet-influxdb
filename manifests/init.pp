@@ -214,11 +214,21 @@ class influxdb (
   String $tls_min_version = 'tls1.2',
   String $tls_max_version = 'tls1.2',
 
+# dbuser
+  String $admin_username = 'admin',
+  String $admin_password = 'test123',
+  String $dbuser_path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
+  String $dbuser_ssl = 'influx -ssl -unsafeSsl',
+  String $dbuser_no_ssl = 'influxdb',
+  Hash $dbusers = {},
+  String $cmd_show = "-execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x",
+
 ){
 
   include ::influxdb::repo
   include ::influxdb::install
   include ::influxdb::config
+  include ::influxdb::dbusers
   contain ::influxdb::service
 
   Class['influxdb::repo'] ~> Class['influxdb::install']
