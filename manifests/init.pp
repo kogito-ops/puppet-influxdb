@@ -217,20 +217,22 @@ class influxdb (
 # dbuser
   String $admin_username = 'admin',
   String $admin_password = 'test123',
-  String $dbuser_path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
-  String $dbuser_ssl = 'influx -ssl -unsafeSsl',
-  String $dbuser_no_ssl = 'influxdb',
-  Hash $dbusers = {},
-  String $cmd_show = "-execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x",
+  Hash $users = {},
 
 ){
 
   include ::influxdb::repo
   include ::influxdb::install
   include ::influxdb::config
-  include ::influxdb::dbusers
+  include ::influxdb::dbuser
   contain ::influxdb::service
 
   Class['influxdb::repo'] ~> Class['influxdb::install']
   Class['influxdb::install'] ~> Class['influxdb::config', 'influxdb::service']
+
+$users.each | $user_name, $user_config | {
+    influxdb::user { $user_name:
+      * => $user_config,
+    }
+  }
 }

@@ -216,18 +216,13 @@ influxdb::tls_min_version: 'tls1.2'
 influxdb::tls_max_version: 'tls1.2'
 
 # dbuser -----------------------------------------------------------------------
-influxdb::dbuser_path: '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin'
-influxdb::dbuser_ssl: 'influx -ssl -unsafeSsl'
-influxdb::dbuser_no_ssl: 'influxdb'
-#influxdb::cmd_show: '"-execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x"'
-
-inxluxdb::dbusers:
-  dbuser1:
+inxluxdb::users:
+  user1:
     passwd: undef
     ensure: present
     arg_p: 'WITH PASSWORD'
     arg_a: 'WITH ALL PRIVILEGES'
-  dbuser2:
+  user2:
     passwd: undef
     ensure: present
     arg_p: 'WITH PASSWORD'
