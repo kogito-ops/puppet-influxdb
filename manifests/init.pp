@@ -219,7 +219,7 @@ class influxdb (
   String $admin_password = 'test123',
   Hash $users = {},
   Hash $users_privileges = {},
-  Hash $database = {},
+  Hash $databases = {},
 
 ){
 
@@ -230,6 +230,12 @@ class influxdb (
 
   Class['influxdb::repo'] ~> Class['influxdb::install']
   Class['influxdb::install'] ~> Class['influxdb::config', 'influxdb::service']
+
+$databases.each | $database_name, $database_config | {
+    influxdb::user { $database_name:
+      * => $database_config,
+    }
+  }
 
 $users.each | $user_name, $user_config | {
     influxdb::user { $user_name:

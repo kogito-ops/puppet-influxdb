@@ -240,7 +240,7 @@ inxluxdb::users_privileges:
     database: database1
 
   # database ---------------------------------------------------------------------
-  influxdb::database:
+  influxdb::databases:
     database1:
       ensure: present
 
