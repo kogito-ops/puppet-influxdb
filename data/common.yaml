@@ -228,6 +228,22 @@ inxluxdb::users:
     arg_p: 'WITH PASSWORD'
     arg_a: ' '
 
+# user privilege ---------------------------------------------------------------
+inxluxdb::users_privileges:
+  user1:
+    ensure: present
+    privilege: 'ALL'
+    database: database1
+  user2:
+    ensure: absent
+    privilege: 'WRITE'
+    database: database1
+
+  # database ---------------------------------------------------------------------
+  influxdb::database:
+    database1:
+      ensure: present
+
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:
   gpg_keys:
