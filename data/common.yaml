@@ -215,7 +215,7 @@ influxdb::tls_ciphers:
 influxdb::tls_min_version: 'tls1.2'
 influxdb::tls_max_version: 'tls1.2'
 
-# dbuser -----------------------------------------------------------------------
+# user -----------------------------------------------------------------------
 inxluxdb::users:
   user1:
     passwd: undef

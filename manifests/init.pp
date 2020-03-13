@@ -214,7 +214,7 @@ class influxdb (
   String $tls_min_version = 'tls1.2',
   String $tls_max_version = 'tls1.2',
 
-# dbuser
+# user
   String $admin_username = 'admin',
   String $admin_password = 'test123',
   Hash $users = {},
@@ -224,7 +224,6 @@ class influxdb (
   include ::influxdb::repo
   include ::influxdb::install
   include ::influxdb::config
-  include ::influxdb::dbuser
   contain ::influxdb::service
 
   Class['influxdb::repo'] ~> Class['influxdb::install']
