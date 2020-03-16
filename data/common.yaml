@@ -215,7 +215,7 @@ influxdb::tls_ciphers:
 influxdb::tls_min_version: 'tls1.2'
 influxdb::tls_max_version: 'tls1.2'
 
-# user -----------------------------------------------------------------------
+# user -------------------------------------------------------------------------
 inxluxdb::users:
   user1:
     passwd: undef
@@ -233,16 +233,27 @@ inxluxdb::users_privileges:
   user1:
     ensure: present
     privilege: 'ALL'
-    database: database1
+    database: 'database1'
   user2:
     ensure: absent
     privilege: 'WRITE'
-    database: database1
+    database: 'database1'
 
-  # database ---------------------------------------------------------------------
+  # database -------------------------------------------------------------------
   influxdb::databases:
     database1:
       ensure: present
+
+  # database retention-----------------------------------------------------------
+  influxdb::retentions:
+    retention1:
+      database: 'database1'
+      action: 'create'
+      policy: 'retention1'
+      duration: '23h60m'
+      replication: 1
+      shard_duration: '2h'
+      default: 'DEFAULT'
 
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:

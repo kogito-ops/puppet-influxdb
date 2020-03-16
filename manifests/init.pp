@@ -214,12 +214,13 @@ class influxdb (
   String $tls_min_version = 'tls1.2',
   String $tls_max_version = 'tls1.2',
 
-# database, user, privilege
+# database, user, privilege, retention
   String $admin_username = 'admin',
   String $admin_password = 'test123',
   Hash $users = {},
   Hash $users_privileges = {},
   Hash $databases = {},
+  Hash $retentions = {},
 
 ){
 
@@ -246,6 +247,12 @@ $users.each | $user_name, $user_config | {
 $users_privileges.each | $user_name, $user_privilege | {
     influxdb::privileges { $user_name:
       * => $user_privilege,
+    }
+  }
+
+$retentions.each | $retention_name, $retention | {
+    influxdb::privileges { $retention_name:
+      * => $retention,
     }
   }
 }
