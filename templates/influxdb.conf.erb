@@ -13,4 +13,4 @@
 reporting-disabled = <%= scope.lookupvar("influxdb::reporting_disabled") %>
 
 # Bind address to use for the RPC service for backup and restore.
-bind-address = <%= scope.lookupvar("influxdb::rpc_bind_address") %>
+bind-address = "<%= scope.lookupvar("influxdb::rpc_bind_address") %>"
