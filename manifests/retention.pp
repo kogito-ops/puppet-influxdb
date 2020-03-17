@@ -15,7 +15,7 @@ define influxdb::retention (
   String $policy = 'retention1',
   String $duration = '23h60m',
   Integer $replication = 1,
-  Boolean $default = true,
+  String $default = 'DEFAULT',
   String $shard_duration = '2h',
   String $https_enable = $influxdb::https_enable,
   String $http_auth_enabled = $influxdb::http_auth_enabled,
@@ -33,18 +33,8 @@ if ($http_auth_enabled == true) {
   else {
     $cmd_admin = ''}
 
-  if ($action == 'drop') {
-    exec { "drop_retention_${retention}_on_${database}":
-      path    => $path,
-      command =>
-        "${cmd} ${cmd_admin} \
-        -execute 'DROP RETENTION POLICY ${retention} ON \"${database}\"'",
-      onlyif  =>
-        "${cmd} ${cmd_admin} \
-        '-execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
-      require => Class['influxdb']
-    }
-  } elsif ($action == 'create') {
+  case $action {
+  'create': {
     exec {"create_retention_${retention}":
       path    => $path,
       command =>
@@ -55,9 +45,11 @@ if ($http_auth_enabled == true) {
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
-      requiry => Class['influxdb']
-    } elseif ($action == 'alter') {
-          exec {"create_retention_${retention}":
+      require => Class['influxdb']
+    }
+  }
+  'alter': {
+    exec {"alter_retention_${retention}":
       path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
@@ -67,7 +59,20 @@ if ($http_auth_enabled == true) {
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
-      requiry => Class['influxdb']
+      require => Class['influxdb']
     }
   }
+  'drop': {
+    exec { "drop_retention_${retention}_on_${database}":
+      path    => $path,
+      command =>
+        "${cmd} ${cmd_admin} \
+        -execute 'DROP RETENTION POLICY ${retention} ON \"${database}\"'",
+      onlyif  =>
+        "${cmd} ${cmd_admin} \
+        '-execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
+      require => Class['influxdb']
+    }
+  }
+  default: {}
 }

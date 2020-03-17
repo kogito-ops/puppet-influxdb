@@ -13,7 +13,7 @@ define influxdb::user (
   Enum['present', 'absent'] $ensure = 'present',
   String $arg_p = 'WITH PASSWORD',
   String $arg_a = 'WITH ALL PRIVILEGES',
-  String $user_path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
+  String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   String $https_enable = $influxdb::https_enable,
   String $http_auth_enabled = $influxdb::http_auth_enabled,
   String $admin_username = $influxdb::admin_username,
@@ -33,7 +33,7 @@ if ($http_auth_enabled == true) {
 
   if ($ensure == 'absent') {
     exec { "drop_user_${title}":
-      path    => $user_path,
+      path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
         -execute 'DROP USER \"${title}\"'",
@@ -46,7 +46,7 @@ if ($http_auth_enabled == true) {
     $arg_p = "'${arg_p}' '${passwd}'"
 
     exec { "create_user_${title}":
-      path    => $user_path,
+      path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
         -execute \"CREATE USER \\\"${title}\\\" ${arg_p} ${arg_a}\"",

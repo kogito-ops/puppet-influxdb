@@ -237,7 +237,7 @@ class influxdb (
   Class['influxdb::install'] ~> Class['influxdb::config', 'influxdb::service']
 
 $databases.each | $database_name, $database_config | {
-    influxdb::user { $database_name:
+    influxdb::database { $database_name:
       * => $database_config,
     }
   }
@@ -249,13 +249,13 @@ $users.each | $user_name, $user_config | {
   }
 
 $users_privileges.each | $user_name, $user_privilege | {
-    influxdb::privileges { $user_name:
+    influxdb::privilege { $user_name:
       * => $user_privilege,
     }
   }
 
 $retentions.each | $retention_name, $retention | {
-    influxdb::privileges { $retention_name:
+    influxdb::retention { $retention_name:
       * => $retention,
     }
   }

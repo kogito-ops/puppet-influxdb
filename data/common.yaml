@@ -220,7 +220,7 @@ influxdb::tls_max_version: 'tls1.2'
 
 # user -------------------------------------------------------------------------
 inxluxdb::users:
-  admin1:
+  admin:
     passwd: 'test123'
     ensure: present
     arg_p: 'WITH PASSWORD'
@@ -257,6 +257,9 @@ inxluxdb::users_privileges:
       replication: 1
       shard_duration: '2h'
       default: 'DEFAULT'
+
+  influxdb::admin_username: 'admin'
+  influxdb::admin_password: 'test123'
 
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:
