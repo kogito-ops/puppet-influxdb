@@ -162,8 +162,12 @@ class influxdb (
   String $graphite_batch_timeout = '1s',
   Integer $graphite_udp_read_buffer = 0,
   String $graphite_separator = '.',
-  Array[String] $graphite_tags = ['region=us-east', 'zone=1c'],
-  Array[String] $graphite_templates = ['*.app env.service.resource.measurement', 'server.*'],
+  Array[String] $graphite_tags = ['region=us-west', 'zone=1a'],
+  Array[String] $graphite_templates = [
+    '*.app env.service.resource.measurement',
+    # Default template
+    'server.*',
+  ],
 
 # collectd
   Boolean $collectd_enabled = false,

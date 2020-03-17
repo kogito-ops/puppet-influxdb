@@ -158,9 +158,12 @@ influxdb::graphite_batch_pending: 10
 influxdb::graphite_batch_timeout: '1s'
 influxdb::graphite_udp_read_buffer: 0
 influxdb::graphite_separator: '.'
-influxdb::graphite_tags: ['region:us-east', 'zone:1c']
-influxdb::graphite_templates:
-  ['*.app env.service.resource.measurement', 'server.*,']
+influxdb::graphite_tags: ['region=us-west', 'zone=1a']
+influxdb::graphite_templates: [
+    '*.app env.service.resource.measurement',
+    # Default template
+    'server.*',
+  ]
 
 # collectd ---------------------------------------------------------------------
 influxdb::collectd_enabled: false
@@ -217,8 +220,8 @@ influxdb::tls_max_version: 'tls1.2'
 
 # user -------------------------------------------------------------------------
 inxluxdb::users:
-  user1:
-    passwd: undef
+  admin1:
+    passwd: 'test123'
     ensure: present
     arg_p: 'WITH PASSWORD'
     arg_a: 'WITH ALL PRIVILEGES'
