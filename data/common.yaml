@@ -226,40 +226,40 @@ inxluxdb::users:
     arg_p: 'WITH PASSWORD'
     arg_a: 'WITH ALL PRIVILEGES'
   user2:
-    passwd: undef
+    passwd: 'test456'
     ensure: present
     arg_p: 'WITH PASSWORD'
     arg_a: ' '
 
 # user privilege ---------------------------------------------------------------
 inxluxdb::users_privileges:
-  user1:
+  ludwig:
     ensure: present
     privilege: 'ALL'
     database: 'database1'
-  user2:
+  beethoven:
     ensure: absent
     privilege: 'WRITE'
     database: 'database1'
 
-  # database -------------------------------------------------------------------
-  influxdb::databases:
-    database1:
-      ensure: present
+# database ---------------------------------------------------------------------
+influxdb::databases:
+  database1:
+    ensure: present
 
-  # database retention-----------------------------------------------------------
-  influxdb::retentions:
-    retention1:
-      database: 'database1'
-      action: 'create'
-      policy: 'retention1'
-      duration: '23h60m'
-      replication: 1
-      shard_duration: '2h'
-      default: 'DEFAULT'
+# database retention -----------------------------------------------------------
+influxdb::retentions:
+  retention1:
+    database: 'database1'
+    action: 'create'
+    policy: 'retention1'
+    duration: '23h60m'
+    replication: 1
+    shard_duration: '2h'
+    default: 'DEFAULT'
 
-  influxdb::admin_username: 'admin'
-  influxdb::admin_password: 'test123'
+influxdb::admin_username: 'ludwig'
+influxdb::admin_password: 'test123'
 
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:
@@ -267,3 +267,19 @@ influxdb::lookup_options:
     merge: deep
   repositories:
     merge: deep
+  databases:
+    merge:
+      strategy: deep
+      merge_hash_arrays: true
+  users:
+    merge:
+      strategy: deep
+      merge_hash_arrays: true
+  privileges:
+    merge:
+      strategy: deep
+      merge_hash_arrays: true
+  retentions:
+    merge:
+      strategy: deep
+      merge_hash_arrays: true

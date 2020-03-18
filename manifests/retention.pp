@@ -6,8 +6,6 @@
 # @example
 #   influxdb::retention { 'retention': }
 define influxdb::retention (
-  String $cmd = 'influx',
-  String $cmd_admin = '',
   String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   String $retention = $title,
   String $database = 'database1',
@@ -17,18 +15,18 @@ define influxdb::retention (
   Integer $replication = 1,
   String $default = 'DEFAULT',
   String $shard_duration = '2h',
-  String $https_enable = $influxdb::https_enable,
-  String $http_auth_enabled = $influxdb::http_auth_enabled,
+  Boolean $https_enabled = $influxdb::https_enabled,
+  Boolean $auth_enabled = $influxdb::auth_enabled,
   String $admin_username = $influxdb::admin_username,
   String $admin_password = $influxdb::admin_password,
 ) {
 
-if ($https_enable == true) {
+if ($https_enabled == true) {
   $cmd = 'influx -ssl -unsafeSsl'}
     else {
       $cmd = 'influx'}
 
-if ($http_auth_enabled == true) {
+if ($auth_enabled == true) {
   $cmd_admin = "-username ${admin_username} -password ${admin_password}" }
   else {
     $cmd_admin = ''}
@@ -45,7 +43,6 @@ if ($http_auth_enabled == true) {
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
-      require => Class['influxdb']
     }
   }
   'alter': {
@@ -59,7 +56,6 @@ if ($http_auth_enabled == true) {
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
-      require => Class['influxdb']
     }
   }
   'drop': {
@@ -71,8 +67,8 @@ if ($http_auth_enabled == true) {
       onlyif  =>
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
-      require => Class['influxdb']
     }
   }
   default: {}
+  }
 }
