@@ -7,7 +7,7 @@ describe 'influxdb::repo', type: :class do
         {
           key_resource: '',
           resource: '',
-          manage_repo: true
+          manage_repo: true,
         }
       end
 
