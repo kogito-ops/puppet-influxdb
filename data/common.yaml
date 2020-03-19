@@ -11,6 +11,7 @@ influxdb::repos_src: false
 influxdb::repos_bin: true
 influxdb::repos_gpgcheck: '1'
 influxdb::repos_enable: '1'
+influxdb::manage_repo: true
 
 # - GPG settings ---------------------------------------------------------------
 influxdb::gpg_manage: 'present'

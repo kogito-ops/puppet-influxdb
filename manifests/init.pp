@@ -21,6 +21,7 @@ class influxdb (
   Boolean $repos_bin = true,
   Enum['1', '0'] $repos_gpgcheck = '1',
   Enum['1', '0'] $repos_enable = '1',
+  Boolean $manage_repo = true,
 
   String $package= 'influxdb',
   Enum['present', 'absent'] $package_manage= 'present',
@@ -236,25 +237,25 @@ class influxdb (
   Class['influxdb::repo'] ~> Class['influxdb::install']
   Class['influxdb::install'] ~> Class['influxdb::config', 'influxdb::service']
 
-$databases.each | $database_name, $database_config | {
+  $databases.each | $database_name, $database_config | {
     influxdb::database { $database_name:
       * => $database_config,
     }
   }
 
-$users.each | $user_name, $user_config | {
+  $users.each | $user_name, $user_config | {
     influxdb::user { $user_name:
       * => $user_config,
     }
   }
 
-$users_privileges.each | $user_name, $user_privilege | {
+  $users_privileges.each | $user_name, $user_privilege | {
     influxdb::privilege { $user_name:
       * => $user_privilege,
     }
   }
 
-$retentions.each | $retention_name, $retention | {
+  $retentions.each | $retention_name, $retention | {
     influxdb::retention { $retention_name:
       * => $retention,
     }

@@ -14,5 +14,8 @@ fixtures:
     concat:
       repo: 'puppetlabs/concat'
       ref: '6.2.0'
+    yumrepo_core:
+      repo: 'puppetlabs/yumrepo_core'
+      ref: '1.0.6'
   symlinks:
     influxdb: '#{source_dir}'

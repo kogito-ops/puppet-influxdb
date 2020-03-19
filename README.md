@@ -24,7 +24,10 @@ time-series platform.
 
 Default configuration
 
--   manages GPG key, repository and package
+-   manages GPG key, repository
+        (use `$manage_repo` to deactivate when another influxdata module takes the lead)
+
+-   manages package
 
 -   manages user and group influxdb
 
