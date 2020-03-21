@@ -220,20 +220,20 @@ influxdb::tls_min_version: 'tls1.2'
 influxdb::tls_max_version: 'tls1.2'
 
 # user -------------------------------------------------------------------------
-inxluxdb::users:
-  admin:
+influxdb::users:
+  ludwig:
     passwd: 'test123'
     ensure: present
     arg_p: 'WITH PASSWORD'
     arg_a: 'WITH ALL PRIVILEGES'
-  user2:
+  beethoven:
     passwd: 'test456'
     ensure: present
     arg_p: 'WITH PASSWORD'
     arg_a: ' '
 
 # user privilege ---------------------------------------------------------------
-inxluxdb::users_privileges:
+influxdb::users_privileges:
   ludwig:
     ensure: present
     privilege: 'ALL'
@@ -254,10 +254,14 @@ influxdb::retentions:
     database: 'database1'
     action: 'create'
     policy: 'retention1'
-    duration: '23h60m'
+    duration: '23h59m'
     replication: 1
     shard_duration: '2h'
     default: 'DEFAULT'
+  autogen:
+    database: 'database1'
+    action: 'alter'
+    default: ''
 
 influxdb::admin_username: 'ludwig'
 influxdb::admin_password: 'test123'

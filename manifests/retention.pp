@@ -11,7 +11,7 @@ define influxdb::retention (
   String $database = 'database1',
   Enum['create', 'alter', 'drop'] $action = 'create',
   String $policy = 'retention1',
-  String $duration = '23h60m',
+  String $duration = '23h59m',
   Integer $replication = 1,
   String $default = 'DEFAULT',
   String $shard_duration = '2h',
@@ -37,9 +37,9 @@ if ($auth_enabled == true) {
       path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
-        -execute 'CREATE RETENTION POLICY ${retention} ON \"${database}\" \
-        DURATION \"${duration}\" REPLICATION \"${replication}\" \
-        SHARD DURATION \"${shard_duration}\" \"${default}\"'",
+        -execute 'CREATE RETENTION POLICY \"${retention}\" ON \"${database}\" \
+        DURATION ${duration} REPLICATION ${replication} \
+        SHARD DURATION ${shard_duration} ${default}\'",
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
@@ -50,9 +50,9 @@ if ($auth_enabled == true) {
       path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
-        -execute 'ALTER RETENTION POLICY ${retention} ON \"${database}\" \
-        DURATION \"${duration}\" REPLICATION \"${replication}\" \
-        SHARD DURATION \"${shard_duration}\" \"${default}\"'",
+        -execute 'ALTER RETENTION POLICY \"${retention}\" ON \"${database}\" \
+        DURATION ${duration} REPLICATION ${replication} \
+        SHARD DURATION ${shard_duration} ${default}'",
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
@@ -63,7 +63,7 @@ if ($auth_enabled == true) {
       path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
-        -execute 'DROP RETENTION POLICY ${retention} ON \"${database}\"'",
+        -execute 'DROP RETENTION POLICY \"${retention}\" ON \"${database}\"'",
       onlyif  =>
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW RETENTION POLICIES ON \"${database}\"'",

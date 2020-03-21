@@ -29,7 +29,6 @@ if ($auth_enabled == true) {
 
 $matches = "grep ${database} | grep ${privilege}"
 
-
   if ($ensure == 'absent') {
     exec { "revoke_${privilege}_on_${database}_to_${user}":
       path    => $path,
@@ -38,7 +37,7 @@ $matches = "grep ${database} | grep ${privilege}"
         -execute 'REVOKE ${privilege} ON \"${database}\" TO \"${user}\"'",
       onlyif  =>
         "${cmd} ${cmd_admin} \
-        '-execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}"
+        '-execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
     }
   } elsif ($ensure == 'present') {
     exec {"grant_${privilege}_on_${database}_to_${user}":
@@ -49,7 +48,7 @@ $matches = "grep ${database} | grep ${privilege}"
         TO \"${user}\"'",
       unless  =>
         "${cmd} ${cmd_admin} \
-        -execute 'SHOW GRANTS FOR \"${database}\"' | ${matches}"
+        -execute 'SHOW GRANTS FOR \"${database}\"' | ${matches}",
     }
   }
 }
