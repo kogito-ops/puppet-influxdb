@@ -48,7 +48,7 @@ $matches = "grep ${database} | grep ${privilege}"
         TO \"${user}\"'",
       unless  =>
         "${cmd} ${cmd_admin} \
-        -execute 'SHOW GRANTS FOR \"${database}\"' | ${matches}",
+        -execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
     }
   }
 }

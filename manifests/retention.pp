@@ -10,7 +10,6 @@ define influxdb::retention (
   String $retention = $title,
   String $database = 'database1',
   Enum['create', 'alter', 'drop'] $action = 'create',
-  String $policy = 'retention1',
   String $duration = '23h59m',
   Integer $replication = 1,
   String $default = 'DEFAULT',

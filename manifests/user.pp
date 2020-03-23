@@ -33,19 +33,19 @@ if ($auth_enabled == true) {
       path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
-        -execute 'DROP USER \"${user}\"'",
+        -execute 'DROP USER ${user}'",
       onlyif  =>
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' |\
          grep -x' ${user}",
     }
-  } elsif ($ensure == 'present') {
-      $arg_x = "'${arg_p}' '${passwd}'"
+  } else {
+      $arg_x = "${arg_p} \'${passwd}\'"
       exec { "create_user_${user}":
         path    => $path,
         command =>
           "${cmd} ${cmd_admin} \
-          -execute 'CREATE USER \"${user}\" \"${arg_x}\" \"${arg_a}\"'",
+          -execute \"CREATE USER \\\"${user}\\\" ${arg_x} ${arg_a}\"",
         unless  =>
           "${cmd} ${cmd_admin} \
           -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' |\

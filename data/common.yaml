@@ -219,15 +219,34 @@ influxdb::tls_ciphers:
 influxdb::tls_min_version: 'tls1.2'
 influxdb::tls_max_version: 'tls1.2'
 
+# database ---------------------------------------------------------------------
+influxdb::databases:
+  database1:
+    ensure: present
+
+# database retention -----------------------------------------------------------
+influxdb::retentions:
+  retention1:
+    database: 'database1'
+    action: 'create'
+    duration: '23h59m'
+    replication: 1
+    shard_duration: '2h'
+    default: 'DEFAULT'
+  autogen:
+    database: 'database1'
+    action: 'alter'
+    default: ''
+
 # user -------------------------------------------------------------------------
 influxdb::users:
   ludwig:
-    passwd: 'test123'
+    passwd: 'test'
     ensure: present
     arg_p: 'WITH PASSWORD'
     arg_a: 'WITH ALL PRIVILEGES'
   beethoven:
-    passwd: 'test456'
+    passwd: 'test'
     ensure: present
     arg_p: 'WITH PASSWORD'
     arg_a: ' '
@@ -243,28 +262,8 @@ influxdb::users_privileges:
     privilege: 'WRITE'
     database: 'database1'
 
-# database ---------------------------------------------------------------------
-influxdb::databases:
-  database1:
-    ensure: present
-
-# database retention -----------------------------------------------------------
-influxdb::retentions:
-  retention1:
-    database: 'database1'
-    action: 'create'
-    policy: 'retention1'
-    duration: '23h59m'
-    replication: 1
-    shard_duration: '2h'
-    default: 'DEFAULT'
-  autogen:
-    database: 'database1'
-    action: 'alter'
-    default: ''
-
 influxdb::admin_username: 'ludwig'
-influxdb::admin_password: 'test123'
+influxdb::admin_password: 'test'
 
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:

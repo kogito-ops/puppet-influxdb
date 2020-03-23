@@ -35,7 +35,7 @@ if ($auth_enabled == true) {
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
       }
-  } elsif ($ensure == 'present') {
+  } else {
     exec {"create_database_${database}":
       path    => $path,
       command =>
