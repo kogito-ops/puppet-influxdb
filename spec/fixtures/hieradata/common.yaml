@@ -159,9 +159,12 @@ influxdb::graphite_batch_pending: 10
 influxdb::graphite_batch_timeout: '1s'
 influxdb::graphite_udp_read_buffer: 0
 influxdb::graphite_separator: '.'
-influxdb::graphite_tags: ['region:us-east', 'zone:1c']
-influxdb::graphite_templates:
-  ['*.app env.service.resource.measurement', 'server.*,']
+influxdb::graphite_tags: ['region=us-west', 'zone=1a']
+influxdb::graphite_templates: [
+    '*.app env.service.resource.measurement',
+    # Default template
+    'server.*',
+  ]
 
 # collectd ---------------------------------------------------------------------
 influxdb::collectd_enabled: false
