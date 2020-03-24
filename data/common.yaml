@@ -1,6 +1,6 @@
 ---
 # - Resources ------------------------------------------------------------------
-influxdb::software: 'influxdb'
+influxdb::software: 'influxdata'
 influxdb::key_resource: ''
 influxdb::resource: ''
 influxdb::repos_manage: 'present'

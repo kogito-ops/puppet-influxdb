@@ -6,7 +6,7 @@ class influxdb (
 
   String $key_resource = '',
   String $resource = '',
-  String $software = 'influxdb',
+  String $software = 'influxdata',
   Enum['present', 'absent'] $gpg_manage = 'present',
   String $gpg_id = '05CE15085FC09D18E99EFB22684A14CF2582E0C5',
   String $gpg_server = 'eu.pool.sks-keyservers.net',
