@@ -9,6 +9,10 @@ class influxdb::service (
     Boolean $service_has_status = $influxdb::service_has_status,
     Boolean $service_has_restart = $influxdb::service_has_restart,
     String $service_provider = $influxdb::service_provider,
+    String $configuration_path = $influxdb::configuration_path,
+    String $configuration_file = $influxdb::configuration_file,
+    String $service_defaults = $influxdb::service_defaults,
+    String $package = $influxdb::package,
 ){
   service { $service_name:
     ensure     => $service_manage,
@@ -16,5 +20,10 @@ class influxdb::service (
     hasstatus  => $service_has_status,
     hasrestart => $service_has_restart,
     provider   => $service_provider,
+    subscribe  => [
+      Concat["${configuration_path}/${configuration_file}"],
+      File[$service_defaults],
+      Package[$package],
+    ]
   }
 }
