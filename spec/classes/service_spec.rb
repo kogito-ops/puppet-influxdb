@@ -11,6 +11,10 @@ describe 'influxdb::service', type: :class do
           service_has_status: true,
           service_has_restart: true,
           service_provider: 'systemd',
+          configuration_path = '/etc/influxdb',
+          configuration_file = 'influxdb.conf',
+          service_defaults = '/etc/default/influxdb',
+          package = $influxdb::'influxdb',
         }
       end
 
