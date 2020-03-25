@@ -11,6 +11,7 @@ class influxdb (
   String $gpg_id = '05CE15085FC09D18E99EFB22684A14CF2582E0C5',
   String $gpg_server = 'eu.pool.sks-keyservers.net',
   String $gpg_source = 'https://repos.influxdata.com/influxdb.key',
+  Hash $gpg_keys = {},
 
   Enum['present', 'absent'] $repository_manage = 'present',
   String $repos_comment = 'InfluxData repository',
@@ -22,6 +23,7 @@ class influxdb (
   Enum['1', '0'] $repos_gpgcheck = '1',
   Enum['1', '0'] $repos_enable = '1',
   Boolean $manage_repo = true,
+  Hash $repositories = {},
 
   String $package= 'influxdb',
   Enum['present', 'absent'] $package_manage= 'present',
@@ -221,7 +223,7 @@ class influxdb (
 
 # database, user, grant, retention
   String $http_admin = 'admin',
-  String $http_password = undef,
+  String $http_password = '',
   Hash $users = {},
   Hash $grants = {},
   Hash $databases = {},
