@@ -1,20 +1,20 @@
-# @summary Manages influxdb user privileges.
+# @summary Manages influxdb user grants.
 #
-# Manages influxdb user privileges
+# Manages influxdb user grants
 #  - depending on http / https authorization enabled or not
 
 # @example
-#   influxdb::privilege { 'privilege': }
-define influxdb::privilege (
+#   influxdb::grant { 'grant': }
+define influxdb::grant (
   String $user = $title,
   Enum['present', 'absent'] $ensure = 'present',
-  Enum['ALL', 'READ', 'WRITE'] $privilege = 'ALL',
+  Enum['ALL', 'READ', 'WRITE'] $grant = 'ALL',
   String $database = 'database1',
   String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   Boolean $https_enabled = $influxdb::https_enabled,
   Boolean $auth_enabled = $influxdb::auth_enabled,
-  String $admin_username = $influxdb::admin_username,
-  String $admin_password = $influxdb::admin_password,
+  String $http_admin = $influxdb::http_admin,
+  String $http_password = $influxdb::http_password,
 ) {
 
 if ($https_enabled == true) {
@@ -23,28 +23,28 @@ if ($https_enabled == true) {
       $cmd = 'influx'}
 
 if ($auth_enabled == true) {
-  $cmd_admin = "-username ${admin_username} -password ${admin_password}" }
+  $cmd_admin = "-username ${http_admin} -password ${http_password}" }
   else {
     $cmd_admin = ''}
 
-$matches = "grep ${database} | grep ${privilege}"
+$matches = "grep ${database} | grep ${grant}"
 
   if ($ensure == 'absent') {
-    exec { "revoke_${privilege}_on_${database}_to_${user}":
+    exec { "revoke_${grant}_on_${database}_to_${user}":
       path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
-        -execute 'REVOKE ${privilege} ON \"${database}\" TO \"${user}\"'",
+        -execute 'REVOKE ${grant} ON \"${database}\" TO \"${user}\"'",
       onlyif  =>
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
     }
   } elsif ($ensure == 'present') {
-    exec {"grant_${privilege}_on_${database}_to_${user}":
+    exec {"grant_${grant}_on_${database}_to_${user}":
       path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
-        -execute 'GRANT ${privilege} ON \"${database}\" \
+        -execute 'GRANT ${grant} ON \"${database}\" \
         TO \"${user}\"'",
       unless  =>
         "${cmd} ${cmd_admin} \

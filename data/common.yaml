@@ -219,52 +219,6 @@ influxdb::tls_ciphers:
 influxdb::tls_min_version: 'tls1.2'
 influxdb::tls_max_version: 'tls1.2'
 
-# database ---------------------------------------------------------------------
-influxdb::databases:
-  database1:
-    ensure: present
-
-# database retention -----------------------------------------------------------
-influxdb::retentions:
-  retention1:
-    database: 'database1'
-    action: 'create'
-    duration: '23h59m'
-    replication: 1
-    shard_duration: '2h'
-    default: 'DEFAULT'
-  autogen:
-    database: 'database1'
-    action: 'alter'
-    default: ''
-
-# user -------------------------------------------------------------------------
-influxdb::users:
-  ludwig:
-    passwd: 'test'
-    ensure: present
-    arg_p: 'WITH PASSWORD'
-    arg_a: 'WITH ALL PRIVILEGES'
-  beethoven:
-    passwd: 'test'
-    ensure: present
-    arg_p: 'WITH PASSWORD'
-    arg_a: ' '
-
-# user privilege ---------------------------------------------------------------
-influxdb::users_privileges:
-  ludwig:
-    ensure: present
-    privilege: 'ALL'
-    database: 'database1'
-  beethoven:
-    ensure: absent
-    privilege: 'WRITE'
-    database: 'database1'
-
-influxdb::admin_username: 'ludwig'
-influxdb::admin_password: 'test'
-
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:
   gpg_keys:
@@ -279,7 +233,7 @@ influxdb::lookup_options:
     merge:
       strategy: deep
       merge_hash_arrays: true
-  privileges:
+  grants:
     merge:
       strategy: deep
       merge_hash_arrays: true

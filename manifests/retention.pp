@@ -9,15 +9,15 @@ define influxdb::retention (
   String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   String $retention = $title,
   String $database = 'database1',
-  Enum['create', 'alter', 'drop'] $action = 'create',
+  Enum['create', 'alter', 'drop'] $ensure = 'create',
   String $duration = '23h59m',
   Integer $replication = 1,
   String $default = 'DEFAULT',
   String $shard_duration = '2h',
   Boolean $https_enabled = $influxdb::https_enabled,
   Boolean $auth_enabled = $influxdb::auth_enabled,
-  String $admin_username = $influxdb::admin_username,
-  String $admin_password = $influxdb::admin_password,
+  String $http_admin = $influxdb::http_admin,
+  String $http_password = $influxdb::http_password,
 ) {
 
 if ($https_enabled == true) {
@@ -26,11 +26,11 @@ if ($https_enabled == true) {
       $cmd = 'influx'}
 
 if ($auth_enabled == true) {
-  $cmd_admin = "-username ${admin_username} -password ${admin_password}" }
+  $cmd_admin = "-username ${http_admin} -password ${http_password}" }
   else {
     $cmd_admin = ''}
 
-  case $action {
+  case $ensure {
   'create': {
     exec {"create_retention_${retention}":
       path    => $path,
