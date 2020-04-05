@@ -1,7 +1,6 @@
 # @summary Manages user grants within the databases
+#   depending on http / https authorization parameters
 #
-#  - depending on http / https authorization parameters
-
 # @example
 #   influxdb::grant { 'grant': }
 define influxdb::grant (

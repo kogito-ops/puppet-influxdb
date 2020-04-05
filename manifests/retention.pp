@@ -1,7 +1,6 @@
 # @summary Manages retentions of databases
+#     depending on http / https authorization parameters
 #
-#  - depending on http / https authorization parameters
-
 # @example
 #   influxdb::retention { 'retention': }
 define influxdb::retention (

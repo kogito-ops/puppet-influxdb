@@ -1,6 +1,6 @@
 # @summary Manages users of databases
+#    depending on http / https authorization parameters
 #
-#  - depending on http / https authorization parameters
 # @example
 #   influxdb::user { 'user': }
 define influxdb::user (

@@ -1,6 +1,5 @@
 # @summary Manages databases
-#
-#  - depending on http / https authorization parameters
+#    depending on http / https authorization parameters
 #
 # @example
 #   influxdb::database { 'database': }

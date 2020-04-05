@@ -14,13 +14,13 @@
 **Defined types**
 
 * [`influxdb::database`](#influxdbdatabase): Manages databases
-
-- depending on http / https authorization parameters
-* [`influxdb::grant`](#influxdbgrant): 
-* [`influxdb::retention`](#influxdbretention): 
+depending on http / https authorization parameters
+* [`influxdb::grant`](#influxdbgrant): Manages user grants within the databases
+depending on http / https authorization parameters
+* [`influxdb::retention`](#influxdbretention): Manages retentions of databases
+depending on http / https authorization parameters
 * [`influxdb::user`](#influxdbuser): Manages users of databases
-
-- depending on http / https authorization parameters
+depending on http / https authorization parameters
 
 ## Classes
 
@@ -1905,8 +1905,7 @@ Default value: $influxdb::package
 ### influxdb::database
 
 Manages databases
-
-- depending on http / https authorization parameters
+depending on http / https authorization parameters
 
 #### Examples
 
@@ -1978,7 +1977,8 @@ Default value: $influxdb::http_password
 
 ### influxdb::grant
 
-The influxdb::grant class.
+Manages user grants within the databases
+depending on http / https authorization parameters
 
 #### Examples
 
@@ -2066,7 +2066,8 @@ Default value: $influxdb::http_password
 
 ### influxdb::retention
 
-The influxdb::retention class.
+Manages retentions of databases
+depending on http / https authorization parameters
 
 #### Examples
 
@@ -2179,8 +2180,7 @@ Default value: $influxdb::http_password
 ### influxdb::user
 
 Manages users of databases
-
-- depending on http / https authorization parameters
+depending on http / https authorization parameters
 
 #### Examples
 
