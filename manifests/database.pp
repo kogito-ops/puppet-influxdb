@@ -1,8 +1,7 @@
-# @summary Manages influxdb databases.
+# @summary Manages databases
 #
-# Manages influxdb databases
-#  - depending on http / https authorization enabled or not
-
+#  - depending on http / https authorization parameters
+#
 # @example
 #   influxdb::database { 'database': }
 define influxdb::database (

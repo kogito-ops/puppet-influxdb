@@ -1,7 +1,6 @@
-# @summary Manages influxdb database retention.
+# @summary Manages retentions of databases
 #
-# Manages influxdb database retention
-#  - depending on http / https authorization enabled or not
+#  - depending on http / https authorization parameters
 
 # @example
 #   influxdb::retention { 'retention': }
@@ -38,7 +37,7 @@ if ($auth_enabled == true) {
         "${cmd} ${cmd_admin} \
         -execute 'CREATE RETENTION POLICY \"${retention}\" ON \"${database}\" \
         DURATION ${duration} REPLICATION ${replication} \
-        SHARD DURATION ${shard_duration} ${default}\'",
+        SHARD DURATION ${shard_duration} ${default}'",
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",

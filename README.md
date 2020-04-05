@@ -38,6 +38,8 @@ Default configuration
 
 -   starts service "influxdb" immediately
 
+-   service subsribes to "package", "configuration file" and "service defaults"
+
 ### Setup Requirements
 
 -   `puppetlabs/apt`
@@ -73,6 +75,44 @@ defaults used.
 
 ```
 include ::influxdb
+
+```
+
+### In combination with other influxdata module
+
+* when influxdb shall handle GPG keys and repository
+```
+class { 'influxdb':
+  manage_repo => true,
+}
+```
+
+* when one of the other influxdata modules already handles GPG keys and repository
+```
+class { 'influxdb':
+  manage_repo => false,
+}
+```
+
+### Set up databases, users and grants
+
+```
+influxdb::database {'telegraf1':
+  ensure => present,
+}
+```
+
+```
+influxdb::user{'telegraf1':
+  passwd => 'metricsmetricsmetrics',
+}
+```
+
+```
+influxdb::grant{'telegraf1':
+  grant    => 'WRITE',
+  database => 'telegraf',
+}
 ```
 
 ## Reference

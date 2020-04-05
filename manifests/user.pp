@@ -1,13 +1,11 @@
-# @summary Manages influxdb users.
+# @summary Manages users of databases
 #
-# Manages influxdb users
-#  - depending on http / https authorization enabled or not
-
+#  - depending on http / https authorization parameters
 # @example
 #   influxdb::user { 'user': }
 define influxdb::user (
   String $user = $title,
-  String $passwd = '12345',
+  String $password = '12345',
   Enum['present', 'absent'] $ensure = 'present',
   String $arg_p = 'WITH PASSWORD',
   String $arg_a = 'WITH ALL PRIVILEGES',
@@ -33,14 +31,14 @@ if ($auth_enabled == true) {
       path    => $path,
       command =>
         "${cmd} ${cmd_admin} \
-        -execute 'DROP USER ${user}'",
+        -execute 'DROP USER \"${user}\"'",
       onlyif  =>
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' |\
          grep -x' ${user}",
     }
   } else {
-      $arg_x = "${arg_p} \'${passwd}\'"
+      $arg_x = "${arg_p} \'${password}\'"
       exec { "create_user_${user}":
         path    => $path,
         command =>

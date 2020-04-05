@@ -11,6 +11,17 @@
 * [`influxdb::repo`](#influxdbrepo): Manages gpg key information and repository, if necessary
 * [`influxdb::service`](#influxdbservice): Manages the service
 
+**Defined types**
+
+* [`influxdb::database`](#influxdbdatabase): Manages databases
+
+- depending on http / https authorization parameters
+* [`influxdb::grant`](#influxdbgrant): 
+* [`influxdb::retention`](#influxdbretention): 
+* [`influxdb::user`](#influxdbuser): Manages users of databases
+
+- depending on http / https authorization parameters
+
 ## Classes
 
 ### influxdb
@@ -51,7 +62,7 @@ Data type: `String`
 
 
 
-Default value: 'influxdb'
+Default value: 'influxdata'
 
 ##### `gpg_manage`
 
@@ -84,6 +95,14 @@ Data type: `String`
 
 
 Default value: 'https://repos.influxdata.com/influxdb.key'
+
+##### `gpg_keys`
+
+Data type: `Hash`
+
+
+
+Default value: {}
 
 ##### `repository_manage`
 
@@ -156,6 +175,22 @@ Data type: `Enum['1', '0']`
 
 
 Default value: '1'
+
+##### `manage_repo`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### `repositories`
+
+Data type: `Hash`
+
+
+
+Default value: {}
 
 ##### `package`
 
@@ -1091,7 +1126,7 @@ Data type: `Array[String]`
 
 
 
-Default value: ['region=us-east', 'zone=1c']
+Default value: ['region=us-west', 'zone=1a']
 
 ##### `graphite_templates`
 
@@ -1099,7 +1134,11 @@ Data type: `Array[String]`
 
 
 
-Default value: ['*.app env.service.resource.measurement', 'server.*,']
+Default value: [
+    '*.app env.service.resource.measurement',
+    # Default template
+    'server.*',
+  ]
 
 ##### `collectd_enabled`
 
@@ -1413,6 +1452,54 @@ Data type: `String`
 
 Default value: 'tls1.2'
 
+##### `http_admin`
+
+Data type: `String`
+
+
+
+Default value: 'admin'
+
+##### `http_password`
+
+Data type: `String`
+
+
+
+Default value: ''
+
+##### `users`
+
+Data type: `Hash`
+
+
+
+Default value: {}
+
+##### `grants`
+
+Data type: `Hash`
+
+
+
+Default value: {}
+
+##### `databases`
+
+Data type: `Hash`
+
+
+
+Default value: {}
+
+##### `retentions`
+
+Data type: `Hash`
+
+
+
+Default value: {}
+
 ### influxdb::config
 
 Manages directories and files; configuration and service
@@ -1429,61 +1516,21 @@ include influxdb::config
 
 The following parameters are available in the `influxdb::config` class.
 
-##### `metadata_raft`
-
-Data type: `String`
-
-
-
-Default value: $::influxdb::metadata_raft
-
-##### `tsm_data`
-
-Data type: `String`
-
-
-
-Default value: $::influxdb::tsm_data
-
-##### `tsm_wal`
-
-Data type: `String`
-
-
-
-Default value: $::influxdb::tsm_wal
-
-##### `user`
-
-Data type: `String`
-
-
-
-Default value: $::influxdb::user
-
-##### `group`
-
-Data type: `String`
-
-
-
-Default value: $::influxdb::group
-
-##### `service_defaults`
-
-Data type: `String`
-
-
-
-Default value: $::influxdb::service_defaults
-
 ##### `configuration_path`
 
 Data type: `String`
 
 
 
-Default value: $::influxdb::configuration_path
+Default value: $influxdb::configuration_path
+
+##### `configuration_path_manage`
+
+Data type: `Enum['directory', 'absent']`
+
+
+
+Default value: $influxdb::configuration_path_manage
 
 ##### `configuration_file`
 
@@ -1491,23 +1538,47 @@ Data type: `String`
 
 
 
-Default value: $::influxdb::configuration_file
+Default value: $influxdb::configuration_file
 
-##### `service_name`
+##### `configuration_file_manage`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: $influxdb::configuration_file_manage
+
+##### `configuration_template`
 
 Data type: `String`
 
 
 
-Default value: $::influxdb::service_name
+Default value: $influxdb::configuration_template
 
-##### `service_provider`
+##### `service_defaults`
 
 Data type: `String`
 
 
 
-Default value: $::influxdb::service_provider
+Default value: $influxdb::service_defaults
+
+##### `service_defaults_manage`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: $influxdb::service_defaults_manage
+
+##### `service_default_template`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::service_default_template
 
 ##### `service_definition`
 
@@ -1515,7 +1586,87 @@ Data type: `String`
 
 
 
-Default value: $::influxdb::service_definition
+Default value: $influxdb::service_definition
+
+##### `service_definition_manage`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: $influxdb::service_definition_manage
+
+##### `service_definition_template`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::service_definition_template
+
+##### `tsm_data`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::tsm_data
+
+##### `tsm_data_manage`
+
+Data type: `Enum['directory', 'absent']`
+
+
+
+Default value: $influxdb::tsm_data_manage
+
+##### `tsm_wal`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::tsm_wal
+
+##### `tsm_wal_manage`
+
+Data type: `Enum['directory', 'absent']`
+
+
+
+Default value: $influxdb::tsm_wal_manage
+
+##### `metadata_raft`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::metadata_raft
+
+##### `metadata_raft_manage`
+
+Data type: `Enum['directory', 'absent']`
+
+
+
+Default value: $influxdb::metadata_raft_manage
+
+##### `group`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::group
+
+##### `user`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::user
 
 ### influxdb::install
 
@@ -1529,6 +1680,90 @@ Manages package, group and user
 include influxdb::install
 ```
 
+#### Parameters
+
+The following parameters are available in the `influxdb::install` class.
+
+##### `package`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::package
+
+##### `package_manage`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: $influxdb::package_manage
+
+##### `group`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::group
+
+##### `group_manage`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: $influxdb::group_manage
+
+##### `group_system`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::group_system
+
+##### `user`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::user
+
+##### `user_manage`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: $influxdb::user_manage
+
+##### `user_system`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::user_system
+
+##### `user_manage_home`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::user_manage_home
+
+##### `user_home`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::user_home
+
 ### influxdb::repo
 
 Manages gpg key information and repository, if necessary
@@ -1541,6 +1776,34 @@ Manages gpg key information and repository, if necessary
 include influxdb::repo
 ```
 
+#### Parameters
+
+The following parameters are available in the `influxdb::repo` class.
+
+##### `key_resource`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::key_resource
+
+##### `resource`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::resource
+
+##### `manage_repo`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::manage_repo
+
 ### influxdb::service
 
 Manages the service
@@ -1552,3 +1815,462 @@ Manages the service
 ```puppet
 include influxdb::service
 ```
+
+#### Parameters
+
+The following parameters are available in the `influxdb::service` class.
+
+##### `service_name`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::service_name
+
+##### `service_manage`
+
+Data type: `Enum['running', 'absent']`
+
+
+
+Default value: $influxdb::service_manage
+
+##### `service_enable`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::service_enable
+
+##### `service_has_status`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::service_has_status
+
+##### `service_has_restart`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::service_has_restart
+
+##### `service_provider`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::service_provider
+
+##### `configuration_path`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::configuration_path
+
+##### `configuration_file`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::configuration_file
+
+##### `service_defaults`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::service_defaults
+
+##### `package`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::package
+
+## Defined types
+
+### influxdb::database
+
+Manages databases
+
+- depending on http / https authorization parameters
+
+#### Examples
+
+##### 
+
+```puppet
+influxdb::database { 'database': }
+```
+
+#### Parameters
+
+The following parameters are available in the `influxdb::database` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: 'present'
+
+##### `database`
+
+Data type: `String`
+
+
+
+Default value: $title
+
+##### `path`
+
+Data type: `String`
+
+
+
+Default value: '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin'
+
+##### `https_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::https_enabled
+
+##### `auth_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::auth_enabled
+
+##### `http_admin`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::http_admin
+
+##### `http_password`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::http_password
+
+### influxdb::grant
+
+The influxdb::grant class.
+
+#### Examples
+
+##### 
+
+```puppet
+influxdb::grant { 'grant': }
+```
+
+#### Parameters
+
+The following parameters are available in the `influxdb::grant` defined type.
+
+##### `user`
+
+Data type: `String`
+
+
+
+Default value: $title
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: 'present'
+
+##### `grant`
+
+Data type: `Enum['ALL', 'READ', 'WRITE']`
+
+
+
+Default value: 'ALL'
+
+##### `database`
+
+Data type: `String`
+
+
+
+Default value: 'database1'
+
+##### `path`
+
+Data type: `String`
+
+
+
+Default value: '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin'
+
+##### `https_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::https_enabled
+
+##### `auth_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::auth_enabled
+
+##### `http_admin`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::http_admin
+
+##### `http_password`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::http_password
+
+### influxdb::retention
+
+The influxdb::retention class.
+
+#### Examples
+
+##### 
+
+```puppet
+influxdb::retention { 'retention': }
+```
+
+#### Parameters
+
+The following parameters are available in the `influxdb::retention` defined type.
+
+##### `path`
+
+Data type: `String`
+
+
+
+Default value: '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin'
+
+##### `retention`
+
+Data type: `String`
+
+
+
+Default value: $title
+
+##### `database`
+
+Data type: `String`
+
+
+
+Default value: 'database1'
+
+##### `ensure`
+
+Data type: `Enum['create', 'alter', 'drop']`
+
+
+
+Default value: 'create'
+
+##### `duration`
+
+Data type: `String`
+
+
+
+Default value: '23h59m'
+
+##### `replication`
+
+Data type: `Integer`
+
+
+
+Default value: 1
+
+##### `default`
+
+Data type: `String`
+
+
+
+Default value: 'DEFAULT'
+
+##### `shard_duration`
+
+Data type: `String`
+
+
+
+Default value: '2h'
+
+##### `https_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::https_enabled
+
+##### `auth_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::auth_enabled
+
+##### `http_admin`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::http_admin
+
+##### `http_password`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::http_password
+
+### influxdb::user
+
+Manages users of databases
+
+- depending on http / https authorization parameters
+
+#### Examples
+
+##### 
+
+```puppet
+influxdb::user { 'user': }
+```
+
+#### Parameters
+
+The following parameters are available in the `influxdb::user` defined type.
+
+##### `user`
+
+Data type: `String`
+
+
+
+Default value: $title
+
+##### `password`
+
+Data type: `String`
+
+
+
+Default value: '12345'
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+
+
+Default value: 'present'
+
+##### `arg_p`
+
+Data type: `String`
+
+
+
+Default value: 'WITH PASSWORD'
+
+##### `arg_a`
+
+Data type: `String`
+
+
+
+Default value: 'WITH ALL PRIVILEGES'
+
+##### `path`
+
+Data type: `String`
+
+
+
+Default value: '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin'
+
+##### `https_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::https_enabled
+
+##### `auth_enabled`
+
+Data type: `Boolean`
+
+
+
+Default value: $influxdb::auth_enabled
+
+##### `http_admin`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::http_admin
+
+##### `http_password`
+
+Data type: `String`
+
+
+
+Default value: $influxdb::http_password
+
