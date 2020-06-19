@@ -4,11 +4,9 @@
 #   include influxdb::params
 class influxdb::params (
 
-  String $key_resource = '',
-  String $resource = '',
   Boolean $manager_repo = true,
-  String $package= 'influxdb',
-  Enum['present', 'absent'] $package_manage= 'present',
+  String $package = 'influxdb',
+  Enum['present', 'absent'] $ensure = 'present',
 
   String $group = 'influxdb',
   Boolean $group_system = true,

@@ -21,7 +21,7 @@ class influxdb::service (
     hasrestart => $service_has_restart,
     provider   => $service_provider,
     subscribe  => [
-      Concat["${configuration_path}/${configuration_file}"],
+      File["${configuration_path}/${configuration_file}"],
       File[$service_defaults],
       Package[$package],
     ]

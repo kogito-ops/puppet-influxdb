@@ -1,43 +1,6 @@
 ---
-# - Resources ------------------------------------------------------------------
-influxdb::key_resource: ''
-influxdb::resource: ''
-influxdb::manage_repo: true
-
-# - Package settings -----------------------------------------------------------
-influxdb::package: 'influxdb'
-influxdb::package_manage: 'present'
-
-# - Influxdb settings ----------------------------------------------------------
-influxdb::group: 'influxdb'
-influxdb::group_system: true
-influxdb::user: 'influxdb'
-influxdb::user_system: true
-influxdb::user_home: '/var/lib/'
-influxdb::configuration_path: '/etc/influxdb'
-influxdb::configuration_file: 'influxdb.conf'
-influxdb::configuration_template: 'influxdb/influxdb.conf.erb'
-influxdb::service_defaults: '/etc/default/influxdb'
-influxdb::service_default_template: 'influxdb/service-defaults.erb'
-influxdb::service_definition: '/lib/systemd/system/influxdb.service'
-influxdb::service_name: 'influxdb'
-influxdb::service_provider: 'systemd'
-influxdb::service_manage: 'running'
-influxdb::service_definition_template: 'influxdb/systemd.service.erb'
-influxdb::service_enable: true
-influxdb::service_has_status: true
-influxdb::service_has_restart: true
-
 # - Merge behavior settings ----------------------------------------------------
 influxdb::lookup_options:
-  keys:
-    merge:
-      strategy: deep
-      merge_hash_arrays: true
-  repositories:
-    merge:
-      strategy: deep
-      merge_hash_arrays: true
   databases:
     merge:
       strategy: deep

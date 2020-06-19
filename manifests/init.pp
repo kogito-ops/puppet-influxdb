@@ -3,14 +3,10 @@
 # @example
 #   include influxdb
 class influxdb (
-  String $key_resource = $influxdb::params::key_resource,
-  String $resource = $influxdb::params::resource,
-  Hash $gpg_keys = $influxdb::params::gpg_keys,
-  Hash $repositories = $influxdb::params::repositories,
   Boolean $manage_repo = $influxdb::params::manage_repo,
 
   String $package= $influxdb::params::package,
-  Enum['present', 'absent'] $package_manage= $influxdb::params::package_manage,
+  Enum['present', 'absent'] $ensure = $influxdb::params::ensure,
 
   String $group = $influxdb::params::group,
   Boolean $group_system = $influxdb::params::group_system,
@@ -28,8 +24,8 @@ class influxdb (
   String $service_name = $influxdb::params::service_name,
   String $service_provider = $influxdb::params::service_provider,
   Enum['running', 'absent'] $service_manage = $influxdb::params::service_manage,
-  Boolean $service_enable = $influxdb::params::enable,
-  Boolean $service_has_status = $influxdb::params::has_status,
+  Boolean $service_enable = $influxdb::params::service_enable,
+  Boolean $service_has_status = $influxdb::params::service_has_status,
   Boolean $service_has_restart = $influxdb::params::service_has_restart,
 
 # database, user, grant, retention
