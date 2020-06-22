@@ -5,7 +5,7 @@
 class influxdb::repo (
   Boolean $manage_repo = $influxdb::manage_repo,
   String $ensure_package = $influxdb::ensure_package,
-  String $package_name = $influxdb::package_name
+  String $package_name = $influxdb::package_name,
 ){
 
   if $manage_repo {
