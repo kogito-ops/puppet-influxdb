@@ -12,7 +12,7 @@ class influxdb::service (
     String $configuration_path = $influxdb::configuration_path,
     String $configuration_file = $influxdb::configuration_file,
     String $service_defaults = $influxdb::service_defaults,
-    String $package = $influxdb::package,
+    String $package_name = $influxdb::package_name,
 ){
   service { $service_name:
     ensure     => $service_manage,
@@ -20,6 +20,6 @@ class influxdb::service (
     hasstatus  => $service_has_status,
     hasrestart => $service_has_restart,
     provider   => $service_provider,
-#    require    =>  Package[$package],
+    require    =>  Package[$package_name],
   }
 }
