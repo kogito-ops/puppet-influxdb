@@ -4,8 +4,6 @@
 #   include influxdb::repo
 class influxdb::repo (
   Boolean $manage_repo = $influxdb::manage_repo,
-  String $package_name = $influxdb::package_name,
-  Enum['present', 'absent']  $ensure = $influxdb::ensure,
 ){
 
   if $manage_repo {

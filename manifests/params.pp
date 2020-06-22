@@ -6,7 +6,7 @@ class influxdb::params (
 
   Boolean $manager_repo = true,
   String $package_name = 'influxdb',
-  Enum['present', 'absent'] $ensure_package = 'present',
+  String $ensure_package = 'present',
 
   String $group = 'influxdb',
   Boolean $group_system = true,
