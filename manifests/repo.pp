@@ -4,7 +4,7 @@
 #   include influxdb::repo
 class influxdb::repo (
   Boolean $manage_repo = $influxdb::manage_repo,
-  String $package = $influxdb::package,
+  String $package_name = $influxdb::package_name,
   Enum['present', 'absent']  $ensure = $influxdb::ensure,
 ){
 
@@ -22,7 +22,6 @@ class influxdb::repo (
             'source' => 'https://repos.influxdata.com/influxdb.key',
           },
         }
-        Class['apt::update'] -> Package[$package]
       }
 
       'Debian': {
@@ -35,12 +34,5 @@ class influxdb::repo (
         fail('Only Ubuntu, Debian and CentOS are supported')
       }
     }
-  }
-
-  else {
-    ensure_packages([$package],
-    {
-      ensure => $ensure,
-    })
   }
 }

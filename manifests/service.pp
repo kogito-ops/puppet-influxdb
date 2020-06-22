@@ -20,10 +20,6 @@ class influxdb::service (
     hasstatus  => $service_has_status,
     hasrestart => $service_has_restart,
     provider   => $service_provider,
-#    subscribe  => [
-#      File["${configuration_path}/${configuration_file}"],
-#      File[$service_defaults],
-#      Package[$package],
-#    ]
+#    require    =>  Package[$package],
   }
 }

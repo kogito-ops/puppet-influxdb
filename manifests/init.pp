@@ -4,9 +4,8 @@
 #   include influxdb
 class influxdb (
   Boolean $manage_repo = $influxdb::params::manage_repo,
-
-  String $package= $influxdb::params::package,
-  Enum['present', 'absent'] $ensure = $influxdb::params::ensure,
+  String $package_name = $influxdb::params::package_name,
+  String $ensure_package = $influxdb::params::ensure_package,
 
   String $group = $influxdb::params::group,
   Boolean $group_system = $influxdb::params::group_system,
@@ -23,7 +22,7 @@ class influxdb (
   String $service_definition = $influxdb::params::service_definition,
   String $service_name = $influxdb::params::service_name,
   String $service_provider = $influxdb::params::service_provider,
-  Enum['running', 'absent'] $service_manage = $influxdb::params::service_manage,
+  Enum['running', 'stopped'] $service_manage = $influxdb::params::service_manage,
   Boolean $service_enable = $influxdb::params::service_enable,
   Boolean $service_has_status = $influxdb::params::service_has_status,
   Boolean $service_has_restart = $influxdb::params::service_has_restart,
@@ -31,6 +30,8 @@ class influxdb (
 # database, user, grant, retention
   String $http_admin = $influxdb::params::http_admin,
   String $http_password = $influxdb::params::http_password,
+  Boolean $https_enabled = false,
+  Boolean $auth_enabled = false,
   Hash $users = $influxdb::params::users,
   Hash $grants = $influxdb::params::grants,
   Hash $databases = $influxdb::params::databases,
@@ -83,7 +84,6 @@ class influxdb (
 )
   inherits influxdb::params
 {
-  include ::influxdb::params
   include ::influxdb::repo
   include ::influxdb::install
   include ::influxdb::config

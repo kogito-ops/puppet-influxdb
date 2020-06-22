@@ -9,7 +9,13 @@ class influxdb::install (
   Boolean $user_system = $influxdb::user_system,
   Boolean $user_manage_home = $influxdb::user_manage_home,
   String $user_home = $influxdb::user_home,
+  String $ensure_package = $influxdb::ensure_package,
+  String $package_name = $influxdb::package_name
 ){
+
+  package { $package_name:
+    ensure => $ensure_package,
+  }
 
   group { $group:
     ensure => 'present',
