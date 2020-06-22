@@ -13,10 +13,6 @@ class influxdb::install (
   String $package_name = $influxdb::package_name
 ){
 
-  package { $package_name:
-    ensure => $ensure_package,
-  }
-
   group { $group:
     ensure => 'present',
     system => $group_system,
