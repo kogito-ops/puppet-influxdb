@@ -81,6 +81,8 @@ class influxdb (
   Hash $udp = $influxdb::params::udp,
   Hash $continuous_queries = $influxdb::params::continuous_queries,
   Hash $tls = $influxdb::params::tls,
+
+  Hash $http_obligatory = $influxdb::params::http_obligatory
 )
   inherits influxdb::params
 {

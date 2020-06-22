@@ -82,6 +82,14 @@ class influxdb::params (
   Hash $udp = {},
   Hash $continuous_queries = {},
   Hash $tls = {},
+
+  Boolean $https_enabled = false,
+  Boolean $auth_enabled = false,
+  Hash $http_obligatory = {
+    'enabled' => $https_enabled,
+    'auth-enabled' => $auth_enabled,
+  },
+
   ){
 
 }

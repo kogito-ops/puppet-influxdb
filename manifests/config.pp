@@ -55,7 +55,11 @@ class influxdb::config (
   Hash $udp = $influxdb::udp,
   Hash $continuous_queries = $influxdb::continuous_queries,
   Hash $tls = $influxdb::tls,
+
+  Hash $http_obligatory = $influxdb::http_obligatory,
 ){
+
+  $template_http = deep_merge($http_obligatory, $http)
 
   file { $configuration_path:
     ensure => directory,
