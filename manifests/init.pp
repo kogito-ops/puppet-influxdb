@@ -30,8 +30,6 @@ class influxdb (
 # database, user, grant, retention
   String $http_admin = $influxdb::params::http_admin,
   String $http_password = $influxdb::params::http_password,
-  Boolean $https_enabled = false,
-  Boolean $auth_enabled = false,
   Hash $users = $influxdb::params::users,
   Hash $grants = $influxdb::params::grants,
   Hash $databases = $influxdb::params::databases,
@@ -44,30 +42,18 @@ class influxdb (
 
 #  meta
   String $metadata_raft = $influxdb::params::metadata_raft,
-  Boolean $retention_autocreate = $influxdb::params::retention_autocreate,
-  Boolean $logging_enabled = $influxdb::params::logging_enabled,
 
 #  data
   String $tsm_data = $influxdb::params::tsm_data,
   String $tsm_wal = $influxdb::params::tsm_wal,
-  String $wal_fsync_delay = $influxdb::params::wal_fsync_delay,
-  String $index_version = $influxdb::params::index_version,
-  Boolean $trace_logging_enabled = $influxdb::params::trace_logging_enabled,
-  Boolean $query_log_enabled = $influxdb::params::query_log_enabled,
-  Boolean $validate_keys = $influxdb::params::validate_keys,
-  String $cache_max_memory_size = $influxdb::params::cache_max_memory_size,
-  String $cache_snapshot_memory_size = $influxdb::params::cache_snapshot_memory_size,
-  String $cache_snapshot_write_cold_duration = $influxdb::params::cache_snapshot_write_cold_duration,
-  String $compact_full_write_cold_duration = $influxdb::params::compact_full_write_cold_duration,
-  Integer $max_concurrent_compactions = $influxdb::params::max_concurrent_compactions,
-  String $compact_throughput = $influxdb::params::compact_throughput,
-  String $compact_throughput_burst = $influxdb::params::compact_throughput_burst,
-  Boolean $tsm_use_madv_willneed = $influxdb::params::tsm_use_madv_willneed,
-  Integer $max_series_per_database = $influxdb::params::max_series_per_database,
-  Integer $max_values_per_tag = $influxdb::params::max_values_per_tag,
-  String $max_index_log_file_size = $influxdb::params::max_index_log_file_size,
   Integer $series_id_set_cache_size = $influxdb::params::series_id_set_cache_size,
 
+#  http
+  Boolean $https_enabled = $influxdb::params::https_enabled,
+  Boolean $auth_enabled = $influxdb::params::auth_enabled,
+
+  Hash $meta = $influxdb::params::data,
+  Hash $data = $influxdb::params::data,
   Hash $coordinator = $influxdb::params::coordinator,
   Hash $retention = $influxdb::params::retention,
   Hash $shard_precreation = $influxdb::params::shard_precreation,
@@ -82,7 +68,9 @@ class influxdb (
   Hash $continuous_queries = $influxdb::params::continuous_queries,
   Hash $tls = $influxdb::params::tls,
 
-  Hash $http_obligatory = $influxdb::params::http_obligatory
+  Hash $meta_obligatory = $influxdb::params::meta_obligatory,
+  Hash $data_obligatory = $influxdb::params::data_obligatory,
+  Hash $http_obligatory = $influxdb::params::http_obligatory,
 )
   inherits influxdb::params
 {

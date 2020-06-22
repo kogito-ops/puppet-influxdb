@@ -19,29 +19,14 @@ class influxdb::config (
   String $rpc_bind_address = $influxdb::rpc_bind_address,
 #  meta
   String $metadata_raft = $influxdb::metadata_raft,
-  Boolean $retention_autocreate = $influxdb::retention_autocreate,
-  Boolean $logging_enabled = $influxdb::logging_enabled,
+
 #  data
   String $tsm_data = $influxdb::tsm_data,
   String $tsm_wal = $influxdb::tsm_wal,
-  String $wal_fsync_delay = $influxdb::wal_fsync_delay,
-  String $index_version = $influxdb::index_version,
-  Boolean $trace_logging_enabled = $influxdb::trace_logging_enabled,
-  Boolean $query_log_enabled = $influxdb::query_log_enabled,
-  Boolean $validate_keys = $influxdb::validate_keys,
-  String $cache_max_memory_size = $influxdb::cache_max_memory_size,
-  String $cache_snapshot_memory_size = $influxdb::cache_snapshot_memory_size,
-  String $cache_snapshot_write_cold_duration = $influxdb::cache_snapshot_write_cold_duration,
-  String $compact_full_write_cold_duration = $influxdb::compact_full_write_cold_duration,
-  Integer $max_concurrent_compactions = $influxdb::max_concurrent_compactions,
-  String $compact_throughput = $influxdb::compact_throughput,
-  String $compact_throughput_burst = $influxdb::compact_throughput_burst,
-  Boolean $tsm_use_madv_willneed = $influxdb::tsm_use_madv_willneed,
-  Integer $max_series_per_database = $influxdb::max_series_per_database,
-  Integer $max_values_per_tag = $influxdb::max_values_per_tag,
-  String $max_index_log_file_size = $influxdb::max_index_log_file_size,
   Integer $series_id_set_cache_size = $influxdb::series_id_set_cache_size,
 
+  Hash $meta = $influxdb::meta,
+  Hash $data = $influxdb::data,
   Hash $coordinator = $influxdb::coordinator,
   Hash $retention = $influxdb::retention,
   Hash $shard_precreation = $influxdb::shard_precreation,
@@ -56,9 +41,13 @@ class influxdb::config (
   Hash $continuous_queries = $influxdb::continuous_queries,
   Hash $tls = $influxdb::tls,
 
+  Hash $meta_obligatory = $influxdb::meta_obligatory,
+  Hash $data_obligatory = $influxdb::data_obligatory,
   Hash $http_obligatory = $influxdb::http_obligatory,
 ){
 
+  $template_meta = deep_merge($meta_obligatory, $meta)
+  $template_data = deep_merge($data_obligatory, $data)
   $template_http = deep_merge($http_obligatory, $http)
 
   file { $configuration_path:

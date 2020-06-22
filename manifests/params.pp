@@ -44,31 +44,30 @@ class influxdb::params (
 
 #  meta
   String $metadata_raft = '/var/lib/influxdb/meta',
-  Enum['directory', 'absent'] $metadata_raft_manage = 'directory',
-  Boolean $retention_autocreate = true,
-  Boolean $logging_enabled = true,
+  Hash $meta_obligatory = {
+    'dir' => $metadata_raft,
+  },
 
-#  data
+#  data obligatory
   String $tsm_data = '/var/lib/influxdb/data',
   String $tsm_wal = '/var/lib/influxdb/wal',
-  String $wal_fsync_delay = '0s',
-  String $index_version = 'inmem',
-  Boolean $trace_logging_enabled = false,
-  Boolean $query_log_enabled = true,
-  Boolean $validate_keys = false,
-  String $cache_max_memory_size = '1g',
-  String $cache_snapshot_memory_size = '25m',
-  String $cache_snapshot_write_cold_duration = '10m',
-  String $compact_full_write_cold_duration = '4h',
-  Integer $max_concurrent_compactions = 0,
-  String $compact_throughput = '48m',
-  String $compact_throughput_burst = '48m',
-  Boolean $tsm_use_madv_willneed = false,
-  Integer $max_series_per_database = 1000000,
-  Integer $max_values_per_tag = 100000,
-  String $max_index_log_file_size = '1m',
   Integer $series_id_set_cache_size = 100,
+  Hash $data_obligatory = {
+    'dir' => $tsm_data,
+    'wal-dir' => $tsm_wal,
+    'series-id-set-cache-size' => $series_id_set_cache_size,
+  },
 
+# http obligatory
+  Boolean $https_enabled = false,
+  Boolean $auth_enabled = false,
+  Hash $http_obligatory = {
+    'enabled' => $https_enabled,
+    'auth-enabled' => $auth_enabled,
+  },
+
+  Hash $meta = {},
+  Hash $data = {},
   Hash $coordinator = {},
   Hash $retention = {},
   Hash $shard_precreation = {},
@@ -82,13 +81,6 @@ class influxdb::params (
   Hash $udp = {},
   Hash $continuous_queries = {},
   Hash $tls = {},
-
-  Boolean $https_enabled = false,
-  Boolean $auth_enabled = false,
-  Hash $http_obligatory = {
-    'enabled' => $https_enabled,
-    'auth-enabled' => $auth_enabled,
-  },
 
   ){
 
