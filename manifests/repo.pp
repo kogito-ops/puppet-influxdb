@@ -10,7 +10,7 @@ class influxdb::repo (
 
     case $facts['os']['distro']['id'] {
       'Ubuntu': {
-        apt::source { 'influxdb':
+        apt::source { 'influxdata':
           comment  => 'InfluxDB repository',
           location => 'https://repos.influxdata.com/ubuntu',
           release  => $facts[os][distro][codename],
