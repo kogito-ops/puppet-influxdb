@@ -15,6 +15,9 @@ define influxdb::grant (
   String $http_password = $influxdb::http_password,
 ) {
 
+  Influxdb::Database <| database == $database |> -> Influxdb::Grant[$title]
+  Influxdb::User <| user == $user |> -> Influxdb::Grant[$title]
+
 if ($https_enabled == true) {
   $cmd = 'influx -ssl -unsafeSsl'}
     else {

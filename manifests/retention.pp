@@ -18,6 +18,8 @@ define influxdb::retention (
   String $http_password = $influxdb::http_password,
 ) {
 
+  Influxdb::Database <| database == $database |> -> Influxdb::Retention[$title]
+
 if ($https_enabled == true) {
   $cmd = 'influx -ssl -unsafeSsl'}
     else {

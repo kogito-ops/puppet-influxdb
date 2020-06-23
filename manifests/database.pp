@@ -13,6 +13,9 @@ define influxdb::database (
   String $http_password = $influxdb::http_password,
 ) {
 
+include influxdb::config
+include influxdb::params
+
 if ($https_enabled == true) {
   $cmd = 'influx -ssl -unsafeSsl'}
     else {
