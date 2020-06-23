@@ -35,6 +35,7 @@ if ($auth_enabled == true) {
       onlyif  =>
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
+      require => Package['influxdb']
       }
   } else {
     exec {"create_database_${database}":
@@ -45,6 +46,7 @@ if ($auth_enabled == true) {
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
+      require => Package['influxdb']
     }
   }
 }
