@@ -6,6 +6,8 @@ class influxdb (
   Boolean $manage_repo = $influxdb::params::manage_repo,
   String $package_name = $influxdb::params::package_name,
   String $ensure_package = $influxdb::params::ensure_package,
+  String $repo_location = $influxdb::params::repo_location,
+  String $repo_type = $influxdb::params::repo_type,
 
   String $group = $influxdb::params::group,
   Boolean $group_system = $influxdb::params::group_system,
@@ -20,6 +22,7 @@ class influxdb (
   String $service_defaults = $influxdb::params::service_defaults,
   String $service_default_template = $influxdb::params::service_default_template,
   String $service_definition = $influxdb::params::service_definition,
+  String $service_definition_template = $influxdb::params::service_definition_template,
   String $service_name = $influxdb::params::service_name,
   String $service_provider = $influxdb::params::service_provider,
   Enum['running', 'stopped'] $service_ensure = $influxdb::params::service_ensure,

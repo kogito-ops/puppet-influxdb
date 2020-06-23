@@ -1,16 +1,2 @@
 ---
-# - GPG key resource and resource-----------------------------------------------
-#influxdb::key_resource: ''
-#influxdb::resource: 'yumrepo'
-#
-#influxdb::service_definition: '/etc/systemd/system/influxdb.service'
-#
-## - YUM repository settings ----------------------------------------------------
-#influxdb::repositories:
-#  'influxdata':
-#    ensure: 'present'
-#    enabled: '1'
-#    descr: 'InfluxData repository'
-#    baseurl: 'https://repos.influxdata.com/rhel/%{::os.release.major}/%{::os.architecture}/stable'
-#    gpgcheck: '1'
-#    gpgkey: 'https://repos.influxdata.com/influxdb.key'
+influxdb::service_definition: '/etc/systemd/system/influxdb.service'

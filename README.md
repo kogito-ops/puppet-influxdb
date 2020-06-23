@@ -38,8 +38,6 @@ Default configuration
 
 -   starts service "influxdb" immediately
 
--   service subsribes to "package", "configuration file" and "service defaults"
-
 ### Setup Requirements
 
 -   `puppetlabs/apt`
@@ -62,7 +60,7 @@ For an extensive list of requirements, see `metadata.json`.
 ### Beginning with InfluxDB
 
 The module comes along with several configuration files, which you can find in
-`templates`. Change configuration settings in according Hiera level.
+`templates`. Change configuration settings using according hashes or hiera.
 
 - `influxdb.conf.erb` and directory `influxdb.conf`
 - `service-defaults.erb`

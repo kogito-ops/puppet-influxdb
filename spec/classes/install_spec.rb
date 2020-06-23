@@ -6,7 +6,7 @@ describe 'influxdb::install', type: :class do
       let :params do
         {
           package: 'influxdb',
-          package_manage: 'present',
+          ensure: 'present',
           group: 'influxdb',
           group_system: true,
           user: 'influxdb',
