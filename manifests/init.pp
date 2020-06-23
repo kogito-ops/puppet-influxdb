@@ -22,10 +22,12 @@ class influxdb (
   String $service_definition = $influxdb::params::service_definition,
   String $service_name = $influxdb::params::service_name,
   String $service_provider = $influxdb::params::service_provider,
-  Enum['running', 'stopped'] $service_manage = $influxdb::params::service_manage,
+  Enum['running', 'stopped'] $service_ensure = $influxdb::params::service_ensure,
   Boolean $service_enable = $influxdb::params::service_enable,
   Boolean $service_has_status = $influxdb::params::service_has_status,
   Boolean $service_has_restart = $influxdb::params::service_has_restart,
+  Boolean $manage_service = $influxdb::params::manage_service,
+  Boolean $notify_service = $influxdb::params::notify_service,
 
 # database, user, grant, retention
   String $http_admin = $influxdb::params::http_admin,
@@ -82,6 +84,10 @@ class influxdb (
   Class['influxdb::repo'] ~> Class['influxdb::install']
   Class['influxdb::install'] ~> Class['influxdb::config', 'influxdb::service']
 
+  if $notify_service {
+    Class['influxdb::config']
+    ~> Class['influxdb::service']
+  }
 
   $databases.each | $database_name, $database_config | {
     influxdb::database { $database_name:

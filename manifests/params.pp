@@ -24,10 +24,12 @@ class influxdb::params (
   String $service_definition_template = 'influxdb/systemd.service.erb',
   String $service_name = 'influxdb',
   String $service_provider = 'systemd',
-  Enum['running', 'stopped'] $service_manage = 'running',
+  Enum['running', 'stopped'] $service_ensure = 'running',
   Boolean $service_enable = true,
   Boolean $service_has_status = true,
   Boolean $service_has_restart = true,
+  Boolean $manage_service = true,
+  Boolean $notify_service = true,
 
 # database, user, grant, retention
   String $http_admin = 'admin',
