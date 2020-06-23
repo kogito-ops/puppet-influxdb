@@ -25,6 +25,10 @@ class influxdb::config (
   String $tsm_wal = $influxdb::tsm_wal,
   Integer $series_id_set_cache_size = $influxdb::series_id_set_cache_size,
 
+#  http
+  Boolean $https_enabled = $influxdb::https_enabled,
+  Boolean $auth_enabled = $influxdb::auth_enabled,
+
   Hash $meta = $influxdb::meta,
   Hash $data = $influxdb::data,
   Hash $coordinator = $influxdb::coordinator,
