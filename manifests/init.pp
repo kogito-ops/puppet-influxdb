@@ -92,6 +92,22 @@ class influxdb (
     ~> Class['influxdb::service']
   }
 
+  if $service_ensure == 'running' {
+      exec { 'is_influx_already_listening':
+        command   => 'influx -execute quit',
+        unless    => 'influx -execute quit',
+        tries     => '3',
+        try_sleep => '10',
+        require   => Service[$service_name],
+        path      => '/bin:/usr/bin',
+      }
+
+      influxdb::user {$http_admin:
+        password => $http_password,
+      }
+  }
+
+
   $databases.each | $database_name, $database_config | {
     influxdb::database { $database_name:
       * => $database_config,

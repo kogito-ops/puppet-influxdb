@@ -6,7 +6,7 @@ describe 'influxdb::service', type: :class do
       let :params do
         {
           service_name: 'influxdb',
-          service_manage: 'running',
+          service_ensure: 'running',
           service_enable: true,
           service_has_status: true,
           service_has_restart: true,

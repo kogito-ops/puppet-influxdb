@@ -13,7 +13,7 @@ define influxdb::database (
   String $http_password = $influxdb::http_password,
 ) {
 
-include influxdb::config
+contain influxdb::service
 include influxdb::params
 
 if ($https_enabled == true) {
