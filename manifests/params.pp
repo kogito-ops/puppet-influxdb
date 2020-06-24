@@ -66,7 +66,7 @@ class influxdb::params (
   Boolean $https_enabled = false,
   Boolean $auth_enabled = false,
   Hash $http_obligatory = {
-    'enabled' => $https_enabled,
+    'https-enabled' => $https_enabled,
     'auth-enabled' => $auth_enabled,
   },
 
