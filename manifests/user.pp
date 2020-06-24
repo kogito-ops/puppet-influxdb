@@ -16,7 +16,6 @@ define influxdb::user (
   String $http_password = $influxdb::http_password,
 ) {
 
-contain influxdb::service
 include influxdb::params
 
 if $https_enabled {
@@ -39,7 +38,6 @@ if ($auth_enabled == true) {
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' |\
          grep -x' ${user}",
-      require => Package['influxdb']
     }
   } else {
       $arg_x = "${arg_p} \'${password}\'"
@@ -52,7 +50,7 @@ if ($auth_enabled == true) {
           "${cmd} ${cmd_admin} \
           -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' |\
           grep -x ${user}",
-        require => Package['influxdb']
+        require => Exec['is_influx_already_listening'],
       }
     }
 }

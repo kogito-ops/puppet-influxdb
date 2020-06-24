@@ -13,7 +13,6 @@ define influxdb::database (
   String $http_password = $influxdb::http_password,
 ) {
 
-contain influxdb::service
 include influxdb::params
 
 if ($https_enabled == true) {
@@ -35,7 +34,6 @@ if ($auth_enabled == true) {
       onlyif  =>
         "${cmd} ${cmd_admin} \
         '-execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
-      require => Package['influxdb']
       }
   } else {
     exec {"create_database_${database}":
@@ -46,7 +44,7 @@ if ($auth_enabled == true) {
       unless  =>
         "${cmd} ${cmd_admin} \
         -execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
-      require => Package['influxdb']
+      require =>  Exec['is_influx_already_listening'],
     }
   }
 }

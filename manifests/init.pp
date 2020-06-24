@@ -101,12 +101,11 @@ class influxdb (
         require   => Service[$service_name],
         path      => '/bin:/usr/bin',
       }
-
-      influxdb::user {$http_admin:
-        password => $http_password,
-      }
   }
 
+  influxdb::user {$http_admin:
+    password => $http_password,
+  }
 
   $databases.each | $database_name, $database_config | {
     influxdb::database { $database_name:
