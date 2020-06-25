@@ -3,8 +3,8 @@
 
 [Unit]
 Description=InfluxDB is an open-source, distributed, time series database
-After=network.target
-Documentation=man:influxd(1)
+After=network-online.target
+Documentation=https://docs.influxdata.com/influxdb/
 
 [Service]
 User=<%= @user %>
