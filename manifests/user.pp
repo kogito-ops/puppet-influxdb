@@ -12,8 +12,8 @@ define influxdb::user (
   String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   Boolean $https_enabled = $influxdb::https_enabled,
   Boolean $auth_enabled = $influxdb::auth_enabled,
-  String $http_admin = $influxdb::http_admin,
-  String $http_password = $influxdb::http_password,
+  String $admin = $influxdb::admin,
+  String $admin_password = $influxdb::admin_password,
 ) {
 
 include influxdb::params
@@ -24,7 +24,7 @@ if $https_enabled {
       $cmd = 'influx'}
 
 if ($auth_enabled == true) {
-  $cmd_admin = "-username ${http_admin} -password ${http_password}" }
+  $cmd_admin = "-username ${admin} -password ${admin_password}" }
   else {
     $cmd_admin = ''}
 

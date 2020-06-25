@@ -33,8 +33,8 @@ class influxdb (
   Boolean $notify_service = $influxdb::params::notify_service,
 
 # database, user, grant, retention
-  String $http_admin = $influxdb::params::http_admin,
-  String $http_password = $influxdb::params::http_password,
+  String $admin = $influxdb::params::admin,
+  String $admin_password = $influxdb::params::admin_password,
   Hash $users = $influxdb::params::users,
   Hash $grants = $influxdb::params::grants,
   Hash $databases = $influxdb::params::databases,
@@ -103,8 +103,10 @@ class influxdb (
       }
   }
 
-  influxdb::user {$http_admin:
-    password => $http_password,
+  if ($auth_enabled == true) {
+    influxdb::user {$admin:
+      password => $admin_password,
+    }
   }
 
   $databases.each | $database_name, $database_config | {

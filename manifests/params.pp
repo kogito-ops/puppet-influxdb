@@ -34,8 +34,8 @@ class influxdb::params (
   Boolean $notify_service = true,
 
 # database, user, grant, retention
-  String $http_admin = 'admin',
-  String $http_password = '',
+  String $admin = 'admin',
+  String $admin_password = '',
   Hash $users = {},
   Hash $grants = {},
   Hash $databases = {},
