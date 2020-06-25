@@ -6,7 +6,7 @@ class influxdb::params (
 
   Boolean $manager_repo = true,
   String $package_name = 'influxdb',
-  String $ensure_package = 'present',
+  String $ensure = 'present',
   String $repo_location = 'https://repos.influxdata.com/',
   String $repo_type = 'stable',
 

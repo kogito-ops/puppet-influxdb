@@ -5,7 +5,7 @@
 class influxdb (
   Boolean $manage_repo = $influxdb::params::manage_repo,
   String $package_name = $influxdb::params::package_name,
-  String $ensure_package = $influxdb::params::ensure_package,
+  String $ensure = $influxdb::params::ensure,
   String $repo_location = $influxdb::params::repo_location,
   String $repo_type = $influxdb::params::repo_type,
 

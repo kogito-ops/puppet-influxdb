@@ -4,7 +4,7 @@
 #   include influxdb::repo
 class influxdb::repo (
   Boolean $manage_repo = $influxdb::manage_repo,
-  String $ensure_package = $influxdb::ensure_package,
+  String $ensure = $influxdb::ensure,
   String $package_name = $influxdb::package_name,
   String $repo_location = $influxdb::repo_location,
   String $repo_type = $influxdb::repo_type,
@@ -26,7 +26,7 @@ class influxdb::repo (
     include apt
     Class['::apt::update'] -> Package[$package_name]
     package { $package_name:
-      ensure => $ensure_package,
+      ensure => $ensure,
     }
   }
 
@@ -40,8 +40,7 @@ class influxdb::repo (
         gpgkey   => "${repo_location}influxdb.key",
         gpgcheck => 1,
       }
-
-      Yumrepo['influxdata'] -> Package[$package_name]
     }
+      Yumrepo['influxdata'] -> Package[$package_name]
   }
 }
