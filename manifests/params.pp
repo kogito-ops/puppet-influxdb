@@ -4,7 +4,7 @@
 #   include influxdb::params
 class influxdb::params (
 
-  Boolean $manager_repo = true,
+  Boolean $manage_repo = true,
   String $package_name = 'influxdb',
   String $ensure = 'present',
   String $repo_location = 'https://repos.influxdata.com/',
