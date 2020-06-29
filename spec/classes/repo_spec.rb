@@ -1,17 +1,37 @@
 require 'spec_helper'
 
 describe 'influxdb::repo', type: :class do
-  on_supported_os.each do
-    context 'with all defaults' do
-      let :params do
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
+      let(:params) {
         {
-          key_resource: '',
-          resource: '',
-          manage_repo: true,
+          'manage_repo' => true,
+          'package_name' => 'influxdb',
+          'ensure' => 'present',
+          'repo_location' => 'https://repos.influxdata.com/',
+          'repo_type' => 'stable'
         }
+      }
+
+      it do
+
+        if facts[:osfamily] == 'Debian'
+          is_expected.to contain_class('influxdb::repo')
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_package('influxdb')
+          is_expected.to contain_class('apt')
+        end
+
+        if facts[:osname] == 'CentOS'
+          is_expected.to contain_class('influxdb::repo')
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_package('influxdb')
+          is_expected.to contain_yumrepo('influxdata')
+        end
+
       end
 
-      it { is_expected.to compile }
     end
   end
 end
