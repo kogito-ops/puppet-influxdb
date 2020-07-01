@@ -62,7 +62,7 @@ describe 'influxdb::config', type: :class do
         is_expected.to contain_file('/var/lib/influxdb/meta')
       end
 
-      context "with family Debian" do
+      context 'with family Debian' do
         let(:params) {
           {
             'configuration_path' => '/etc/influxdb',
@@ -112,7 +112,7 @@ describe 'influxdb::config', type: :class do
           }
         }
 
-      it do
+        it do
           if facts[:osfamily] == 'Debian'
             is_expected.to contain_class('influxdb::config')
             is_expected.to compile.with_all_deps
@@ -121,7 +121,7 @@ describe 'influxdb::config', type: :class do
         end
       end
 
-      context "with osname CentOS" do
+      context 'with osname CentOS' do
         let(:params) {
           {
             'configuration_path' => '/etc/influxdb',
@@ -170,6 +170,7 @@ describe 'influxdb::config', type: :class do
             },
           }
         }
+
         it do
           if facts[:osname] == 'CentOS'
             is_expected.to contain_class('influxdb::config')
@@ -178,7 +179,6 @@ describe 'influxdb::config', type: :class do
           end
         end
       end
-
     end
   end
 end

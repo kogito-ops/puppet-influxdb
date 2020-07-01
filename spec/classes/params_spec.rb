@@ -4,10 +4,6 @@ describe 'influxdb::params', type: :class do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
-      let(:params) {
-        {
-        }
-      }
 
       it do
           is_expected.to contain_class('influxdb::params')
