@@ -2273,4 +2273,3 @@ Data type: `String`
 
 
 Default value: $influxdb::http_password
-

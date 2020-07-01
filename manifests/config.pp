@@ -66,7 +66,7 @@ class influxdb::config (
     content => template($configuration_template),
     owner   => 'root',
     group   => 'root',
-    mode    => '0644'
+    mode    => '0644',
   }
 
   -> file { $service_defaults:
@@ -105,5 +105,4 @@ class influxdb::config (
     group  => $group,
     mode   => '0755',
   }
-
 }

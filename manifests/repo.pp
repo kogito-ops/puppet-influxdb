@@ -40,7 +40,8 @@ class influxdb::repo (
         gpgkey   => "${repo_location}influxdb.key",
         gpgcheck => 1,
       }
-    }
+
       Yumrepo['influxdata'] -> Package[$package_name]
+    }
   }
 }
