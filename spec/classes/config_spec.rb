@@ -108,7 +108,7 @@ describe 'influxdb::config', type: :class do
             'http_obligatory' => {
               'https-enabled' => false,
               'auth-enabled' => false,
-            }
+            },
           }
         }
 

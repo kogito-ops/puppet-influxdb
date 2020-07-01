@@ -21,7 +21,6 @@ describe 'influxdb::install', type: :class do
         is_expected.to contain_group('influxdb')
         is_expected.to contain_user('influxdb')
       end
-
     end
   end
 end

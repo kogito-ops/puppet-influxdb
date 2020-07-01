@@ -17,13 +17,10 @@ describe 'influxdb::service', type: :class do
       }
 
       it do
-
         is_expected.to contain_class('influxdb::service')
         is_expected.to compile.with_all_deps
         is_expected.to contain_service('influxdb')
-
       end
-
     end
   end
 end
