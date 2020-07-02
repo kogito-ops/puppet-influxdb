@@ -27,7 +27,7 @@ class influxdb::repo (
     Class['::apt::update'] -> Package[$package_name]
     package { $package_name:
       ensure => $ensure,
-    }
+        }
   }
 
   if $facts['os']['name'] == 'CentOS' {
