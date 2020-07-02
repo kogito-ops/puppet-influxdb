@@ -4,7 +4,7 @@ describe 'influxdb::install', type: :class do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
-      let(:params) {
+      let :params do
         {
           'group' => 'influxdb',
           'group_system' => true,
@@ -13,7 +13,7 @@ describe 'influxdb::install', type: :class do
           'user_manage_home' => true,
           'user_system' => true,
         }
-      }
+      end
 
       it do
         is_expected.to contain_class('influxdb::install')

@@ -8,7 +8,7 @@ describe 'influxdb', type: :class do
       end
 
       context 'with all defaults' do
-        let(:params) {
+        let :params do
           {
             'manage_repo' => true,
             'package_name' => 'influxdb',
@@ -23,7 +23,7 @@ describe 'influxdb', type: :class do
             'user_home' => '/var/lib/',
             'configuration_path' => '/etc/influxdb',
             'configuration_file' => 'influxdb.conf',
-            'configuration_template' => 'influxdb/influxdb.conf.origin.erb',
+            'configuration_template' => 'influxdb/influxdb.conf.erb',
             'service_defaults' => '/etc/default/influxdb',
             'service_default_template' => 'influxdb/service-defaults.erb',
             'service_definition' => '/lib/systemd/system/influxdb.service',
@@ -78,7 +78,7 @@ describe 'influxdb', type: :class do
             'continuous_queries' => {},
             'tls' => {},
           }
-        }
+        end
 
         it do
           if facts[:osfamily] == 'Debian'

@@ -31,6 +31,11 @@ group :development do
   gem "toml-rb", '~> 2.0',                                       require: false, platforms: [:ruby]
 end
 
+group :test do
+  gem "toml-rb", '~> 2.0', require: false
+end
+
+
 puppet_version = ENV['PUPPET_GEM_VERSION']
 facter_version = ENV['FACTER_GEM_VERSION']
 hiera_version = ENV['HIERA_GEM_VERSION']

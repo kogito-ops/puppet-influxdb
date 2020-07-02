@@ -9,7 +9,6 @@ describe 'influxdb::params', type: :class do
         is_expected.to compile.with_all_deps
         is_expected.to contain_class('influxdb::params')
       end
-
     end
   end
 end

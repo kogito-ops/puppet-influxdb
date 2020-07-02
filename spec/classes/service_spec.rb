@@ -4,7 +4,7 @@ describe 'influxdb::service', type: :class do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
-      let(:params) {
+      let :params do
         {
           'service_name' => 'influxdb',
           'service_ensure' => 'running',
@@ -14,7 +14,7 @@ describe 'influxdb::service', type: :class do
           'service_provider' => 'systemd',
           'manage_service' => true,
         }
-      }
+      end
 
       it do
         is_expected.to contain_class('influxdb::service')

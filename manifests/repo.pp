@@ -33,7 +33,6 @@ class influxdb::repo (
   if $facts['os']['name'] == 'CentOS' {
     if $manage_repo {
       yumrepo { 'influxdata':
-        name     => 'influxdata',
         descr    => 'InfluxData Repository',
         enabled  => 1,
         baseurl  => "${repo_location}rhel/${facts['os']['release']['major']}/${facts['os']['architecture']}/${repo_type}",

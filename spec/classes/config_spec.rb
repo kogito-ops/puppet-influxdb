@@ -4,11 +4,11 @@ describe 'influxdb::config', type: :class do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
-      let(:params) {
+      let :params do
         {
           'configuration_path' => '/etc/influxdb',
           'configuration_file' => 'influxdb.conf',
-          'configuration_template' => 'influxdb/influxdb.conf.origin.erb',
+          'configuration_template' => 'influxdb/influxdb.conf.erb',
           'service_defaults' => '/etc/default/influxdb',
           'service_default_template' => 'influxdb/service-defaults.erb',
           'service_definition' => '/lib/systemd/system/influxdb.service',
@@ -51,7 +51,7 @@ describe 'influxdb::config', type: :class do
             'auth-enabled' => false,
           },
         }
-      }
+      end
 
       it do
         is_expected.to contain_file('/etc/influxdb')
@@ -63,11 +63,11 @@ describe 'influxdb::config', type: :class do
       end
 
       context 'with family Debian' do
-        let(:params) {
+        let :params do
           {
             'configuration_path' => '/etc/influxdb',
             'configuration_file' => 'influxdb.conf',
-            'configuration_template' => 'influxdb/influxdb.conf.origin.erb',
+            'configuration_template' => 'influxdb/influxdb.conf.erb',
             'service_defaults' => '/etc/default/influxdb',
             'service_default_template' => 'influxdb/service-defaults.erb',
             'service_definition' => '/lib/systemd/system/influxdb.service',
@@ -110,7 +110,7 @@ describe 'influxdb::config', type: :class do
               'auth-enabled' => false,
             },
           }
-        }
+        end
 
         it do
           if facts[:osfamily] == 'Debian'
@@ -122,11 +122,11 @@ describe 'influxdb::config', type: :class do
       end
 
       context 'with osname CentOS' do
-        let(:params) {
+        let :params do
           {
             'configuration_path' => '/etc/influxdb',
             'configuration_file' => 'influxdb.conf',
-            'configuration_template' => 'influxdb/influxdb.conf.origin.erb',
+            'configuration_template' => 'influxdb/influxdb.conf.erb',
             'service_defaults' => '/etc/default/influxdb',
             'service_default_template' => 'influxdb/service-defaults.erb',
             'service_definition' => '/etc/systemd/system/influxdb.service',
@@ -169,7 +169,7 @@ describe 'influxdb::config', type: :class do
               'auth-enabled' => false,
             },
           }
-        }
+        end
 
         it do
           if facts[:osname] == 'CentOS'
