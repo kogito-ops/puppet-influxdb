@@ -16,8 +16,8 @@ describe 'influxdb::install', type: :class do
       end
 
       it do
-        is_expected.to contain_class('influxdb::install')
         is_expected.to compile.with_all_deps
+        is_expected.to contain_class('influxdb::install')
         is_expected.to contain_group('influxdb')
         is_expected.to contain_user('influxdb')
       end

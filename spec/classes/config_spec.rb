@@ -54,6 +54,7 @@ describe 'influxdb::config', type: :class do
       end
 
       it do
+        is_expected.to compile.with_all_deps
         is_expected.to contain_file('/etc/influxdb')
         is_expected.to contain_file('/etc/influxdb/influxdb.conf')
         is_expected.to contain_file('/etc/default/influxdb')
@@ -115,7 +116,6 @@ describe 'influxdb::config', type: :class do
         it do
           if facts[:osfamily] == 'Debian'
             is_expected.to contain_class('influxdb::config')
-            is_expected.to compile.with_all_deps
             is_expected.to contain_file('/lib/systemd/system/influxdb.service')
           end
         end
@@ -174,7 +174,6 @@ describe 'influxdb::config', type: :class do
         it do
           if facts[:osname] == 'CentOS'
             is_expected.to contain_class('influxdb::config')
-            is_expected.to compile.with_all_deps
             is_expected.to contain_file('/etc/systemd/system/influxdb.service')
           end
         end

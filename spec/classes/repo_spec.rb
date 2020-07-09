@@ -14,17 +14,17 @@ describe 'influxdb::repo', type: :class do
         }
       end
 
+      it { is_expected.to compile.with_all_deps }
+
       it do
         if facts[:osfamily] == 'Debian'
           is_expected.to contain_class('influxdb::repo')
-          is_expected.to compile.with_all_deps
           is_expected.to contain_package('influxdb')
           is_expected.to contain_class('apt')
         end
 
         if facts[:osname] == 'CentOS'
           is_expected.to contain_class('influxdb::repo')
-          is_expected.to compile.with_all_deps
           is_expected.to contain_package('influxdb')
           is_expected.to contain_yumrepo('influxdata')
         end
