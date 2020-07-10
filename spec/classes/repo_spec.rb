@@ -23,7 +23,7 @@ describe 'influxdb::repo', type: :class do
           is_expected.to contain_class('apt')
         end
 
-        if facts[:osname] == 'CentOS'
+        if facts[:os]['name'] == 'CentOS'
           is_expected.to contain_class('influxdb::repo')
           is_expected.to contain_package('influxdb')
           is_expected.to contain_yumrepo('influxdata')

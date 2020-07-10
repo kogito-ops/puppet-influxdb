@@ -172,7 +172,7 @@ describe 'influxdb::config', type: :class do
         end
 
         it do
-          if facts[:osname] == 'CentOS'
+          if facts[:os]['name'] == 'CentOS'
             is_expected.to contain_class('influxdb::config')
             is_expected.to contain_file('/etc/systemd/system/influxdb.service')
           end
