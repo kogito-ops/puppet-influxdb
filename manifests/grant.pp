@@ -4,11 +4,11 @@
 # @example
 #   influxdb::grant { 'grant': }
 define influxdb::grant (
-  Stdlib::Unixpath $user = $title,
+  String $user = $title,
   Enum['present', 'absent'] $ensure = 'present',
   Enum['ALL', 'READ', 'WRITE'] $grant = 'ALL',
   String $database = 'database1',
-  String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
+  Stdlib::Unixpath $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   Boolean $https_enabled = $influxdb::https_enabled,
   Boolean $auth_enabled = $influxdb::auth_enabled,
   String $admin = $influxdb::admin,
