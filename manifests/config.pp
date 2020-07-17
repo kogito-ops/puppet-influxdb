@@ -3,12 +3,12 @@
 # @example
 #   include influxdb::config
 class influxdb::config (
-  String $configuration_path = $influxdb::configuration_path,
+  Stdlib::Absolutepath $configuration_path = $influxdb::configuration_path,
   String $configuration_file = $influxdb::configuration_file,
   String $configuration_template= $influxdb::configuration_template,
-  String $service_defaults = $influxdb::service_defaults,
+  Stdlib::Absolutepath $service_defaults = $influxdb::service_defaults,
   String $service_default_template = $influxdb::service_default_template,
-  String $service_definition = $influxdb::service_definition,
+  Stdlib::Absolutepath $service_definition = $influxdb::service_definition,
   String $service_definition_template = $influxdb::service_definition_template,
   String $group = $influxdb::group,
   String $user = $influxdb::user,
@@ -50,6 +50,8 @@ class influxdb::config (
   Hash $http_obligatory = $influxdb::http_obligatory,
 ){
 
+  include systemd::systemctl::daemon_reload
+
   $template_meta = deep_merge($meta_obligatory, $meta)
   $template_data = deep_merge($data_obligatory, $data)
   $template_http = deep_merge($http_obligatory, $http)
@@ -84,22 +86,23 @@ class influxdb::config (
     mode    => '0644',
     content => template($service_definition_template),
   }
+  ~> Class['systemd::systemctl::daemon_reload']
 
-  -> file { $tsm_data:
+  file { $tsm_data:
     ensure => directory,
     owner  => $user,
     group  => $group,
     mode   => '0755',
   }
 
-  -> file { $tsm_wal:
+  file { $tsm_wal:
     ensure => directory,
     owner  => $user,
     group  => $group,
     mode   => '0755',
   }
 
-  -> file { $metadata_raft:
+  file { $metadata_raft:
     ensure => directory,
     owner  => $user,
     group  => $group,

@@ -9,7 +9,7 @@ define influxdb::user (
   Enum['present', 'absent'] $ensure = 'present',
   String $arg_p = 'WITH PASSWORD',
   String $arg_a = 'WITH ALL PRIVILEGES',
-  String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
+  Stdlib::Unixpath $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   Boolean $https_enabled = $influxdb::https_enabled,
   Boolean $auth_enabled = $influxdb::auth_enabled,
   String $admin = $influxdb::admin,

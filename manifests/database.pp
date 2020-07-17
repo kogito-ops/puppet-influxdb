@@ -6,7 +6,7 @@
 define influxdb::database (
   Enum['present', 'absent'] $ensure = 'present',
   String $database = $title,
-  String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
+  Stdlib::Unixpath $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   Boolean $https_enabled = $influxdb::https_enabled,
   Boolean $auth_enabled = $influxdb::auth_enabled,
   String $admin = $influxdb::admin,

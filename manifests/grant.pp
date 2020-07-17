@@ -4,7 +4,7 @@
 # @example
 #   influxdb::grant { 'grant': }
 define influxdb::grant (
-  String $user = $title,
+  Stdlib::Unixpath $user = $title,
   Enum['present', 'absent'] $ensure = 'present',
   Enum['ALL', 'READ', 'WRITE'] $grant = 'ALL',
   String $database = 'database1',

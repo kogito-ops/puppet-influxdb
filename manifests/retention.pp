@@ -4,7 +4,7 @@
 # @example
 #   influxdb::retention { 'retention': }
 define influxdb::retention (
-  String $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
+  Stdlib::Unixpath $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
   String $retention = $title,
   String $database = 'database1',
   Enum['create', 'alter', 'drop'] $ensure = 'create',

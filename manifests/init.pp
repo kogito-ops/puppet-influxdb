@@ -6,31 +6,26 @@ class influxdb (
   Boolean $manage_repo = $influxdb::params::manage_repo,
   String $package_name = $influxdb::params::package_name,
   String $ensure = $influxdb::params::ensure,
-  String $repo_location = $influxdb::params::repo_location,
+  Stdlib::HTTPSUrl $repo_location = $influxdb::params::repo_location,
   String $repo_type = $influxdb::params::repo_type,
 
   String $group = $influxdb::params::group,
-  Boolean $group_system = $influxdb::params::group_system,
   String $user = $influxdb::params::user,
-  Boolean $user_system = $influxdb::params::user_system,
-  Boolean $user_manage_home = $influxdb::params::user_manage_home,
-  String $user_home = $influxdb::params::user_home,
 
-  String $configuration_path = $influxdb::params::configuration_path,
+  Stdlib::Absolutepath $configuration_path = $influxdb::params::configuration_path,
   String $configuration_file = $influxdb::params::configuration_file,
   String $configuration_template= $influxdb::params::configuration_template,
-  String $service_defaults = $influxdb::params::service_defaults,
+  Stdlib::Absolutepath $service_defaults = $influxdb::params::service_defaults,
   String $service_default_template = $influxdb::params::service_default_template,
-  String $service_definition = $influxdb::params::service_definition,
+  Stdlib::Absolutepath $service_definition = $influxdb::params::service_definition,
   String $service_definition_template = $influxdb::params::service_definition_template,
   String $service_name = $influxdb::params::service_name,
   String $service_provider = $influxdb::params::service_provider,
-  Enum['running', 'stopped'] $service_ensure = $influxdb::params::service_ensure,
+  Stdlib::Ensure::Service $service_ensure = $influxdb::params::service_ensure,
   Boolean $service_enable = $influxdb::params::service_enable,
   Boolean $service_has_status = $influxdb::params::service_has_status,
   Boolean $service_has_restart = $influxdb::params::service_has_restart,
   Boolean $manage_service = $influxdb::params::manage_service,
-  Boolean $notify_service = $influxdb::params::notify_service,
 
 # database, user, grant, retention
   String $admin = $influxdb::params::admin,
@@ -86,11 +81,6 @@ class influxdb (
 
   Class['influxdb::repo'] ~> Class['influxdb::install']
   Class['influxdb::install'] ~> Class['influxdb::config', 'influxdb::service']
-
-  if $notify_service {
-    Class['influxdb::config']
-    ~> Class['influxdb::service']
-  }
 
   if $service_ensure == 'running' {
       exec { 'is_influx_already_listening':
