@@ -11,6 +11,9 @@ class influxdb::install (
     include apt
     Class['::apt::update'] -> Package[$package_name]
   }
+  'RedHat': {
+    Yumrepo['influxdata'] -> Package[$package_name]
+  }
     default: {
       # do nothing
     }
