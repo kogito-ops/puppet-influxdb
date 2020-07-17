@@ -21,8 +21,8 @@ describe 'influxdb', type: :class do
           is_expected.to have_class_count(10)
           is_expected.to have_resource_count(26)
         when 'CentOS'
-            is_expected.to have_class_count(7)
-            is_expected.to have_resource_count(12)
+          is_expected.to have_class_count(7)
+          is_expected.to have_resource_count(12)
         end
       end
     end
