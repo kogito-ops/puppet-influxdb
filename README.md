@@ -24,12 +24,9 @@ time-series platform.
 
 Default configuration
 
--   manages GPG key, repository
-        (use `$manage_repo` to deactivate when another influxdata module takes the lead)
+-   manages GPG key, repository (manage_repo = true)
 
 -   manages package
-
--   manages user and group influxdb
 
 -   manages directories and configuration files (referring to templates)
     -   `/etc/influxdb/influxdb.conf`
@@ -40,21 +37,6 @@ Default configuration
 
 ### Setup Requirements
 
--   `puppetlabs/apt`
-    version `>= 2.0.0 < 8.0.0`
-
--   `puppetlabs/concat`
-    version `>= 5.0.0 < 7.0.0`
-
--   `puppetlabs/stdlib`
-    version `>= 4.25.0 < 7.0.0`
-
--   `puppetlabs/translate`
-    version `>= 1.0.0 < 3.0.0`
-
--   `puppet`
-    version `>= 5.5.8 < 7.0.0`
-
 For an extensive list of requirements, see `metadata.json`.
 
 ### Beginning with InfluxDB
@@ -62,7 +44,7 @@ For an extensive list of requirements, see `metadata.json`.
 The module comes along with several configuration files, which you can find in
 `templates`. Change configuration settings using according hashes or hiera.
 
-- `influxdb.conf.erb` and directory `influxdb.conf`
+- `influxdb.conf.erb`
 - `service-defaults.erb`
 - `systemd.service.erb`
 
@@ -120,11 +102,9 @@ Please see document `REFERENCE.md`.
 
 ## Limitations
 
--   Please be aware that this module uses "hiera".
-
 -   Tests had been executed on:
-    - CentOS 7
-    - Debian 10
+    - CentOS 7.8
+    - Debian 10.4
     - Ubuntu 18.04
 
 For an extensive list of supported operating systems, see `metadata.json`.
@@ -132,9 +112,9 @@ For an extensive list of supported operating systems, see `metadata.json`.
 
 ## Development
 
--   pdk-version     1.15.0
--   template-url    pdk-default 1.15.0
--   template-ref    tags/1.15.0-0-g0bc522e
+-   pdk-version     1.18.0
+-   template-url    pdk-default 1.18.0
+-   template-ref    tags/1.18.0-0-g095317c
 
 
 ## Release Notes/Contributors/Etc.
