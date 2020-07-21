@@ -24,7 +24,7 @@ if $https_enabled {
       $cmd = 'influx'}
 
 if ($auth_enabled == true) {
-  $cmd_admin = "-username ${admin} -password ${admin_password}" }
+  $cmd_admin = " -username ${admin} -password ${admin_password}" }
   else {
     $cmd_admin = ''}
 
@@ -32,24 +32,18 @@ if ($auth_enabled == true) {
     exec { "drop_user_${user}":
       path    => $path,
       command =>
-        "${cmd} ${cmd_admin} \
-        -execute 'DROP USER \"${user}\"'",
+        "${cmd}${cmd_admin} -execute 'DROP USER \"${user}\"'",
       onlyif  =>
-        "${cmd} ${cmd_admin} \
-        '-execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' |\
-         grep -x' ${user}",
+        "${cmd}${cmd_admin} -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x' ${user}",
     }
   } else {
       $arg_x = "${arg_p} \'${password}\'"
       exec { "create_user_${user}":
         path    => $path,
         command =>
-          "${cmd} ${cmd_admin} \
-          -execute \"CREATE USER \\\"${user}\\\" ${arg_x} ${arg_a}\"",
+          "${cmd}${cmd_admin} -execute \"CREATE USER \\\"${user}\\\" ${arg_x} ${arg_a}\"",
         unless  =>
-          "${cmd} ${cmd_admin} \
-          -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' |\
-          grep -x ${user}",
+          "${cmd}${cmd_admin} -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x ${user}",
         require => Exec['is_influx_already_listening'],
       }
     }

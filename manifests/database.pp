@@ -21,7 +21,7 @@ if ($https_enabled == true) {
       $cmd = 'influx'}
 
 if ($auth_enabled == true) {
-  $cmd_admin = "-username ${admin} -password ${admin_password}" }
+  $cmd_admin = " -username ${admin} -password ${admin_password}" }
   else {
     $cmd_admin = ''}
 
@@ -29,21 +29,17 @@ if ($auth_enabled == true) {
     exec { "drop_database_${database}":
       path    => $path,
       command =>
-        "${cmd} ${cmd_admin} \
-        -execute 'DROP DATABASE ${database}'",
+        "${cmd}${cmd_admin} -execute 'DROP DATABASE ${database}'",
       onlyif  =>
-        "${cmd} ${cmd_admin} \
-        '-execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
+        "${cmd}${cmd_admin} '-execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
       }
   } else {
     exec {"create_database_${database}":
       path    => $path,
       command =>
-        "${cmd} ${cmd_admin} \
-        -execute 'CREATE DATABASE ${database}'",
+        "${cmd}${cmd_admin} -execute 'CREATE DATABASE ${database}'",
       unless  =>
-        "${cmd} ${cmd_admin} \
-        -execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
+        "${cmd}${cmd_admin} -execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
       require =>  Exec['is_influx_already_listening'],
     }
   }

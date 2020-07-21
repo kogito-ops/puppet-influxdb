@@ -24,32 +24,27 @@ if ($https_enabled == true) {
       $cmd = 'influx'}
 
 if ($auth_enabled == true) {
-  $cmd_admin = "-username ${admin} -password ${admin_password}" }
+  $cmd_admin = " -username ${admin} -password ${admin_password}" }
   else {
     $cmd_admin = ''}
 
 $matches = "grep ${database} | grep ${grant}"
 
   if ($ensure == 'absent') {
-    exec { "revoke_${grant}_on_${database}_to_${user}":
+    exec { "revoke_${grant}_on_${database}_for_${user}":
       path    => $path,
       command =>
-        "${cmd} ${cmd_admin} \
-        -execute 'REVOKE ${grant} ON \"${database}\" TO \"${user}\"'",
+        "${cmd}${cmd_admin} -execute 'REVOKE ${grant} ON \"${database}\" TO \"${user}\"'",
       onlyif  =>
-        "${cmd} ${cmd_admin} \
-        '-execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
+        "${cmd}${cmd_admin} '-execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
     }
   } elsif ($ensure == 'present') {
     exec {"grant_${grant}_on_${database}_to_${user}":
       path    => $path,
       command =>
-        "${cmd} ${cmd_admin} \
-        -execute 'GRANT ${grant} ON \"${database}\" \
-        TO \"${user}\"'",
+        "${cmd}${cmd_admin} -execute 'GRANT ${grant} ON \"${database}\" TO \"${user}\"'",
       unless  =>
-        "${cmd} ${cmd_admin} \
-        -execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
+        "${cmd}${cmd_admin} -execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
     }
   }
 }
