@@ -17,11 +17,11 @@ describe 'influxdb::user' do
         context 'when ensure => present' do
           let :params do
             {
-              :ensure         => 'present',
-              :auth_enabled   => true,
-              :password       => 'bar',
-              :admin          => 'foo',
-              :admin_password => 'bar',
+              ensure:         'present',
+              auth_enabled:   true,
+              password:       'bar',
+              admin:          'foo',
+              admin_password: 'bar',
             }
           end
 
@@ -31,11 +31,11 @@ describe 'influxdb::user' do
         context 'when ensure => absent' do
           let :params do
             {
-              :ensure         => 'absent',
-              :auth_enabled   => true,
-              :password       => 'bar',
-              :admin          => 'foo',
-              :admin_password => 'bar',
+              ensure:         'absent',
+              auth_enabled:   true,
+              password:       'bar',
+              admin:          'foo',
+              admin_password: 'bar',
             }
           end
 
@@ -51,11 +51,11 @@ describe 'influxdb::user' do
         context 'when ensure => present' do
           let :params do
             {
-              :ensure         => 'present',
-              :auth_enabled   => false,
-              :password       => 'bar',
-              :admin          => 'foo',
-              :admin_password => 'bar',
+              ensure:         'present',
+              auth_enabled:   false,
+              password:       'bar',
+              admin:          'foo',
+              admin_password: 'bar',
             }
           end
 
@@ -65,11 +65,11 @@ describe 'influxdb::user' do
         context 'when ensure => absent' do
           let :params do
             {
-              :ensure         => 'absent',
-              :auth_enabled   => false,
-              :password       => 'bar',
-              :admin          => 'foo',
-              :admin_password => 'bar',
+              ensure:         'absent',
+              auth_enabled:   false,
+              password:       'bar',
+              admin:          'foo',
+              admin_password: 'bar',
             }
           end
 

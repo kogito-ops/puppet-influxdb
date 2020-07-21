@@ -17,10 +17,10 @@ describe 'influxdb::database' do
         context 'when ensure => present' do
           let :params do
             {
-              :ensure         => 'present',
-              :auth_enabled   => true,
-              :admin          => 'foo',
-              :admin_password => 'bar',
+              ensure:          'present',
+              auth_enabled:    true,
+              admin:           'foo',
+              admin_password:  'bar',
             }
           end
 
@@ -30,10 +30,10 @@ describe 'influxdb::database' do
         context 'when ensure => absent' do
           let :params do
             {
-              :ensure         => 'absent',
-              :auth_enabled   => true,
-              :admin          => 'foo',
-              :admin_password => 'bar',
+              ensure:          'absent',
+              auth_enabled:    true,
+              admin:           'foo',
+              admin_password:  'bar',
             }
           end
 
@@ -49,10 +49,10 @@ describe 'influxdb::database' do
         context 'when ensure => present' do
           let :params do
             {
-              :ensure         => 'present',
-              :auth_enabled   => false,
-              :admin          => 'foo',
-              :admin_password => 'bar',
+              ensure:         'present',
+              auth_enabled:   false,
+              admin:          'foo',
+              admin_password: 'bar',
             }
           end
 
@@ -62,10 +62,10 @@ describe 'influxdb::database' do
         context 'when ensure => absent' do
           let :params do
             {
-              :ensure         => 'absent',
-              :auth_enabled   => false,
-              :admin          => 'foo',
-              :admin_password => 'bar',
+              ensure:         'absent',
+              auth_enabled:   false,
+              admin:          'foo',
+              admin_password: 'bar',
             }
           end
 
