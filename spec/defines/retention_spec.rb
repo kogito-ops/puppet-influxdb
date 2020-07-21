@@ -27,7 +27,7 @@ describe 'influxdb::retention' do
 
           it {
             is_expected.to contain_exec('create_retention_policy_foo_on_foo')
-            .with_command("influx -username foo -password bar -execute 'CREATE RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
+              .with_command("influx -username foo -password bar -execute 'CREATE RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
           }
         end
 
@@ -44,7 +44,7 @@ describe 'influxdb::retention' do
 
           it {
             is_expected.to contain_exec('alter_retention_policy_foo_on_foo')
-            .with_command("influx -username foo -password bar -execute 'ALTER RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
+              .with_command("influx -username foo -password bar -execute 'ALTER RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
           }
         end
 
@@ -61,7 +61,7 @@ describe 'influxdb::retention' do
 
           it {
             is_expected.to contain_exec('drop_retention_policy_foo_on_foo')
-            .with_command("influx -username foo -password bar -execute 'DROP RETENTION POLICY \"foo\" ON \"foo\"'")
+              .with_command("influx -username foo -password bar -execute 'DROP RETENTION POLICY \"foo\" ON \"foo\"'")
           }
         end
       end
@@ -84,7 +84,7 @@ describe 'influxdb::retention' do
 
           it {
             is_expected.to contain_exec('create_retention_policy_foo_on_foo')
-            .with_command("influx -execute 'CREATE RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
+              .with_command("influx -execute 'CREATE RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
           }
         end
 
@@ -101,7 +101,7 @@ describe 'influxdb::retention' do
 
           it {
             is_expected.to contain_exec('alter_retention_policy_foo_on_foo')
-            .with_command("influx -execute 'ALTER RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
+              .with_command("influx -execute 'ALTER RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
           }
         end
 
@@ -118,7 +118,7 @@ describe 'influxdb::retention' do
 
           it {
             is_expected.to contain_exec('drop_retention_policy_foo_on_foo')
-            .with_command("influx -execute 'DROP RETENTION POLICY \"foo\" ON \"foo\"'")
+              .with_command("influx -execute 'DROP RETENTION POLICY \"foo\" ON \"foo\"'")
           }
         end
       end
