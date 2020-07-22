@@ -7,7 +7,7 @@ describe 'influxdb::repo', type: :class do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      context "on manage repo" do
+      context 'on manage repo' do
         let :params do
           {
             'manage_repo' => true,
@@ -35,7 +35,7 @@ describe 'influxdb::repo', type: :class do
         end
       end
 
-      context "on not manage repo" do
+      context 'on not manage repo' do
         let :params do
           {
             'manage_repo' => false,

@@ -24,6 +24,7 @@ describe 'influxdb::install', type: :class do
           is_expected.to compile.with_all_deps
           is_expected.to contain_class('influxdb::install')
           is_expected.to contain_package('influxdb')
+            .with(ensure: 'present')
           case facts[:os]['family']
           when 'Debian'
             is_expected.to contain_class('apt')
