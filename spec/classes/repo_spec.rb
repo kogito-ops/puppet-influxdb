@@ -30,7 +30,13 @@ describe 'influxdb::repo', type: :class do
                          'source' => 'https://repos.influxdata.com/influxdb.key' },
             )
           when 'RedHat'
-            is_expected.to contain_yumrepo('influxdata')
+            is_expected.to contain_yumrepo('influxdata').with(
+              'descr' => 'InfluxData Repository',
+              'enabled'  => 1,
+              'baseurl'  => "https://repos.influxdata.com/rhel/#{facts[:os]['release']['major']}/#{facts[:os]['architecture']}/stable",
+              'gpgkey'   => 'https://repos.influxdata.com/influxdb.key',
+              'gpgcheck' => 1,
+            )
           end
         end
       end
