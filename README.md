@@ -24,16 +24,18 @@ time-series platform.
 
 Default configuration
 
--   manages GPG key, repository (manage_repo = true)
+-   manages GPG key, repository  (default: manage_repo = true )
+      - default: repo_location = https://repos.influxdata.com/ and repo_type = 'stable'
 
 -   manages package
 
 -   manages directories and configuration files (referring to templates)
     -   `/etc/influxdb/influxdb.conf`
     -   `/etc/default/influxdb`
-    -   `/lib/systemd/system/influxdb.service`
+    -   Debian: `/lib/systemd/system/influxdb.service`
+    -   CentOs: `/etc/systemd/system/influxdb.service`
 
--   starts service "influxdb" immediately
+-   starts service "influxdb" immediately (default: `manage_service = true`)
 
 ### Setup Requirements
 
@@ -45,18 +47,30 @@ The module comes along with several configuration files, which you can find in
 `templates`. Change configuration settings using according hashes or hiera.
 
 - `influxdb.conf.erb`
-- `service-defaults.erb`
+- `service-defaults.erb` - adds empty file
 - `systemd.service.erb`
 
 Please refer to [InfluxData documentation](https://www.influxdata.com/) for the
 defaults used.
 
+### Configuration parameter
+
+Some of the parameter in influxdb.conf are obligatory. These defaults are merged with provided hashes.
+
+|  topic |  parameter                |  default value           |
+| :----- | :-----------------------: | -----------------------: |
+|  meta  |  dir                      | /var/lib/influxdb/meta * |
+|  data  |  dir                      | /var/lib/influxdb/meta * |
+|  data  |  wal-dir                  | /var/lib/influxdb/wal *  |
+|  data  |  series-id-set-cache-size | 100                      |
+
+    * the directories are created
+
+Hash values and paramter https-enabled / $https_enabled  and auth-enabled / $auth_enabled are as well used in
+influxdb.conf as in the defines database, user and grants.
+
+
 ## Usage
-
-```
-include ::influxdb
-
-```
 
 ### In combination with other influxdata module
 
@@ -78,13 +92,21 @@ class { 'influxdb':
 
 ```
 influxdb::database {'telegraf1':
-  ensure => present,
+  ensure         => present,
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
 }
 ```
 
 ```
 influxdb::user{'telegraf1':
   passwd => 'metricsmetricsmetrics',
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
 }
 ```
 
@@ -92,6 +114,11 @@ influxdb::user{'telegraf1':
 influxdb::grant{'telegraf1':
   grant    => 'WRITE',
   database => 'telegraf',
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
+
 }
 ```
 

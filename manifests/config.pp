@@ -48,8 +48,7 @@ class influxdb::config (
   Hash $meta_obligatory = $influxdb::meta_obligatory,
   Hash $data_obligatory = $influxdb::data_obligatory,
   Hash $http_obligatory = $influxdb::http_obligatory,
-){
-
+) {
   include systemd::systemctl::daemon_reload
 
   $template_meta = deep_merge($meta_obligatory, $meta)
@@ -88,21 +87,21 @@ class influxdb::config (
   }
   ~> Class['systemd::systemctl::daemon_reload']
 
-  file { $tsm_data:
+  file { $template_data[dir]:
     ensure => directory,
     owner  => $user,
     group  => $group,
     mode   => '0755',
   }
 
-  file { $tsm_wal:
+  file { $template_data[wal-dir]:
     ensure => directory,
     owner  => $user,
     group  => $group,
     mode   => '0755',
   }
 
-  file { $metadata_raft:
+  file { $template_meta[dir]:
     ensure => directory,
     owner  => $user,
     group  => $group,

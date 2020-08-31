@@ -25,3 +25,12 @@
 .project
 .envrc
 /inventory.yaml
+/Puppetfile
+/Vagrantfile
+/influx.pp
+/modules/
+/scripts/
+/*.log
+.pre-commit-config.yaml
+.config/
+.pdk
