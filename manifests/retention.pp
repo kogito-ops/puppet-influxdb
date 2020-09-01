@@ -17,47 +17,42 @@ define influxdb::retention (
   String $admin = $influxdb::admin,
   String $admin_password = $influxdb::admin_password,
 ) {
-
   Influxdb::Database <| database == $database |> -> Influxdb::Retention[$title]
 
-if ($https_enabled == true) {
-  $cmd = 'influx -ssl -unsafeSsl'}
-    else {
-      $cmd = 'influx'}
+  if ($https_enabled == true) {
+  $cmd = 'influx -ssl -unsafeSsl' }
+  else {
+  $cmd = 'influx' }
 
-if ($auth_enabled == true) {
+  if ($auth_enabled == true) {
   $cmd_admin = " -username ${admin} -password ${admin_password}" }
   else {
-    $cmd_admin = ''}
+  $cmd_admin = '' }
 
   case $ensure {
-  'create': {
-    exec {"create_retention_policy_${retention}_on_${database}":
-      path    => $path,
-      command =>
-        "${cmd}${cmd_admin} -execute 'CREATE RETENTION POLICY \"${retention}\" ON \"${database}\" DURATION ${duration} REPLICATION ${replication} SHARD DURATION ${shard_duration} ${default}'",
-      unless  =>
-        "${cmd}${cmd_admin} -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
+    'create': {
+      exec { "create_retention_policy_${retention}_on_${database}":
+        path    => $path,
+        command => "${cmd}${cmd_admin} -execute 'CREATE RETENTION POLICY \"${retention}\" ON \"${database}\" \
+DURATION ${duration} REPLICATION ${replication} SHARD DURATION ${shard_duration} ${default}'",
+        unless  => "${cmd}${cmd_admin} -execute 'SHOW RETENTION POLICIES ON \"${database}\"' | grep ${retention}",
+      }
     }
-  }
-  'alter': {
-    exec {"alter_retention_policy_${retention}_on_${database}":
-      path    => $path,
-      command =>
-        "${cmd}${cmd_admin} -execute 'ALTER RETENTION POLICY \"${retention}\" ON \"${database}\" DURATION ${duration} REPLICATION ${replication} SHARD DURATION ${shard_duration} ${default}'",
-      unless  =>
-        "${cmd}${cmd_admin} -execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
+    'alter': {
+      exec { "alter_retention_policy_${retention}_on_${database}":
+        path    => $path,
+        command => "${cmd}${cmd_admin} -execute 'ALTER RETENTION POLICY \"${retention}\" ON \"${database}\" \
+DURATION ${duration} REPLICATION ${replication} SHARD DURATION ${shard_duration} ${default}'",
+        onlyif  => "${cmd}${cmd_admin} -execute 'SHOW RETENTION POLICIES ON \"${database}\"' | grep ${retention}",
+      }
     }
-  }
-  'drop': {
-    exec { "drop_retention_policy_${retention}_on_${database}":
-      path    => $path,
-      command =>
-        "${cmd}${cmd_admin} -execute 'DROP RETENTION POLICY \"${retention}\" ON \"${database}\"'",
-      onlyif  =>
-        "${cmd}${cmd_admin} '-execute 'SHOW RETENTION POLICIES ON \"${database}\"'",
+    'drop': {
+      exec { "drop_retention_policy_${retention}_on_${database}":
+        path    => $path,
+        command => "${cmd}${cmd_admin} -execute 'DROP RETENTION POLICY \"${retention}\" ON \"${database}\"'",
+        onlyif  => "${cmd}${cmd_admin} -execute 'SHOW RETENTION POLICIES ON \"${database}\"' | grep ${retention}",
+      }
     }
-  }
-  default: {}
+    default: {}
   }
 }

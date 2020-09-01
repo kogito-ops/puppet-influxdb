@@ -15,36 +15,31 @@ define influxdb::user (
   String $admin = $influxdb::admin,
   String $admin_password = $influxdb::admin_password,
 ) {
+  include influxdb::params
 
-include influxdb::params
+  if $https_enabled {
+  $cmd = 'influx -ssl -unsafeSsl' }
+  else {
+  $cmd = 'influx' }
 
-if $https_enabled {
-  $cmd = 'influx -ssl -unsafeSsl'}
-    else {
-      $cmd = 'influx'}
-
-if ($auth_enabled == true) {
+  if ($auth_enabled == true) {
   $cmd_admin = " -username ${admin} -password ${admin_password}" }
   else {
-    $cmd_admin = ''}
+  $cmd_admin = '' }
 
   if ($ensure == 'absent') {
     exec { "drop_user_${user}":
       path    => $path,
-      command =>
-        "${cmd}${cmd_admin} -execute 'DROP USER \"${user}\"'",
-      onlyif  =>
-        "${cmd}${cmd_admin} -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x' ${user}",
+      command => "${cmd}${cmd_admin} -execute 'DROP USER \"${user}\"'",
+      onlyif  => "${cmd}${cmd_admin} -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x ${user}",
     }
   } else {
-      $arg_x = "${arg_p} \'${password}\'"
-      exec { "create_user_${user}":
-        path    => $path,
-        command =>
-          "${cmd}${cmd_admin} -execute \"CREATE USER \\\"${user}\\\" ${arg_x} ${arg_a}\"",
-        unless  =>
-          "${cmd}${cmd_admin} -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x ${user}",
-        require => Exec['is_influx_already_listening'],
-      }
+    $arg_x = "${arg_p} \'${password}\'"
+    exec { "create_user_${user}":
+      path    => $path,
+      command => "${cmd}${cmd_admin} -execute \"CREATE USER \\\"${user}\\\" ${arg_x} ${arg_a}\"",
+      unless  => "${cmd}${cmd_admin} -execute 'SHOW USERS' | tail -n+3 | awk '{print \$1}' | grep -x ${user}",
+      require => Exec['is_influx_already_listening'],
     }
+  }
 }

@@ -14,37 +14,32 @@ define influxdb::grant (
   String $admin = $influxdb::admin,
   String $admin_password = $influxdb::admin_password,
 ) {
-
   Influxdb::Database <| database == $database |> -> Influxdb::Grant[$title]
   Influxdb::User <| user == $user |> -> Influxdb::Grant[$title]
 
-if ($https_enabled == true) {
-  $cmd = 'influx -ssl -unsafeSsl'}
-    else {
-      $cmd = 'influx'}
+  if ($https_enabled == true) {
+  $cmd = 'influx -ssl -unsafeSsl' }
+  else {
+  $cmd = 'influx' }
 
-if ($auth_enabled == true) {
+  if ($auth_enabled == true) {
   $cmd_admin = " -username ${admin} -password ${admin_password}" }
   else {
-    $cmd_admin = ''}
+  $cmd_admin = '' }
 
-$matches = "grep ${database} | grep ${grant}"
+  $matches = "grep ${database} | grep ${grant}"
 
   if ($ensure == 'absent') {
     exec { "revoke_${grant}_on_${database}_for_${user}":
       path    => $path,
-      command =>
-        "${cmd}${cmd_admin} -execute 'REVOKE ${grant} ON \"${database}\" TO \"${user}\"'",
-      onlyif  =>
-        "${cmd}${cmd_admin} '-execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
+      command => "${cmd}${cmd_admin} -execute 'REVOKE ${grant} ON \"${database}\" FROM \"${user}\"'",
+      onlyif  => "${cmd}${cmd_admin} -execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
     }
   } elsif ($ensure == 'present') {
-    exec {"grant_${grant}_on_${database}_to_${user}":
+    exec { "grant_${grant}_on_${database}_to_${user}":
       path    => $path,
-      command =>
-        "${cmd}${cmd_admin} -execute 'GRANT ${grant} ON \"${database}\" TO \"${user}\"'",
-      unless  =>
-        "${cmd}${cmd_admin} -execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
+      command => "${cmd}${cmd_admin} -execute 'GRANT ${grant} ON \"${database}\" TO \"${user}\"'",
+      unless  => "${cmd}${cmd_admin} -execute 'SHOW GRANTS FOR \"${user}\"' | ${matches}",
     }
   }
 }

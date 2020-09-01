@@ -41,7 +41,7 @@ describe 'influxdb::grant' do
             }
           end
 
-          it { is_expected.to contain_exec('revoke_ALL_on_foo_for_foo').with_command("influx -username foo -password bar -execute 'REVOKE ALL ON \"foo\" TO \"foo\"'") }
+          it { is_expected.to contain_exec('revoke_ALL_on_foo_for_foo').with_command("influx -username foo -password bar -execute 'REVOKE ALL ON \"foo\" FROM \"foo\"'") }
         end
       end
 
@@ -77,7 +77,7 @@ describe 'influxdb::grant' do
             }
           end
 
-          it { is_expected.to contain_exec('revoke_ALL_on_foo_for_foo').with_command("influx -execute 'REVOKE ALL ON \"foo\" TO \"foo\"'") }
+          it { is_expected.to contain_exec('revoke_ALL_on_foo_for_foo').with_command("influx -execute 'REVOKE ALL ON \"foo\" FROM \"foo\"'") }
         end
       end
     end
