@@ -24,59 +24,53 @@ time-series platform.
 
 Default configuration
 
--   manages GPG key, repository
-        (use `$manage_repo` to deactivate when another influxdata module takes the lead)
+-   manages GPG key, repository  (default: manage_repo = true )
+      - default: repo_location = https://repos.influxdata.com/ and repo_type = 'stable'
 
 -   manages package
-
--   manages user and group influxdb
 
 -   manages directories and configuration files (referring to templates)
     -   `/etc/influxdb/influxdb.conf`
     -   `/etc/default/influxdb`
-    -   `/lib/systemd/system/influxdb.service`
+    -   Debian: `/lib/systemd/system/influxdb.service`
+    -   CentOs: `/etc/systemd/system/influxdb.service`
 
--   starts service "influxdb" immediately
-
--   service subsribes to "package", "configuration file" and "service defaults"
+-   starts service "influxdb" immediately (default: `manage_service = true`)
 
 ### Setup Requirements
-
--   `puppetlabs/apt`
-    version `>= 2.0.0 < 8.0.0`
-
--   `puppetlabs/concat`
-    version `>= 5.0.0 < 7.0.0`
-
--   `puppetlabs/stdlib`
-    version `>= 4.25.0 < 7.0.0`
-
--   `puppetlabs/translate`
-    version `>= 1.0.0 < 3.0.0`
-
--   `puppet`
-    version `>= 5.5.8 < 7.0.0`
 
 For an extensive list of requirements, see `metadata.json`.
 
 ### Beginning with InfluxDB
 
 The module comes along with several configuration files, which you can find in
-`templates`. Change configuration settings in according Hiera level.
+`templates`. Change configuration settings using according hashes or hiera.
 
-- `influxdb.conf.erb` and directory `influxdb.conf`
-- `service-defaults.erb`
+- `influxdb.conf.erb`
+- `service-defaults.erb` - adds empty file
 - `systemd.service.erb`
 
 Please refer to [InfluxData documentation](https://www.influxdata.com/) for the
 defaults used.
 
+### Configuration parameter
+
+Some of the parameter in influxdb.conf are obligatory. These defaults are merged with provided hashes.
+
+|  topic |  parameter                |  default value           |
+| :----- | :-----------------------: | -----------------------: |
+|  meta  |  dir                      | /var/lib/influxdb/meta * |
+|  data  |  dir                      | /var/lib/influxdb/meta * |
+|  data  |  wal-dir                  | /var/lib/influxdb/wal *  |
+|  data  |  series-id-set-cache-size | 100                      |
+
+    * the directories are created
+
+Hash values and paramter https-enabled / $https_enabled  and auth-enabled / $auth_enabled are as well used in
+influxdb.conf as in the defines database, user and grants.
+
+
 ## Usage
-
-```
-include ::influxdb
-
-```
 
 ### In combination with other influxdata module
 
@@ -94,27 +88,67 @@ class { 'influxdb':
 }
 ```
 
-### Set up databases, users and grants
+### Set up databases, retention policies, users and grants
 
 ```
 influxdb::database {'telegraf1':
-  ensure => present,
+  ensure         => present,
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
 }
 ```
 
 ```
 influxdb::user{'telegraf1':
   passwd => 'metricsmetricsmetrics',
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
 }
 ```
 
 ```
 influxdb::grant{'telegraf1':
   grant    => 'WRITE',
-  database => 'telegraf',
+  database => 'telegraf1',
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
 }
 ```
 
+    Retention policies may not work with a version lower than InfluxDB v1.8
+```
+influxdb::retention{'foo':
+  ensure         => 'create',
+  database       => 'telegraf1',
+  duration       => '7h30m',
+  replication    =>  1,
+  default        => 'DEFAULT',
+  shard_duration => '3h59m',
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
+}
+
+influxdb::retention{'bar':
+  ensure         => 'create',
+  database       => 'telegraf1',
+  duration       => '5h20m',
+  replication    =>  1,
+  default        => '',
+  shard_duration => '0h5m',
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
+}
+```
 ## Reference
 
 Please see document `REFERENCE.md`.
@@ -122,11 +156,9 @@ Please see document `REFERENCE.md`.
 
 ## Limitations
 
--   Please be aware that this module uses "hiera".
-
 -   Tests had been executed on:
-    - CentOS 7
-    - Debian 10
+    - CentOS 7.8
+    - Debian 10.4
     - Ubuntu 18.04
 
 For an extensive list of supported operating systems, see `metadata.json`.
@@ -134,9 +166,9 @@ For an extensive list of supported operating systems, see `metadata.json`.
 
 ## Development
 
--   pdk-version     1.15.0
--   template-url    pdk-default 1.15.0
--   template-ref    tags/1.15.0-0-g0bc522e
+-   pdk-version     1.18.0
+-   template-url    pdk-default 1.18.0
+-   template-ref    tags/1.18.0-0-g095317c
 
 
 ## Release Notes/Contributors/Etc.

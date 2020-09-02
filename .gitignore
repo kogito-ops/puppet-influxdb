@@ -25,9 +25,11 @@
 .project
 .envrc
 /inventory.yaml
-/influx.pp
-/modules
-/scripts
 /Puppetfile
 /Vagrantfile
+/influx.pp
+/modules/
+/scripts/
 /*.log
+.config/
+.pdk

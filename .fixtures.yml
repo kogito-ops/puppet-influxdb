@@ -3,19 +3,24 @@
 fixtures:
   forge_modules:
     apt:
-      repo: 'puppetlabs/apt'
-      ref: '6.3.0'
-    stdlib:
-      repo: 'puppetlabs/stdlib'
-      ref: '5.2.0'
-    translate:
-      repo: 'puppetlabs/translate'
-      ref: '2.1.0'
+      repo: "puppetlabs/apt"
+      ref: "6.3.0"
     concat:
-      repo: 'puppetlabs/concat'
-      ref: '6.2.0'
+      repo: "puppetlabs/concat"
+      ref: "6.2.0"
+    inifile:
+      repo: "puppetlabs/inifile"
+      ref: "4.2.0"
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "5.2.0"
+    translate:
+      repo: "puppetlabs/translate"
+      ref: "2.1.0"
     yumrepo_core:
-      repo: 'puppetlabs/yumrepo_core'
-      ref: '1.0.6'
-  symlinks:
-    influxdb: '#{source_dir}'
+      repo: "puppetlabs/yumrepo_core"
+      ref: "1.0.6"
+      puppet_version: ">= 6.0.0"
+    systemd:
+      repo: "camptocamp/systemd"
+      ref: "2.9.0"
