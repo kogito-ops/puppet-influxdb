@@ -88,7 +88,7 @@ class { 'influxdb':
 }
 ```
 
-### Set up databases, users and grants
+### Set up databases, retention policies, users and grants
 
 ```
 influxdb::database {'telegraf1':
@@ -113,15 +113,42 @@ influxdb::user{'telegraf1':
 ```
 influxdb::grant{'telegraf1':
   grant    => 'WRITE',
-  database => 'telegraf',
+  database => 'telegraf1',
   https_enabled  => false,
   auth_enabled   => true,
   admin          => 'admin',
   admin_password => 'foo',
-
 }
 ```
 
+    Retention policies may not work with a version lower than InfluxDB v1.8
+```
+influxdb::retention{'foo':
+  ensure         => 'create',
+  database       => 'telegraf1',
+  duration       => '7h30m',
+  replication    =>  1,
+  default        => 'DEFAULT',
+  shard_duration => '3h59m',
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
+}
+
+influxdb::retention{'bar':
+  ensure         => 'create',
+  database       => 'telegraf1',
+  duration       => '5h20m',
+  replication    =>  1,
+  default        => '',
+  shard_duration => '0h5m',
+  https_enabled  => false,
+  auth_enabled   => true,
+  admin          => 'admin',
+  admin_password => 'foo',
+}
+```
 ## Reference
 
 Please see document `REFERENCE.md`.
