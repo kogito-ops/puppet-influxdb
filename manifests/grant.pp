@@ -17,13 +17,13 @@ define influxdb::grant (
   Influxdb::Database <| database == $database |> -> Influxdb::Grant[$title]
   Influxdb::User <| user == $user |> -> Influxdb::Grant[$title]
 
-  if ($https_enabled == true) {
+  if $https_enabled {
   $cmd = 'influx -ssl -unsafeSsl' }
   else {
   $cmd = 'influx' }
 
-  if ($auth_enabled == true) {
-  $cmd_admin = " -username ${admin} -password ${admin_password}" }
+  if $auth_enabled {
+  $cmd_admin = " -username ${admin} -password \'${admin_password}\'" }
   else {
   $cmd_admin = '' }
 

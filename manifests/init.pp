@@ -30,6 +30,7 @@ class influxdb (
 # database, user, grant, retention
   String $admin = $influxdb::params::admin,
   String $admin_password = $influxdb::params::admin_password,
+  Boolean $is_admin = $influxdb::params::is_admin,
   Hash $users = $influxdb::params::users,
   Hash $grants = $influxdb::params::grants,
   Hash $databases = $influxdb::params::databases,
@@ -72,8 +73,7 @@ class influxdb (
   Hash $data_obligatory = $influxdb::params::data_obligatory,
   Hash $http_obligatory = $influxdb::params::http_obligatory,
 )
-  inherits influxdb::params
-{
+  inherits influxdb::params {
   include ::influxdb::repo
   include ::influxdb::install
   include ::influxdb::config
@@ -83,9 +83,13 @@ class influxdb (
   Class['influxdb::install'] ~> Class['influxdb::config', 'influxdb::service']
 
   if $service_ensure == 'running' {
+    if $https_enabled {
+    $cmd = 'influx -ssl -unsafeSsl' }
+    else {
+    $cmd = 'influx' }
       exec { 'is_influx_already_listening':
-        command   => 'influx -execute quit',
-        unless    => 'influx -execute quit',
+        command   => "${cmd} -execute quit",
+        unless    => "${cmd} -execute quit",
         tries     => '3',
         try_sleep => '10',
         require   => Service[$service_name],
@@ -94,16 +98,14 @@ class influxdb (
   }
 
   if ($auth_enabled == true) {
-    influxdb::user {$admin:
+    influxdb::user { $admin:
       password => $admin_password,
+      is_admin => true,
     }
   }
 
-  $databases.each | $database_name, $database_config | {
-    influxdb::database { $database_name:
-      * => $database_config,
-    }
-  }
+  create_resources('influxdb::database', $databases)
+  create_resources('influxdb::retention', $retentions)
 
   $users.each | $user, $user_config | {
     influxdb::user { $user:
@@ -114,12 +116,6 @@ class influxdb (
   $grants.each | $user, $grant | {
     influxdb::grant { $user:
       * => $grant,
-    }
-  }
-
-  $retentions.each | $retention_name, $retention | {
-    influxdb::retention { $retention_name:
-      * => $retention,
     }
   }
 }

@@ -31,6 +31,7 @@ class influxdb::params (
 # database, user, grant, retention
   String $admin = 'admin',
   String $admin_password = '',
+  Boolean $is_admin = false,
   Hash $users = {},
   Hash $grants = {},
   Hash $databases = {},
@@ -80,7 +81,5 @@ class influxdb::params (
   Hash $udp = {},
   Hash $continuous_queries = {},
   Hash $tls = {},
-
-  ){
-
+) {
 }

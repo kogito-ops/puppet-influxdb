@@ -14,28 +14,24 @@ define influxdb::database (
 ) {
   include influxdb::params
 
-  if ($https_enabled == true) {
+  if $https_enabled {
   $cmd = 'influx -ssl -unsafeSsl' }
   else {
   $cmd = 'influx' }
 
-  if ($auth_enabled == true) {
-  $cmd_admin = " -username ${admin} -password ${admin_password}" }
+  if $auth_enabled {
+  $cmd_admin = "-username ${admin} -password \'${admin_password}\'" }
   else {
   $cmd_admin = '' }
 
-  if ($ensure == 'absent') {
-    exec { "drop_database_${database}":
-      path    => $path,
-      command => "${cmd}${cmd_admin} -execute 'DROP DATABASE ${database}'",
-      onlyif  => "${cmd}${cmd_admin} -execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
-    }
-  } else {
-    exec { "create_database_${database}":
-      path    => $path,
-      command => "${cmd}${cmd_admin} -execute 'CREATE DATABASE ${database}'",
-      unless  => "${cmd}${cmd_admin} -execute 'SHOW DATABASES' | tail -n+3 | grep -x ${database}",
-      require => Exec['is_influx_already_listening'],
-    }
+  influxdb_database { "influxdb_database_${database}":
+    ensure         => $ensure,
+    cmd            => $cmd,
+    cmd_admin      => $cmd_admin,
+    admin          => $admin,
+    admin_password => $admin_password,
+    auth_enabled   => $auth_enabled,
+    database       => $database,
+    require        => Exec['is_influx_already_listening'],
   }
 }

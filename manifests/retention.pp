@@ -5,9 +5,9 @@
 #   influxdb::retention { 'retention': }
 define influxdb::retention (
   Stdlib::Unixpath $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
-  String $retention = $title,
+  String $retention = 'retention1',
   String $database = 'database1',
-  Enum['create', 'alter', 'drop'] $ensure = 'create',
+  Enum['present', 'absent'] $ensure = 'present',
   String $duration = '23h59m',
   Integer $replication = 1,
   String $default = 'DEFAULT',
@@ -19,40 +19,28 @@ define influxdb::retention (
 ) {
   Influxdb::Database <| database == $database |> -> Influxdb::Retention[$title]
 
-  if ($https_enabled == true) {
+  if $https_enabled {
   $cmd = 'influx -ssl -unsafeSsl' }
   else {
   $cmd = 'influx' }
 
-  if ($auth_enabled == true) {
-  $cmd_admin = " -username ${admin} -password ${admin_password}" }
+  if $auth_enabled {
+  $cmd_admin = " -username ${admin} -password \'${admin_password}\'" }
   else {
   $cmd_admin = '' }
 
-  case $ensure {
-    'create': {
-      exec { "create_retention_policy_${retention}_on_${database}":
-        path    => $path,
-        command => "${cmd}${cmd_admin} -execute 'CREATE RETENTION POLICY \"${retention}\" ON \"${database}\" \
-DURATION ${duration} REPLICATION ${replication} SHARD DURATION ${shard_duration} ${default}'",
-        unless  => "${cmd}${cmd_admin} -execute 'SHOW RETENTION POLICIES ON \"${database}\"' | grep ${retention}",
-      }
-    }
-    'alter': {
-      exec { "alter_retention_policy_${retention}_on_${database}":
-        path    => $path,
-        command => "${cmd}${cmd_admin} -execute 'ALTER RETENTION POLICY \"${retention}\" ON \"${database}\" \
-DURATION ${duration} REPLICATION ${replication} SHARD DURATION ${shard_duration} ${default}'",
-        onlyif  => "${cmd}${cmd_admin} -execute 'SHOW RETENTION POLICIES ON \"${database}\"' | grep ${retention}",
-      }
-    }
-    'drop': {
-      exec { "drop_retention_policy_${retention}_on_${database}":
-        path    => $path,
-        command => "${cmd}${cmd_admin} -execute 'DROP RETENTION POLICY \"${retention}\" ON \"${database}\"'",
-        onlyif  => "${cmd}${cmd_admin} -execute 'SHOW RETENTION POLICIES ON \"${database}\"' | grep ${retention}",
-      }
-    }
-    default: {}
+  influxdb_retention { "influxdb_retention_${name}":
+    ensure         => $ensure,
+    cmd            => $cmd,
+    cmd_admin      => $cmd_admin,
+    admin          => $admin,
+    admin_password => $admin_password,
+    auth_enabled   => $auth_enabled,
+    retention      => $retention,
+    database       => $database,
+    duration       => $duration,
+    replication    => $replication,
+    default        => $default,
+    shard_duration => $shard_duration,
   }
 }
