@@ -43,6 +43,7 @@ Puppet::Type.newtype(:influxdb_retention) do
       [
         /^((\S+)\s+on\s+(.+))$/,
         [
+          [ :name ],
           [ :retention ],
           [ :database ],
         ],
@@ -50,7 +51,7 @@ Puppet::Type.newtype(:influxdb_retention) do
       [
         /(.*)/,
         [
-          [ :retention ],
+          [ :name ],
         ],
       ],
     ]

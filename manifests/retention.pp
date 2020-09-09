@@ -5,8 +5,8 @@
 #   influxdb::retention { 'retention': }
 define influxdb::retention (
   Stdlib::Unixpath $path = '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
-  String $retention = 'retention1',
-  String $database = 'database1',
+  String $retention = regsubst($title, '^(\S+)\s+on\s+(\S+)$', '\1'),
+  String $database = regsubst($title, '^(\S+)\s+on\s+(\S+)$', '\1'),
   Enum['present', 'absent'] $ensure = 'present',
   String $duration = '23h59m',
   Integer $replication = 1,
@@ -29,7 +29,7 @@ define influxdb::retention (
   else {
   $cmd_admin = '' }
 
-  influxdb_retention { "influxdb_retention_${name}":
+  influxdb_retention { "${retention} on ${database}":
     ensure         => $ensure,
     cmd            => $cmd,
     cmd_admin      => $cmd_admin,

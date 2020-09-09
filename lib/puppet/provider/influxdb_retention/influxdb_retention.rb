@@ -23,6 +23,6 @@ Puppet::Type.type(:influxdb_retention).provide(:retention_management) do
   end
 
   def destroy
-    influx_cli("DROP RETENTION POLICY #{resource[:retention]} ON #{resource[:database]} DURATION #{resource[:duration]} REPLICATION #{resource[:replication]} SHARD DURATION #{resource[:shard_duration]} #{resource[:default]}")
+    influx_cli("DROP RETENTION POLICY #{resource[:retention]} ON #{resource[:database]}")
   end
 end
