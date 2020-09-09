@@ -14,7 +14,7 @@ describe 'influxdb::user' do
           "class {'influxdb': }"
         end
 
-        context 'when ensure => present' do
+        context 'when ensure => present and is_admin => true' do
           let :params do
             {
               ensure:         'present',
@@ -22,13 +22,14 @@ describe 'influxdb::user' do
               password:       'bar',
               admin:          'foo',
               admin_password: 'bar',
+              is_admin:       true,
             }
           end
 
-          it { is_expected.to contain_exec('create_user_foo').with_command("influx -username foo -password bar -execute \"CREATE USER \\\"foo\\\" WITH PASSWORD 'bar' WITH ALL PRIVILEGES\"") }
+          it { is_expected.to contain_exec('create_user_foo').with_command("influx -username foo -password 'bar' -execute \"CREATE USER \\\"foo\\\" WITH PASSWORD 'bar' WITH ALL PRIVILEGES\"") }
         end
 
-        context 'when ensure => absent' do
+        context 'when ensure => absent and is_admin => true' do
           let :params do
             {
               ensure:         'absent',
@@ -36,10 +37,41 @@ describe 'influxdb::user' do
               password:       'bar',
               admin:          'foo',
               admin_password: 'bar',
+              is_admin:       true,
             }
           end
 
-          it { is_expected.to contain_exec('drop_user_foo').with_command("influx -username foo -password bar -execute 'DROP USER \"foo\"'") }
+          it { is_expected.to contain_exec('drop_user_foo').with_command("influx -username foo -password 'bar' -execute 'DROP USER \"foo\"'") }
+        end
+
+        context 'when ensure => present and is_admin => false' do
+          let :params do
+            {
+              ensure:         'present',
+              auth_enabled:   true,
+              password:       'bar',
+              admin:          'foo',
+              admin_password: 'bar',
+              is_admin:       false,
+            }
+        end
+
+          it { is_expected.to contain_exec('create_user_foo').with_command("influx -username foo -password 'bar' -execute \"CREATE USER \\\"foo\\\" WITH PASSWORD 'bar' \"") }
+        end
+
+        context 'when ensure => absent and is_admin => false' do
+          let :params do
+            {
+              ensure:         'absent',
+              auth_enabled:   true,
+              password:       'bar',
+              admin:          'foo',
+              admin_password: 'bar',
+              is_admin:       false,
+            }
+          end
+
+          it { is_expected.to contain_exec('drop_user_foo').with_command("influx -username foo -password 'bar' -execute 'DROP USER \"foo\"'") }
         end
       end
 
@@ -48,7 +80,7 @@ describe 'influxdb::user' do
           "class {'influxdb': }"
         end
 
-        context 'when ensure => present' do
+        context 'when ensure => present and is_admin => true' do
           let :params do
             {
               ensure:         'present',
@@ -56,13 +88,14 @@ describe 'influxdb::user' do
               password:       'bar',
               admin:          'foo',
               admin_password: 'bar',
+              is_admin:       true
             }
           end
 
           it { is_expected.to contain_exec('create_user_foo').with_command("influx -execute \"CREATE USER \\\"foo\\\" WITH PASSWORD 'bar' WITH ALL PRIVILEGES\"") }
         end
 
-        context 'when ensure => absent' do
+        context 'when ensure => absent and is_admin => true' do
           let :params do
             {
               ensure:         'absent',
@@ -70,11 +103,28 @@ describe 'influxdb::user' do
               password:       'bar',
               admin:          'foo',
               admin_password: 'bar',
+              is_admin:       true
             }
           end
 
           it { is_expected.to contain_exec('drop_user_foo').with_command("influx -execute 'DROP USER \"foo\"'") }
         end
+
+        context 'when ensure => present and is_admin => false' do
+          let :params do
+            {
+              ensure:         'present',
+              auth_enabled:   false,
+              password:       'bar',
+              admin:          'foo',
+              admin_password: 'bar',
+              is_admin:       false
+            }
+          end
+
+          it { is_expected.to contain_exec('create_user_foo').with_command("influx -execute \"CREATE USER \\\"foo\\\" WITH PASSWORD 'bar' \"") }
+        end
+
       end
     end
   end

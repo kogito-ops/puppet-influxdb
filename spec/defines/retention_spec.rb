@@ -7,34 +7,39 @@ describe 'influxdb::retention' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      let(:title) { 'foo' }
+      let(:title) { 'foo on foo' }
 
       context 'with auth_enabled => true' do
         let :pre_condition do
           "class {'influxdb': }"
         end
 
-        context 'when ensure => create' do
+        context 'when ensure => present' do
           let :params do
             {
-              ensure:         'create',
+              ensure:         'present',
               auth_enabled:   true,
               database:       'foo',
+              retention:      'foo',
               admin:          'foo',
               admin_password: 'bar',
             }
           end
 
-          it {
-            is_expected.to contain_exec('create_retention_policy_foo_on_foo')
-              .with_command("influx -username foo -password bar -execute 'CREATE RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
-          }
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_influxdb__retention('foo on foo').with(
+            'ensure' => 'present',
+            'database' => 'foo',
+            'retention' => 'foo',
+            'auth_enabled'   => true,
+            'admin' => 'foo',
+            'admin_password' => 'bar') }
         end
 
-        context 'when ensure => alter' do
+        context 'when ensure => absent' do
           let :params do
             {
-              ensure:         'alter',
+              ensure:         'absent',
               auth_enabled:   true,
               database:       'foo',
               admin:          'foo',
@@ -42,27 +47,13 @@ describe 'influxdb::retention' do
             }
           end
 
-          it {
-            is_expected.to contain_exec('alter_retention_policy_foo_on_foo')
-              .with_command("influx -username foo -password bar -execute 'ALTER RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
-          }
-        end
-
-        context 'when ensure => drop' do
-          let :params do
-            {
-              ensure:         'drop',
-              auth_enabled:   true,
-              database:       'foo',
-              admin:          'foo',
-              admin_password: 'bar',
-            }
-          end
-
-          it {
-            is_expected.to contain_exec('drop_retention_policy_foo_on_foo')
-              .with_command("influx -username foo -password bar -execute 'DROP RETENTION POLICY \"foo\" ON \"foo\"'")
-          }
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_influxdb__retention('foo on foo').with(
+            'ensure' => 'absent',
+            'database' => 'foo',
+            'auth_enabled'   => true,
+            'admin' => 'foo',
+            'admin_password' => 'bar') }
         end
       end
 
@@ -71,10 +62,10 @@ describe 'influxdb::retention' do
           "class {'influxdb': }"
         end
 
-        context 'when ensure => create' do
+        context 'when ensure => present' do
           let :params do
             {
-              ensure:         'create',
+              ensure:         'present',
               auth_enabled:   false,
               database:       'foo',
               admin:          'foo',
@@ -82,16 +73,19 @@ describe 'influxdb::retention' do
             }
           end
 
-          it {
-            is_expected.to contain_exec('create_retention_policy_foo_on_foo')
-              .with_command("influx -execute 'CREATE RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
-          }
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_influxdb__retention('foo on foo').with(
+            'ensure' => 'present',
+            'database' => 'foo',
+            'auth_enabled'   => false,
+            'admin' => 'foo',
+            'admin_password' => 'bar') }
         end
 
-        context 'when ensure => alter' do
+        context 'when ensure => absent' do
           let :params do
             {
-              ensure:         'alter',
+              ensure:         'absent',
               auth_enabled:   false,
               database:       'foo',
               admin:          'foo',
@@ -99,27 +93,13 @@ describe 'influxdb::retention' do
             }
           end
 
-          it {
-            is_expected.to contain_exec('alter_retention_policy_foo_on_foo')
-              .with_command("influx -execute 'ALTER RETENTION POLICY \"foo\" ON \"foo\" DURATION 23h59m REPLICATION 1 SHARD DURATION 2h DEFAULT'")
-          }
-        end
-
-        context 'when ensure => drop' do
-          let :params do
-            {
-              ensure:         'drop',
-              auth_enabled:   false,
-              database:       'foo',
-              admin:          'foo',
-              admin_password: 'bar',
-            }
-          end
-
-          it {
-            is_expected.to contain_exec('drop_retention_policy_foo_on_foo')
-              .with_command("influx -execute 'DROP RETENTION POLICY \"foo\" ON \"foo\"'")
-          }
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_influxdb__retention('foo on foo').with(
+            'ensure' => 'absent',
+            'database' => 'foo',
+            'auth_enabled'   => false,
+            'admin' => 'foo',
+            'admin_password' => 'bar') }
         end
       end
     end
