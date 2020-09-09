@@ -24,7 +24,13 @@ describe 'influxdb::database' do
             }
           end
 
-          it { is_expected.to contain_exec('create_database_foo').with_command("influx -username foo -password bar -execute 'CREATE DATABASE foo'") }
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_influxdb__database('foo').with(
+            'ensure' => 'present',
+            'auth_enabled'   => true,
+            'admin' => 'foo',
+            'admin_password' => 'bar') }
+
         end
 
         context 'when ensure => absent' do
@@ -37,7 +43,12 @@ describe 'influxdb::database' do
             }
           end
 
-          it { is_expected.to contain_exec('drop_database_foo').with_command("influx -username foo -password bar -execute 'DROP DATABASE foo'") }
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_influxdb__database('foo').with(
+            'ensure' => 'absent',
+            'auth_enabled'   => true,
+            'admin' => 'foo',
+            'admin_password' => 'bar') }
         end
       end
 
@@ -56,7 +67,12 @@ describe 'influxdb::database' do
             }
           end
 
-          it { is_expected.to contain_exec('create_database_foo').with_command("influx -execute 'CREATE DATABASE foo'") }
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_influxdb__database('foo').with(
+            'ensure' => 'present',
+            'auth_enabled'   => false,
+            'admin' => 'foo',
+            'admin_password' => 'bar') }
         end
 
         context 'when ensure => absent' do
@@ -69,7 +85,12 @@ describe 'influxdb::database' do
             }
           end
 
-          it { is_expected.to contain_exec('drop_database_foo').with_command("influx -execute 'DROP DATABASE foo'") }
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_influxdb__database('foo').with(
+            'ensure' => 'absent',
+            'auth_enabled'   => false,
+            'admin' => 'foo',
+            'admin_password' => 'bar') }
         end
       end
     end

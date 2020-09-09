@@ -24,7 +24,7 @@ define influxdb::database (
   else {
   $cmd_admin = '' }
 
-  influxdb_database { "influxdb_database_${database}":
+  influxdb_database { $database:
     ensure         => $ensure,
     cmd            => $cmd,
     cmd_admin      => $cmd_admin,
