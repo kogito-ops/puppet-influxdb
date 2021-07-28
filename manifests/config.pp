@@ -49,7 +49,6 @@ class influxdb::config (
   Hash $data_obligatory = $influxdb::data_obligatory,
   Hash $http_obligatory = $influxdb::http_obligatory,
 ) {
-  include systemd::systemctl::daemon_reload
 
   $template_meta = deep_merge($meta_obligatory, $meta)
   $template_data = deep_merge($data_obligatory, $data)
@@ -85,7 +84,6 @@ class influxdb::config (
     mode    => '0644',
     content => template($service_definition_template),
   }
-  ~> Class['systemd::systemctl::daemon_reload']
 
   file { $template_data[dir]:
     ensure => directory,

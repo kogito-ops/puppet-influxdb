@@ -25,11 +25,4 @@
 .project
 .envrc
 /inventory.yaml
-/Puppetfile
-/Vagrantfile
-/influx.pp
-/modules/
-/scripts/
-/*.log
-.config/
-.pdk
+/spec/fixtures/litmus_inventory.yaml

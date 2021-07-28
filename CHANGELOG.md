@@ -2,8 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.1.0
+## Unreleased
 
+- [Removed] usage of systemctl daemon reload
+- [Changed] README and examples - retention policies
+- [Fixed] define retention and drop
+- [Fixed] gitignore
+- [Changed] examples, README, hash value for directory
+- [Changed] examples
+- [Changed] rspec yumrepo
+- [Fixed] RuboCop offenses
+- [Changed] rspecs
+- [Fixed] RuboCop offenses
+- [Fixed] RuboCop offenses
+- [Fixed] RuboCop offenses
+- [Added] specs for defines
+- [Changed] documentation
+- [Fixed] yumrepo relationship
+- [Fixed] grant user with unixpath
+- [Fixed] rake offense
+- [Changed] a lot
+- [Fixed] RuboCop offenses
+- [Changed] specs
+- [Fixed] rubocop warnings
+- [Fixed] rubocop warnings
+- [Changed] to current PDK version
+- [Fixed] service dependency
+- [Added] retention.pp
+- [Added] database.pp
+- [Removed] unused code
+- [Changed] dbuser*.pp->user.pp
+- [Added] manage dbuser
 - [Changed] to current PDK template
 - [Removed] params spec
 - [Added] Travis CI build status
